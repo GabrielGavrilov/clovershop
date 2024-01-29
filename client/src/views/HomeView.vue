@@ -1,9 +1,9 @@
 <template>
-    <router-view/>
+    <p>Home</p>
 </template>
 
 <script>
 export default {
-    name: "App"
+    name: "HomeView"
 }
 </script>
