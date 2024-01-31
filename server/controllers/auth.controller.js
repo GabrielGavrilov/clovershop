@@ -1,5 +1,5 @@
 const Admin = require("../models/admin.model")
-const config = require("../config")
+const config = require("../devconfig")
 const jwt = require("jsonwebtoken")
 
 async function registerAdministrator(req, res) {
