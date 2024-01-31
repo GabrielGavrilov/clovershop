@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "@/views/HomeView.vue"
 import AdminLoginView from "@/views/AdminLoginView"
+import AdminDashboardView from "@/views/AdminDashboardView"
 
 const routes = [
     {
@@ -12,6 +13,11 @@ const routes = [
         path: "/admin/login",
         name: "Log in",
         component: AdminLoginView
+    },
+    {
+        path: "/admin/dashboard",
+        name: "Dashboard",
+        component: AdminDashboardView
     }
 ]
 

@@ -10,25 +10,32 @@
 </template>
 
 <script>
+import router from '@/router';
 import { reactive } from 'vue';
+import { useRouter } from "vue-router"
+
+// TODO: Check if already logged in
 
 export default {
     name: "AdminLoginView",
     setup() {
+        const router = useRouter()
         const login = reactive({
             email: '',
             password: ''
         })
 
         async function submit() {
-            await fetch("http://localhost:3000/auth/login", {
+            const response = await fetch("http://localhost:3000/auth/login", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 credentials: 'include',
                 body: JSON.stringify(login)
             })
 
-            await console.log("logged in")
+            // TODO: Validation
+
+            await router.push("/admin/dashboard")
         }
 
         return {
