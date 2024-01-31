@@ -40,6 +40,13 @@ async function authorizeAdministrator(req, res) {
     }
 }
 
+async function deauthorizeAdministrator(req, res) {
+    res.cookie("jwt", "", {
+        maxAge: 0
+    })
+    return res.json({status: "Successfully logged out."})
+}
+
 async function getAdministratorInformation(req, res) {
     try {
         const cookie = req.cookies["jwt"]
@@ -65,5 +72,6 @@ async function getAdministratorInformation(req, res) {
 module.exports = {
     registerAdministrator,
     authorizeAdministrator,
+    deauthorizeAdministrator,
     getAdministratorInformation
 }
