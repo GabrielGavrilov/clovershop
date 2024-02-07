@@ -1,7 +1,7 @@
 const session = require("express-session")
 const Product = require("../models/product.model")
 
-async function saveProductToCart(req, res) {
+async function addProductToCart(req, res) {
     const { productId, quantity } = req.body
     const product = await Product.findOne({"_id": productId})
 
@@ -44,6 +44,6 @@ function resetCart(req, res) {
 }
 
 module.exports = {
-    saveProductToCart,
+    addProductToCart,
     resetCart
 }

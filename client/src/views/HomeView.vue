@@ -1,9 +1,15 @@
 <template>
+    <HeaderComponent/>
     <p>Home</p>
 </template>
 
 <script>
+import HeaderComponent from '@/components/HeaderComponent.vue';
+
 export default {
-    name: "HomeView"
+    name: "HomeView",
+    components: {
+        HeaderComponent
+    }
 }
 </script>

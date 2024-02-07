@@ -9,7 +9,7 @@ import { onMounted, ref } from "vue"
 export default {
     name: "AdminDashboardView",
     setup() {
-        const adminFullName = ref("NULL")
+        let adminFullName = ref("NULL")
 
         onMounted(async function() {
             const response = await fetch("http://localhost:3000/auth/account", {
