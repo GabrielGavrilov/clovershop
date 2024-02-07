@@ -7,7 +7,8 @@ const Product = require("../models/product.model")
 async function createNewCategory(req, res) {
     try {
         const { categoryName, categoryDescription } = req.body
-        const cookie = req.cookie["jwt"]
+        const cookie = req.cookies["jwt"]
+        // console.log(cookie)
         const auth = jwt.verify(cookie, config.SECRET_KEY)
         const categoryExists = await Category.findOne({categoryName: categoryName})
 
@@ -35,6 +36,7 @@ async function createNewCategory(req, res) {
 
     }
     catch(e) {
+        console.log(e)
         return res.json({status: "Access denied."})
     }
 }
@@ -42,7 +44,7 @@ async function createNewCategory(req, res) {
 async function createNewSubcategory(req, res) {
     try {
         const { subcategoryName, categoryName } = req.body
-        const cookie = req.cookie["jwt"]
+        const cookie = req.cookies["jwt"]
         const auth = jwt.verify(cookie, config.SECRET_KEY)
         const subcategoryExists = await Subcategory.findOne({subcategoryName: subcategoryName, categoryName: categoryName})
 
@@ -85,7 +87,7 @@ async function createNewProduct(req, res) {
             categoryName,
             subcategoryName
         } = req.body
-        const cookie = req.cookie["jwt"]
+        const cookie = req.cookies["jwt"]
         const auth = jwt.verify(cookie, config.SECRET_KEY)
         const productExists = await Product.findOne({productName: productName, categoryName: Category})
 

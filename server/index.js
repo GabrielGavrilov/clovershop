@@ -8,8 +8,9 @@ const config = require("./devconfig")
 const app = express()
 
 const authRoutes = require("./routes/auth.routes")
+const adminRoutes = require("./routes/admin.routes")
 const sessionRoutes = require("./routes/session.routes")
-const apiRoutes = require("./routes/api.routes")
+const categoryRoutes = require("./routes/category.routes")
 
 mongoose.connect(config.DATABASE_URL)
 .then(function() {
@@ -41,8 +42,9 @@ app.use(session({
 }))
 
 app.use("/auth", authRoutes)
+app.use("/admin", adminRoutes)
 app.use("/session", sessionRoutes)
-app.use("/api", apiRoutes)
+app.use("/category", categoryRoutes)
 
 app.listen(3000, function() {
     console.log("[CloverShop]: Server is running on port 3000");

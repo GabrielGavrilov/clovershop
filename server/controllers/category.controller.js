@@ -7,7 +7,7 @@ async function listAllCategories(req, res) {
     return res.json(categories)
 }
 
-async function listAllSubcategoriesInCategpry(req, res) {
+async function listAllSubcategoriesInCategory(req, res) {
     const { categoryName } = req.body
     const subcategories = await Subcategory.find({categoryName: categoryName})
     return res.json(subcategories)
@@ -27,7 +27,7 @@ async function listAllProductsInSubcategory(req, res) {
 
 module.exports = {
     listAllCategories,
-    listAllSubcategoriesInCategpry,
+    listAllSubcategoriesInCategory,
     listAllProductsInCategory,
     listAllProductsInSubcategory
 }
