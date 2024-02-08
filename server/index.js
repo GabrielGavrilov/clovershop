@@ -9,7 +9,7 @@ const app = express()
 
 const authRoutes = require("./routes/auth.routes")
 const adminRoutes = require("./routes/admin.routes")
-const sessionRoutes = require("./routes/session.routes")
+const cartRoutes = require("./routes/cart.routes")
 const categoryRoutes = require("./routes/category.routes")
 
 mongoose.connect(config.DATABASE_URL)
@@ -43,7 +43,7 @@ app.use(session({
 
 app.use("/auth", authRoutes)
 app.use("/admin", adminRoutes)
-app.use("/session", sessionRoutes)
+app.use("/cart", cartRoutes)
 app.use("/category", categoryRoutes)
 
 app.listen(3000, function() {

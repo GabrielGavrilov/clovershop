@@ -38,6 +38,16 @@ async function addProductToCart(req, res) {
     }
 }
 
+async function displayCart(req, res) {
+    if(req.session.cart) {
+        return res.json(req.session.cart)
+    }
+
+    else {
+        return res.json({"status": "No items in cart"})
+    }
+}
+
 function resetCart(req, res) {
     req.session.cart = []
     return res.json({"status": "Card has been reset."})
@@ -45,5 +55,6 @@ function resetCart(req, res) {
 
 module.exports = {
     addProductToCart,
+    displayCart,
     resetCart
 }

@@ -1,7 +1,8 @@
 const express = require("express")
 const router = express.Router()
-const controller = require("../controllers/session.controller")
+const controller = require("../controllers/cart.controller")
 
+router.get("/", controller.displayCart)
 router.post("/add", controller.addProductToCart)
 router.post("/reset", controller.resetCart)
 
