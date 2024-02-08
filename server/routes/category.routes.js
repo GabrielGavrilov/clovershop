@@ -4,7 +4,7 @@ const controller = require("../controllers/category.controller")
 
 router.get("/", controller.listAllCategories);
 router.get("/subcategories", controller.listAllSubcategoriesInCategory)
-router.get("/products", controller.listAllProductsInCategory)
+router.post("/products", controller.listAllProductsInCategory)
 router.get("/subcategory/products", controller.listAllProductsInSubcategory)
 
 module.exports = router

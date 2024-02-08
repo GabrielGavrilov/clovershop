@@ -16,6 +16,7 @@ async function listAllSubcategoriesInCategory(req, res) {
 async function listAllProductsInCategory(req, res) {
     const { categoryName } = req.body
     const products = await Product.find({categoryName: categoryName})
+    console.log("hhere")
     return res.json(products)
 }
 

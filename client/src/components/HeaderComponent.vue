@@ -1,6 +1,10 @@
 <template>
     <ul>
-        <li v-for="category in categories"> {{ category.categoryName }}</li>
+        <li v-for="category in categories">
+            <router-link v-bind:to="`/${category.categoryName}`">
+                {{ category.categoryName }}
+            </router-link>
+        </li>
     </ul>
 </template>
 
