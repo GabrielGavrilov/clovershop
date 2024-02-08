@@ -1,9 +1,9 @@
 <template>
     <ul>
         <li v-for="category in categories">
-            <router-link v-bind:to="`/${category.categoryName}`">
+            <a v-bind:href="$router.resolve({name: 'Category', params: {category: category.categoryName}}).href">
                 {{ category.categoryName }}
-            </router-link>
+            </a>
         </li>
     </ul>
 </template>

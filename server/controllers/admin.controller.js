@@ -8,16 +8,15 @@ async function createNewCategory(req, res) {
     try {
         const { categoryName, categoryDescription } = req.body
         const cookie = req.cookies["jwt"]
-        // console.log(cookie)
         const auth = jwt.verify(cookie, config.SECRET_KEY)
         const categoryExists = await Category.findOne({categoryName: categoryName})
 
         if(!auth) {
-            return res.json({status: "Access denied."})
+            return res.json({status: 401})
         }
 
         if(categoryExists) {
-            return res.json({status: `Category with the name ${categoryName} already exists.`})
+            return res.json({status: 409})
         }
 
         const category = new Category({
@@ -28,16 +27,17 @@ async function createNewCategory(req, res) {
         await category.save()
         .then(function() {
             console.log(`[CloverShop]: Category ${categoryName} has been created.`)
-            return res.json({status: `Category ${categoryName} has been created.`})
+            return res.json({status: 200})
         })
         .catch(function(err) {
-            return res.json({status: `There has been an issue creating the category.`})
+            console.log(err)
+            return res.json({status: 400})
         })
 
     }
     catch(e) {
         console.log(e)
-        return res.json({status: "Access denied."})
+        return res.json({status: 401})
     }
 }
 
@@ -49,11 +49,11 @@ async function createNewSubcategory(req, res) {
         const subcategoryExists = await Subcategory.findOne({subcategoryName: subcategoryName, categoryName: categoryName})
 
         if(!auth) {
-            return res.json({status: "Access denied."})
+            return res.json({status: 401})
         }
 
         if(subcategoryExists) {
-            return res.json({status: `Subcategory with the name ${subcategoryName} already exists in ${categoryName}`})
+            return res.json({status: 409})
         }
 
         const subcategory = new Subcategory({
@@ -64,22 +64,21 @@ async function createNewSubcategory(req, res) {
         await subcategory.save()
         .then(function() {
             console.log(`[CloverShop]: Subcategory ${subcategoryName} has been created under ${categoryName}.`)
-            return res.json({status: `Subcategory ${subcategoryName} has been created under ${categoryName}.`})
+            return res.json({status: 200})
         })
         .catch(function(err) {
-            return res.json({status: "There has been an issue creating the subcategory."})
+            return res.json({status: 400})
         })
         
     }
     catch(e) {
-        return res.json({status: "Access denied."})
+        return res.json({status: 401})
     }
 }
 
 async function createNewProduct(req, res) {
     try {
         const {
-            productPicture,
             productName,
             productDescription,
             productPrice,
@@ -92,15 +91,15 @@ async function createNewProduct(req, res) {
         const productExists = await Product.findOne({productName: productName, categoryName: Category})
 
         if(!auth) {
-            return res.json({status: "Access denied."})
+            return res.json({status: 401})
         }
 
         if(productExists) {
-            return res.json({status: `'${productName}' already exists in ${categoryName}`})
+            return res.json({status: 409})
         }
 
         const product = new Product({
-            productPicture: productPicture,
+            productPicture: req.file.filename,
             productName: productName,
             productDescription: productDescription,
             productPrice: productPrice,
@@ -112,15 +111,15 @@ async function createNewProduct(req, res) {
         await product.save()
         .then(function() {
             console.log(`[CloverShop]: Product '${productName}' has been created.`)
-            return res.json({status: `Product '${productName}' has been created.`})
+            return res.json({status: 200})
         })
         .catch(function(err) {
-            return res.json({status: "There has been an issue creating the product."})
+            return res.json({status: 400})
         })
         
     }
     catch(e) {
-        return res.json({status: "Access denied."})
+        return res.json({status: 401})
     }
 }
 

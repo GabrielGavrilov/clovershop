@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import router from '@/router';
 import { reactive } from 'vue';
 import { useRouter } from "vue-router"
 

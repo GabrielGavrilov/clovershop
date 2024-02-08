@@ -4,6 +4,8 @@ const mongoose = require("mongoose")
 const mongoStore = require("connect-mongo")
 const cookieParser = require("cookie-parser")
 const session = require("express-session")
+const multer = require("multer")
+const path = require("path")
 const config = require("./devconfig")
 const app = express()
 

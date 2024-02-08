@@ -1,6 +1,6 @@
 <template>
     <HeaderComponent/>
-    <p>{{ categoryName }}</p>
+    <h2>{{ categoryName }}</h2>
     <div v-for="product in products">
         <div>
             <img src="placeholder.png">
@@ -26,24 +26,17 @@ export default {
     },
     setup() {
         let products = ref()
-        let categoryName = ref()
         const route = useRoute()
-
-        const getBody = {
-            categoryName: route.params.categoryName
-        }
+        const categoryName = route.params.category
 
         onMounted(async function() {
             const response = await fetch("http://localhost:3000/category/products", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(getBody)
+                body: JSON.stringify({categoryName: categoryName})
             })
 
             products.value = await response.json()
-            categoryName.value = route.params.categoryName
-
-            console.log(products.value)
         })
 
         return {

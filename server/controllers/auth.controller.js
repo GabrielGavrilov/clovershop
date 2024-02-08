@@ -14,10 +14,10 @@ async function registerAdministrator(req, res) {
     await admin.save()
     .then(function() {
         console.log(`[CloverShop]: Administrator with the email ${email} has been created.`)
-        return res.json({status: `Administrator with the email ${email} has been created.`})
+        return res.json({status: 200})
     })
     .catch(function() {
-        return res.json({status: "There has been an issue creating the administrator."})
+        return res.json({status: 400})
     })
 }
 
@@ -26,7 +26,7 @@ async function authorizeAdministrator(req, res) {
     const admin = await Admin.findOne({email: email, password: password})
 
     if(!admin) {
-        return res.json({status: "Incorrect email or password."})
+        return res.json({status: 401})
     }
 
     else {
@@ -36,7 +36,7 @@ async function authorizeAdministrator(req, res) {
             maxAge: 24 * 60 * 60 * 1000
         })
 
-        return res.json({status: `Successfully logged in as ${admin.email} with token ${token}`})
+        return res.json({status: 200})
     }
 }
 
@@ -44,7 +44,7 @@ async function deauthorizeAdministrator(req, res) {
     res.cookie("jwt", "", {
         maxAge: 0
     })
-    return res.json({status: "Successfully logged out."})
+    return res.json({status: 200})
 }
 
 async function getAdministratorInformation(req, res) {
@@ -53,7 +53,7 @@ async function getAdministratorInformation(req, res) {
         const auth = jwt.verify(cookie, config.SECRET_KEY)
 
         if(!auth) {
-            return res.json({status: "Access denied."})
+            return res.json({status: 401})
         }
 
         const admin = await Admin.findOne({_id: auth._id})
@@ -65,7 +65,7 @@ async function getAdministratorInformation(req, res) {
     } 
     catch(e) {
         console.log(e)
-        return res.json({status: "Access denied."})
+        return res.json({status: 400})
     }
 }
 

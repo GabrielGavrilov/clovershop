@@ -19,7 +19,7 @@ async function addProductToCart(req, res) {
             updatedCart.push(cartItem)
             req.session.cart = updatedCart
 
-            return res.json({"status": "Item added to your cart"})
+            return res.json({status: 200})
         }
 
         else {
@@ -29,12 +29,12 @@ async function addProductToCart(req, res) {
             updatedCart.push(cartItem)
             res.session.cart = updatedCart
 
-            return res.json({"status": "Item added to your cart"})
+            return res.json({status: 200})
         }
     }
 
     else {
-        return res.json({"status": "Product does not exist."})
+        return res.json({status: 404})
     }
 }
 
@@ -44,13 +44,13 @@ async function displayCart(req, res) {
     }
 
     else {
-        return res.json({"status": "No items in cart"})
+        return res.json({status: 404})
     }
 }
 
 function resetCart(req, res) {
     req.session.cart = []
-    return res.json({"status": "Card has been reset."})
+    return res.json({stauts: 200})
 }
 
 module.exports = {
