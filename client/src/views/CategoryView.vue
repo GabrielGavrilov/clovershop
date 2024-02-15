@@ -3,7 +3,7 @@
     <h2>{{ categoryName }}</h2>
     <div v-for="product in products">
         <div>
-            <img src="placeholder.png">
+            <img v-bind:src="require(`@/assets/${product.productPicture}`)">
             <p>
                 {{ product.productName }}
             </p>

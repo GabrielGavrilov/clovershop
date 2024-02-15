@@ -54,7 +54,7 @@ export default {
             categories.value = await response.json()
         })
 
-        // TODO: something idk
+        // TODO: validation
 
         async function createProduct(event) {
             let formData = new FormData()
