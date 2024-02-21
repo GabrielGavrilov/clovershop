@@ -17,30 +17,40 @@ import { useRouter } from "vue-router"
 
 export default {
     name: "AdminLoginView",
-    setup() {
-        const router = useRouter()
-        const login = reactive({
-            email: '',
-            password: ''
-        })
-
-        async function submit() {
+    data() {
+        return {
+            router: useRouter(),
+            login: reactive({email: '', password: ''})
+        }
+    },
+    methods: {
+        async submit() {
             const response = await fetch("http://localhost:3000/auth/login", {
                 method: "POST",
-                headers: {"Content-Type": "application/json"},
-                credentials: 'include',
-                body: JSON.stringify(login)
+                headers: {"Content-Type": "application/json"}
             })
-
-            // TODO: Validation
-
-            await router.push("/admin/dashboard")
-        }
-
-        return {
-            login,
-            submit
         }
     }
+
+    // setup() {
+        
+    //     async function submit() {
+    //         const response = await fetch("http://localhost:3000/auth/login", {
+    //             method: "POST",
+    //             headers: {"Content-Type": "application/json"},
+    //             credentials: 'include',
+    //             body: JSON.stringify(login)
+    //         })
+
+    //         // TODO: Validation
+
+    //         await router.push("/admin/dashboard")
+    //     }
+
+    //     return {
+    //         login,
+    //         submit
+    //     }
+    // }
 }
 </script>

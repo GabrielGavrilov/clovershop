@@ -1,11 +1,5 @@
 <template>
     <HeaderComponent/>
-    <div>
-        <div>
-            <p>{{ product }}</p>
-            <!-- <img v-bind:src="require(`@/assets/${product.productPicture}`)"> -->
-        </div>
-    </div>
 </template>
 
 <script>
