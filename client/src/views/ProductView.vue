@@ -2,7 +2,7 @@
     <HeaderComponent/>
     <div>
         <div>
-            <!-- <p>{{ product._id }}</p> -->
+            <p>{{ product }}</p>
             <!-- <img v-bind:src="require(`@/assets/${product.productPicture}`)"> -->
         </div>
     </div>
@@ -33,8 +33,6 @@ export default {
                     productId: productId
                 })
             })
-
-            // console.log(await response.json())
 
             product.value = await response.json()
             console.log(product)
