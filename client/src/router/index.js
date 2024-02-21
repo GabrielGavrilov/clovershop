@@ -3,11 +3,15 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "@/views/HomeView.vue"
 import CategoryView from "@/views/CategoryView"
 import ProductView from "@/views/ProductView"
+
 import AdminLoginView from "@/views/AdminLoginView"
 import AdminDashboardView from "@/views/AdminDashboardView"
 import AdminCategoriesView from "@/views/AdminCategoriesView"
 import AdminSubcategoriesView from "@/views/AdminSubcategoriesView"
 import AdminProductsView from "@/views/AdminProductsView"
+import AdminNewCategoryView from "@/views/AdminNewCategoryView"
+import AdminNewSubcategoryView from "@/views/AdminNewSubcategoryView"
+import AdminNewProductView from "@/views/AdminNewProductView"
 
 
 const routes = [
@@ -44,12 +48,27 @@ const routes = [
     {
         path: "/admin/subcategories",
         name: "Subcategories",
-        component: AdminSubcategoriesView
+        component: AdminSubcategoriesView  
     },
     {
         path: "/admin/products",
         name: "Products",
         component: AdminProductsView
+    },
+    {
+        path: "/admin/categories/new",
+        name: "New category",
+        component: AdminNewCategoryView
+    },
+    {
+        path: "/admin/subcategories/new",
+        name: "New subcategory",
+        component: AdminNewSubcategoryView
+    },
+    {
+        path: "/admin/products/new",
+        name: "New product",
+        component: AdminNewProductView
     }
 ]
 

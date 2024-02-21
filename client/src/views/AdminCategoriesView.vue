@@ -1,18 +1,16 @@
 <template>
     <DashboardHeaderComponent/>
-    <p>Categories</p>
-    <form v-on:submit.prevent="createCategory()">
-        <input v-model="category.categoryName" type="text" placeholder="Category name" required>
-        <br>
-        <input v-model="category.categoryDescription" type="text" placeholder="Category description" required>
-        <br>
-        <button type="submit">Create category</button>
-    </form>
+    <a v-bind:href="$router.resolve({name: 'New category'}).href">
+        <button>Create a new category</button>
+    </a>
+    <ul>
+        <li v-for="category in categories">
+            {{ category.categoryName }}
+        </li>
+    </ul>
 </template>
 
 <script>
-import { reactive } from 'vue';
-import { useRouter } from 'vue-router';
 import DashboardHeaderComponent from '@/components/DashboardHeaderComponent.vue';
 
 export default {
@@ -22,24 +20,15 @@ export default {
     },
     data() {
         return {
-            router: useRouter(),
-            category: reactive({
-                categoryName: '',
-                categoryDescription: ''
-            })
+            categories: []
         }
     },
-    methods: {
-        async createCategory() {
-            const response = await fetch("http://localhost:3000/admin/category/new", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                credentials: "include",
-                body: JSON.stringify(this.category)
-            })
+    async mounted() {
+        const response = await fetch("http://localhost:3000/category/", {
+            headers: {"Content-Type": "application/json"}    
+        })
 
-            await this.router.go()
-        }
+        this.categories = await response.json()
     }
 }
 </script>

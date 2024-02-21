@@ -1,0 +1,45 @@
+<template>
+    <DashboardHeaderComponent/>
+    <p>Categories</p>
+    <form v-on:submit.prevent="createCategory()">
+        <input v-model="category.categoryName" type="text" placeholder="Category name" required>
+        <br>
+        <input v-model="category.categoryDescription" type="text" placeholder="Category description" required>
+        <br>
+        <button type="submit">Create category</button>
+    </form>
+</template>
+
+<script>
+import { reactive } from 'vue';
+import { useRouter } from 'vue-router';
+import DashboardHeaderComponent from '@/components/DashboardHeaderComponent.vue';
+
+export default {
+    name: "AdminNewCategoryView",
+    components: {
+        DashboardHeaderComponent
+    },
+    data() {
+        return {
+            router: useRouter(),
+            category: reactive({
+                categoryName: '',
+                categoryDescription: ''
+            })
+        }
+    },
+    methods: {
+        async createCategory() {
+            const response = await fetch("http://localhost:3000/admin/category/new", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                credentials: "include",
+                body: JSON.stringify(this.category)
+            })
+
+            await this.router.go()
+        }
+    }
+}
+</script>

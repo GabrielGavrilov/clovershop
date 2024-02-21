@@ -1,79 +1,14 @@
 <template>
     <DashboardHeaderComponent/>
-    <p>Products</p>
-    <form v-on:submit.prevent="createProduct($event)">
-        <input type="file" required>
-        <br>
-        <input v-model="product.productName" type="text" placeholder="Name" required>
-        <br>
-        <input v-model="product.productDescription" type="text" placeholder="Description" required>
-        <br>
-        <input v-model="product.productPrice" type="number" placeholder="Price" required>
-        <br>
-        <input v-model="product.productQuantity" type="number" placeholder="Quantity" required>
-        <br>
-        <select v-model="product.categoryName">
-            <option v-for="category in categories" v-bind:value="category.categoryName">
-                {{ category.categoryName }}
-            </option>
-        </select>
-        <br>
-        <input v-model="product.subcategoryName" type="text" placeholder="Subcategory name" required>
-        <br>
-        <button type="submit">Create product</button>
-    </form>
 </template>
 
 <script>
-import { reactive, onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
 import DashboardHeaderComponent from '@/components/DashboardHeaderComponent.vue';
 
 export default {
-    name: "AdminProducts",
+    name: "AdminProductsView",
     components: {
         DashboardHeaderComponent
-    },
-    data() {
-        return {
-            categories: [],
-            router: useRouter(),
-            product: reactive({
-                productName: "",
-                productDescription: "",
-                productPrice: "",
-                productQuantity: "",
-                categoryName: "",
-                subcategoryName: ""
-            })
-        }
-    },
-    async mounted() {
-        const response = await fetch("http://localhost:3000/category/", {
-            headers: {"Content-Type": "application/json"}
-        })
-
-        this.categories = await response.json()
-    },
-    methods: {
-        async createProduct(event) {
-            const formData = new FormData()
-            formData.append("file", event.target[0].files[0])
-            formData.append("productName", this.product.productName)
-            formData.append("productDescription", this.product.productDescription)
-            formData.append("productPrice", this.product.productPrice)
-            formData.append("productQuantity", this.product.productQuantity)
-            formData.append("categoryName", this.product.categoryName)
-            formData.append("subcategoryName", this.product.subcategoryName)
-
-            const response = await fetch("http://localhost:3000/admin/product/new", {
-                method: "POST",
-                credentials: "include",
-                body: formData
-            })
-
-            await this.router.go()
-        }
     }
 }
 </script>
