@@ -27,30 +27,15 @@ export default {
         async submit() {
             const response = await fetch("http://localhost:3000/auth/login", {
                 method: "POST",
-                headers: {"Content-Type": "application/json"}
+                headers: {"Content-Type": "application/json"},
+                credentials: "include",
+                body: JSON.stringify(this.login)
             })
+
+            // TODO: Validation
+
+            await this.router.push("/admin/dashboard")
         }
     }
-
-    // setup() {
-        
-    //     async function submit() {
-    //         const response = await fetch("http://localhost:3000/auth/login", {
-    //             method: "POST",
-    //             headers: {"Content-Type": "application/json"},
-    //             credentials: 'include',
-    //             body: JSON.stringify(login)
-    //         })
-
-    //         // TODO: Validation
-
-    //         await router.push("/admin/dashboard")
-    //     }
-
-    //     return {
-    //         login,
-    //         submit
-    //     }
-    // }
 }
 </script>

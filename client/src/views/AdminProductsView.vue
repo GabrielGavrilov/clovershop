@@ -34,37 +34,37 @@ export default {
     components: {
         DashboardHeaderComponent
     },
-    setup() {
-        let categories = ref()
-        const router = useRouter()
-        const product = reactive({
-            productName: "",
-            productDescription: "",
-            productPrice: "",
-            productQuantity: "",
-            categoryName: "",
-            subcategoryName: ""
-        })
-
-        onMounted(async function() {
-            const response = await fetch("http://localhost:3000/category/", {
-                headers: {"Content-Type": "application/json"}
+    data() {
+        return {
+            categories: [],
+            router: useRouter(),
+            product: reactive({
+                productName: "",
+                productDescription: "",
+                productPrice: "",
+                productQuantity: "",
+                categoryName: "",
+                subcategoryName: ""
             })
-
-            categories.value = await response.json()
+        }
+    },
+    async mounted() {
+        const response = await fetch("http://localhost:3000/category/", {
+            headers: {"Content-Type": "application/json"}
         })
 
-        // TODO: validation
-
-        async function createProduct(event) {
-            let formData = new FormData()
-            formData.append('file', event.target[0].files[0])
-            formData.append("productName", product.productName)
-            formData.append("productDescription", product.productDescription)
-            formData.append("productPrice", product.productPrice)
-            formData.append("productQuantity", product.productQuantity)
-            formData.append("categoryName", product.categoryName)
-            formData.append("subcategoryName", product.subcategoryName)
+        this.categories = await response.json()
+    },
+    methods: {
+        async createProduct(event) {
+            const formData = new FormData()
+            formData.append("file", event.target[0].files[0])
+            formData.append("productName", this.product.productName)
+            formData.append("productDescription", this.product.productDescription)
+            formData.append("productPrice", this.product.productPrice)
+            formData.append("productQuantity", this.product.productQuantity)
+            formData.append("categoryName", this.product.categoryName)
+            formData.append("subcategoryName", this.product.subcategoryName)
 
             const response = await fetch("http://localhost:3000/admin/product/new", {
                 method: "POST",
@@ -72,13 +72,7 @@ export default {
                 body: formData
             })
 
-            await router.go()
-        }
-
-        return {
-            product,
-            categories,
-            createProduct
+            await this.router.go()
         }
     }
 }

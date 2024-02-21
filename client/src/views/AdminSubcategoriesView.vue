@@ -4,7 +4,11 @@
     <form v-on:submit.prevent="createSubcategory()">
         <input v-model="subcategory.subcategoryName" type="text" placeholder="Subcategory name" required>
         <br>
-        <input v-model="subcategory.categoryName" type="text" placeholder="Category name" required>
+        <select v-model="subcategory.categoryName">
+            <option v-for="category in categories" v-bind:value="category.categoryName">
+                {{ category.categoryName }}
+            </option>
+        </select>
         <br>
         <button type="submit">Create subcategory</button>
     </form>
@@ -20,29 +24,33 @@ export default {
     components: {
         DashboardHeaderComponent
     },
-    setup() {
-        const router = useRouter()
-        const subcategory = reactive({
-            subcategoryName: "",
-            categoryName: ""
+    data() {
+        return {
+            router: useRouter(),
+            categories: [],
+            subcategory: reactive({
+                subcategoryName: "",
+                categoryName: ""
+            })
+        }
+    },
+    async mounted() {
+        const response = await fetch("http://localhost:3000/category/", {
+            headers: {"Content-Type": "application/json"}
         })
 
-        async function createSubcategory() {
+        this.categories = await response.json()
+    },
+    methods: {
+        async createSubcategory() {
             const response = await fetch("http://localhost:3000/admin/subcategory/new", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 credentials: "include",
-                body: JSON.stringify(subcategory)
+                body: JSON.stringify(this.subcategory)
             })
 
-            // TODO: Validation
-
-            await router.go()
-        }
-
-        return {
-            subcategory,
-            createSubcategory
+            await this.router.go()
         }
     }
 }

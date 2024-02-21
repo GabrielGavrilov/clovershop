@@ -20,29 +20,25 @@ export default {
     components: {
         DashboardHeaderComponent
     },
-    setup() {
-        const router = useRouter()
-        const category = reactive({
-            categoryName: '',
-            categoryDescription: ''
-        })
-
-        async function createCategory() {
+    data() {
+        return {
+            router: useRouter(),
+            category: reactive({
+                categoryName: '',
+                categoryDescription: ''
+            })
+        }
+    },
+    methods: {
+        async createCategory() {
             const response = await fetch("http://localhost:3000/admin/category/new", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 credentials: "include",
-                body: JSON.stringify(category)
+                body: JSON.stringify(this.category)
             })
 
-            // TODO: Validation
-
-            await router.go()
-        }
-
-        return {
-            category,
-            createCategory
+            await this.router.go()
         }
     }
 }
