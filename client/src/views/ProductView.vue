@@ -1,40 +1,17 @@
 <template>
     <HeaderComponent/>
+    <ProductComponent v-bind:productId="$route.params.productId"/>
 </template>
 
 <script>
 import HeaderComponent from '@/components/HeaderComponent.vue';
-import { onMounted, ref } from "vue"
-import { useRoute } from "vue-router"
+import ProductComponent from '@/components/ProductComponent.vue';
 
 export default {
     name: "ProductView",
     components: {
-        HeaderComponent
-    },
-    setup() {
-        const route = useRoute()
-        let product = ref()
-        const categoryName = route.params.category
-        const productId = route.params.productId
-
-        onMounted(async function() {
-            const response = await fetch("http://localhost:3000/category/product", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({
-                    categoryName: categoryName,
-                    productId: productId
-                })
-            })
-
-            product.value = await response.json()
-            console.log(product)
-        })
-
-        return {
-            product
-        }
+        HeaderComponent,
+        ProductComponent
     }
 }
 </script>
