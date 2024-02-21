@@ -3,13 +3,19 @@
     <h2>{{ categoryName }}</h2>
     <div v-for="product in products">
         <div>
-            <img v-bind:src="require(`@/assets/${product.productPicture}`)">
-            <p>
-                {{ product.productName }}
-            </p>
-            <p>
-                {{ product.productPrice }}
-            </p>
+            <div>
+                <img v-bind:src="require(`@/assets/${product.productPicture}`)">
+            </div>
+            <div>
+                <a v-bind:href="$router.resolve({name: 'Product', params: {category: categoryName, productId: product._id}}).href">
+                    {{ product.productName }}
+                </a>
+            </div>
+            <div>
+                <p>
+                    {{ product.productPrice }}
+                </p>
+            </div>
         </div>
     </div>
 </template>
@@ -25,9 +31,11 @@ export default {
         HeaderComponent
     },
     setup() {
-        let products = ref()
         const route = useRoute()
+        let products = ref()
         const categoryName = route.params.category
+
+        // TODO: category not found 404 page.
 
         onMounted(async function() {
             const response = await fetch("http://localhost:3000/category/products", {

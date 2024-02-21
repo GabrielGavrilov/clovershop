@@ -25,9 +25,18 @@ async function listAllProductsInSubcategory(req, res) {
     return res.json(products)
 }
 
+async function listProductInformation(req, res) {
+    console.log(req.body)
+    const { categoryName, productId } = req.body
+    const product = await Product.findOne({categoryName: categoryName, _id: productId})
+    console.log(product)
+    return res.json(product)
+}
+
 module.exports = {
     listAllCategories,
     listAllSubcategoriesInCategory,
     listAllProductsInCategory,
-    listAllProductsInSubcategory
+    listAllProductsInSubcategory,
+    listProductInformation
 }

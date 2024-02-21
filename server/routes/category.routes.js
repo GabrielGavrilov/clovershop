@@ -7,5 +7,6 @@ router.get("/", controller.listAllCategories);
 router.post("/subcategories", controller.listAllSubcategoriesInCategory)
 router.post("/products", controller.listAllProductsInCategory)
 router.post("/subcategory/products", controller.listAllProductsInSubcategory)
+router.post("/product", controller.listProductInformation)
 
 module.exports = router

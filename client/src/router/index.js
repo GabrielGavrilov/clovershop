@@ -1,11 +1,14 @@
 import { createRouter, createWebHistory } from "vue-router";
+
 import HomeView from "@/views/HomeView.vue"
 import CategoryView from "@/views/CategoryView"
+import ProductView from "@/views/ProductView"
 import AdminLoginView from "@/views/AdminLoginView"
 import AdminDashboardView from "@/views/AdminDashboardView"
 import AdminCategoriesView from "@/views/AdminCategoriesView"
 import AdminSubcategoriesView from "@/views/AdminSubcategoriesView"
 import AdminProductsView from "@/views/AdminProductsView"
+
 
 const routes = [
     {
@@ -17,6 +20,11 @@ const routes = [
         path: "/:category",
         name: "Category",
         component: CategoryView
+    },
+    {
+        path: "/:category/:productId",
+        name: "Product",
+        component: ProductView
     },
     {
         path: "/admin/login",
@@ -46,7 +54,7 @@ const routes = [
 ]
 
 const router = createRouter({
-    history: createWebHistory(process.env.BASE_URL),
+    history: createWebHistory(),
     routes
 })
 
