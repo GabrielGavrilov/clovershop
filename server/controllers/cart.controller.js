@@ -2,8 +2,14 @@ const session = require("express-session")
 const Product = require("../models/product.model")
 
 async function addProductToCart(req, res) {
+
+    console.log(req.body)
+
     const { productId, quantity } = req.body
-    const product = await Product.findOne({"_id": productId})
+
+    console.log(productId)
+
+    const product = await Product.findOne({_id: productId})
 
     if(product) {
         const cartItem = {

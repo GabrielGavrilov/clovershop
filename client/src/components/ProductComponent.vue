@@ -13,6 +13,9 @@
             <p>{{ product.productQuantity }}</p>
         </div>
         <div>
+            <AddToCardComponent v-bind:productId="product._id"/>
+        </div>
+        <div>
             <p>{{ product.productDescription }}</p>
         </div>
     </div>
@@ -22,9 +25,14 @@
 </template>
 
 <script>
+import AddToCardComponent from "@/components/AddToCardComponent.vue"
+
 export default {
     name: "ProductComponent",
-    props: ["productId"],
+    props: ["categoryName", "productName"],
+    components: {
+        AddToCardComponent
+    },
     data() {
         return {
             product: undefined
@@ -35,12 +43,12 @@ export default {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
-                productId: this.productId
+                categoryName: this.categoryName,
+                productName: this.productName
             })
         })
         
         this.product = await response.json()
-        console.log(this.product)
     }
 }
 </script>

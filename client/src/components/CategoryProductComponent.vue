@@ -3,7 +3,7 @@
         <img v-bind:src="require(`@/assets/${productPicture}`)">
     </div>
     <div>
-        <a v-bind:href="$router.resolve({name: 'Product', params: {category: categoryName, productId: productId}}).href">
+        <a v-bind:href="$router.resolve({name: 'Product', params: {category: categoryName, product: productName}}).href">
             {{ productName }}
         </a>
     </div>

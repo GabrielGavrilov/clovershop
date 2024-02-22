@@ -1,6 +1,9 @@
 <template>
     <HeaderComponent/>
-    <ProductComponent v-bind:productId="$route.params.productId"/>
+    <ProductComponent 
+        v-bind:categoryName="$route.params.category"
+        v-bind:productName="$route.params.product"
+    />
 </template>
 
 <script>
