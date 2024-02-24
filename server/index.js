@@ -13,6 +13,7 @@ const authRoutes = require("./routes/auth.routes")
 const adminRoutes = require("./routes/admin.routes")
 const cartRoutes = require("./routes/cart.routes")
 const categoryRoutes = require("./routes/category.routes")
+const orderRoutes = require("./routes/order.routes")
 
 mongoose.connect(config.DATABASE_URL)
 .then(function() {
@@ -27,6 +28,7 @@ const sessionStore = new mongoStore({
     collectionName: "sessions"
 })
 
+app.set("view engine", "ejs")
 app.use(cors({
     credentials: true,
     origin: ["http://localhost:8080"]
@@ -47,6 +49,7 @@ app.use("/auth", authRoutes)
 app.use("/admin", adminRoutes)
 app.use("/cart", cartRoutes)
 app.use("/category", categoryRoutes)
+app.use("/order", orderRoutes)
 
 app.listen(3000, function() {
     console.log("[CloverShop]: Server is running on port 3000");

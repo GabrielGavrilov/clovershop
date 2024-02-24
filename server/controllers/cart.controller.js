@@ -2,13 +2,7 @@ const session = require("express-session")
 const Product = require("../models/product.model")
 
 async function addProductToCart(req, res) {
-
-    console.log(req.body)
-
     const { productId, quantity } = req.body
-
-    console.log(productId)
-
     const product = await Product.findOne({_id: productId})
 
     if(product) {
@@ -33,7 +27,7 @@ async function addProductToCart(req, res) {
 
             updatedCart = req.session.cart
             updatedCart.push(cartItem)
-            res.session.cart = updatedCart
+            req.session.cart = updatedCart
 
             return res.json({status: 200})
         }
