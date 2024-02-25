@@ -1,25 +1,57 @@
 const config = require("../devconfig")
 const stripe = require("stripe")(config.STRIPE_SECRET_KEY)
+const Product = require("../models/product.model")
 const Order = require("../models/order.model")
 
 async function createOrder(req, res) {
-    const { customerEmail } = req.body
+    const { 
+        customerEmail,
+        customerFirstName,
+        customerLastName,
+        customerAddress,
+        customerCity,
+        customerProvince,
+        customerPostalCode
+    } = req.body
+    const cart = req.session.cart
+    let cartSubtotal = 0
 
-    const order = new Order({
-        orderStatus: "unpaid",
-        orderTotal: 1000,
-        orderProducts: req.session.cart,
-        customerEmail: customerEmail
-    })
+    // This could definitely be done in the client side
+    if(cart) {
+        for(let i = 0; i < cart.length; i++) {
+            const product = await Product.findOne({_id: cart[i].productId})
+            const quantity = cart[i].quantity
+            cartSubtotal += (product.productPrice * quantity)
+        }
 
-    await order.save()
-    .then(function() {
-        console.log(`[CloverShop]: New order created.`)
-        return res.json({status: 200})
-    })
-    .catch(function() {
-        return res.json({status: 400})
-    })
+        const order = new Order({
+            customerEmail: customerEmail,
+            customerFirstName: customerFirstName,
+            customerLastName: customerLastName,
+            customerAddress: customerAddress,
+            customerCity: customerCity,
+            customerProvince: customerProvince,
+            customerPostalCode: customerPostalCode,
+            orderStatus: "unpaid",
+            orderTotal: cartSubtotal,
+            orderProducts: cart
+        })
+    
+        await order.save()
+
+        .then(function() {
+            console.log(`[CloverShop]: New order created.`)
+            return res.json(order)
+        })
+        .catch(function(err) {
+            console.log(err)
+            return res.json({status: 400})
+        })
+    }
+
+    else if(!cart) {
+        return res.json({status: 404})
+    }
 }
 
 async function displayCheckout(req, res) {
@@ -34,13 +66,14 @@ async function displayCheckout(req, res) {
 
 async function processCheckout(req, res) {
     const { stripeEmail, stripeToken } = req.body
+    const order = await Order.findOne({_id: req.params.id})
     const findOrder = {_id: req.params.id}
     const markComplete = {orderStatus: "complete"}
     
     try {
         await stripe.paymentIntents.create({
-            amount: 1000,
-            currency: "usd",
+            amount: order.orderTotal,
+            currency: "cad",
             payment_method_types: ["card"],
             receipt_email: "test@gmail.com"
 

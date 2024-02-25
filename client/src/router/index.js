@@ -4,6 +4,7 @@ import HomeView from "@/views/HomeView.vue"
 import CategoryView from "@/views/CategoryView"
 import ProductView from "@/views/ProductView"
 import CartView from "@/views/CartView"
+import CheckoutView from "@/views/CheckoutView"
 
 import AdminLoginView from "@/views/AdminLoginView"
 import AdminDashboardView from "@/views/AdminDashboardView"
@@ -35,6 +36,11 @@ const routes = [
         path: "/cart",
         name: "Cart",
         component: CartView
+    },
+    {
+        path: "/checkout",
+        name: "Checkout",
+        component: CheckoutView
     },
     {
         path: "/admin/login",
