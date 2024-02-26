@@ -15,7 +15,10 @@ const uploadStorage = multer.diskStorage({
 const upload = multer({storage: uploadStorage})
 
 router.post("/category/new", controller.createNewCategory)
+router.post("/category/update", controller.updateCategory)
 router.post("/subcategory/new", controller.createNewSubcategory)
+router.post("/subcategory/update", controller.updateSubcategory)
 router.post("/product/new", upload.single("file"), controller.createNewProduct)
+router.post("/product/update", controller.updateProduct)
 
 module.exports = router

@@ -41,6 +41,46 @@ async function createNewCategory(req, res) {
     }
 }
 
+async function updateCategory(req, res) {
+    try {
+        const { categoryId, categoryName, categoryDescription } = req.body
+        const cookie = req.cookies["jwt"]
+        const auth = jwt.verify(cookie, config.SECRET_KEY)
+        const findCategory = {_id: categoryId}
+        const updateCategory = {categoryName: categoryName, categoryDescription: categoryDescription}
+        const updateProductAndSubcategory = {categoryName: categoryName}
+
+        const category = await Category.findOne(findCategory);
+        const subcategories = await Subcategory.find({categoryName: category.categoryName})
+        const products = await Product.find({categoryName: category.categoryName})
+
+        if(!auth) {
+            return res.json({status: 401})
+        }
+
+        for(let i = 0; i < subcategories.length; i++) {
+            await Subcategory.findOneAndUpdate({_id: subcategories[i]._id}, updateProductAndSubcategory);
+        }
+
+        for(let i = 0; i < products.length; i++) {
+            await Product.findOneAndUpdate({_id: products[i]._id}, updateProductAndSubcategory)
+        }
+
+        await Category.findOneAndUpdate(findCategory, updateCategory)
+        .then(function() {
+            console.log(`[CloverShop]: Category updated.`)
+            return res.json({status: 200})
+        })
+        .catch(function(err) {
+            return res.json({status: 400})
+        })
+    }
+    catch(e) {
+        console.log(e)
+        return res.json({status: 401})
+    }
+}
+
 async function createNewSubcategory(req, res) {
     try {
         const { subcategoryName, categoryName } = req.body
@@ -76,6 +116,40 @@ async function createNewSubcategory(req, res) {
     }
 }
 
+async function updateSubcategory(req, res) {
+    try {
+        const { subcategoryId, subcategoryName } = req.body
+        const cookie = req.cookies["jwt"]
+        const auth = jwt.verify(cookie, config.SECRET_KEY)
+
+        const findSubcategory = {_id: subcategoryId}
+        const updateSubcategory = {subcategoryName: subcategoryName}
+        const subcategory = await Subcategory.findOne(findSubcategory)
+        const products = await Product.find({subcategoryName: subcategory.subcategoryName})
+
+        if(!auth) {
+            return res.json({status: 401})
+        }
+
+        for(let i = 0; i < products.length; i++) {
+            await Product.findOneAndUpdate({_id: products[i]._id}, updateSubcategory)
+        }
+
+        await Subcategory.findOneAndUpdate(findSubcategory, updateSubcategory)
+        .then(function() {
+            console.log("[CloverShop]: Subcategory updated.")
+            return res.json({status: 200})
+        })
+        .catch(function(err) {
+            console.log(err)
+            return res.json({status: 400})
+        })
+    }
+    catch(e) {
+        return res.json({status: 401})
+    }
+}
+
 async function createNewProduct(req, res) {
     try {
         const {
@@ -88,7 +162,7 @@ async function createNewProduct(req, res) {
         } = req.body
         const cookie = req.cookies["jwt"]
         const auth = jwt.verify(cookie, config.SECRET_KEY)
-        const productExists = await Product.findOne({productName: productName, categoryName: Category})
+        const productExists = await Product.findOne({productName: productName, categoryName: categoryName})
 
         if(!auth) {
             return res.json({status: 401})
@@ -116,7 +190,45 @@ async function createNewProduct(req, res) {
         .catch(function(err) {
             return res.json({status: 400})
         })
+    }
+    catch(e) {
+        return res.json({status: 401})
+    }
+}
+
+async function updateProduct(req, res) {
+    try {
+        const {
+            productId,
+            productName,
+            productDescription,
+            productPrice,
+            productQuantity
+        } = req.body
+        const cookie = req.cookies["jwt"]
+        const auth = jwt.verify(cookie, config.SECRET_KEY)
         
+        const findProduct = {_id: productId}
+        const updateProduct = {
+            productName: productName,
+            productDescription: productDescription,
+            productPrice: productPrice,
+            productQuantity: productQuantity
+        }
+
+        if(!auth) {
+            return res.json({status: 401})
+        }
+
+        await Product.findOneAndUpdate(findProduct, updateProduct)
+        .then(function() {
+            console.log("[CloverShop]: Product updated.")
+            return res.json({status: 200})
+        })
+        .catch(function(err) {
+            console.log(err)
+            return res.json({status: 400})
+        })
     }
     catch(e) {
         return res.json({status: 401})
@@ -125,6 +237,9 @@ async function createNewProduct(req, res) {
 
 module.exports = {
     createNewCategory,
+    updateCategory,
     createNewSubcategory,
-    createNewProduct
+    updateSubcategory,
+    createNewProduct,
+    updateProduct
 }

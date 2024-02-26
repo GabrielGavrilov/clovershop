@@ -17,6 +17,7 @@ async function createOrder(req, res) {
     let cartSubtotal = 0
 
     // This could definitely be done in the client side
+    // or maybe not, this is more secure
     if(cart) {
         for(let i = 0; i < cart.length; i++) {
             const product = await Product.findOne({_id: cart[i].productId})
@@ -70,6 +71,8 @@ async function processCheckout(req, res) {
     const findOrder = {_id: req.params.id}
     const markComplete = {orderStatus: "complete"}
     
+    // add customer 
+
     try {
         await stripe.paymentIntents.create({
             amount: order.orderTotal,
