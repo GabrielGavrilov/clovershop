@@ -24,7 +24,7 @@ export default {
         }
     },
     async mounted() {
-        const response = await fetch("http://localhost:3000/category/", {
+        const response = await fetch("http://localhost:3000/api/categories/", {
             headers: {"Content-Type": "application/json"}    
         })
 

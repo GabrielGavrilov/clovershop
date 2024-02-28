@@ -17,7 +17,7 @@ export default {
         let categories = ref()
 
         onMounted(async function() {
-            const response = await fetch("http://localhost:3000/category/", {
+            const response = await fetch("http://localhost:3000/api/categories/", {
                 headers: {"Content-Type": "application/json"}
             })
 

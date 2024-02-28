@@ -39,7 +39,7 @@ export default {
         }
     },
     async mounted() {
-        const response = await fetch("http://localhost:3000/category/product", {
+        const response = await fetch("http://localhost:3000/api/product", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({

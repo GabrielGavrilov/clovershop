@@ -49,10 +49,8 @@ export default {
     },
     methods: {
         async getProductInformation(productId) {
-            const response = await fetch("http://localhost:3000/cart/product", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({ productId: productId })
+            const response = await fetch(`http://localhost:3000/api/product/${productId}`, {
+                headers: {"Content-Type": "application/json"}
             })
 
             const product = await response.json()

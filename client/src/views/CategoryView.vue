@@ -32,7 +32,7 @@ export default {
         }
     },
     async mounted() {
-        const categoryResponse = await fetch("http://localhost:3000/category/", {
+        const categoryResponse = await fetch("http://localhost:3000/api/category/", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({categoryName: this.route.params.category})
@@ -40,7 +40,7 @@ export default {
 
         this.category = await categoryResponse.json()
 
-        const productsResponse = await fetch("http://localhost:3000/category/products", {
+        const productsResponse = await fetch("http://localhost:3000/api/category/products", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({categoryName: this.category.categoryName})
