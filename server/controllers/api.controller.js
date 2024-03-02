@@ -8,6 +8,12 @@ async function listAllCategories(req, res) {
     return res.json(categories)
 }
 
+async function listAllSubcategories(req, res) {
+    const subcategories = await Subcategory.find({})
+
+    return res.json(subcategories)
+}
+
 async function listAllProducts(req, res) {
     const products = await Product.find({})
     

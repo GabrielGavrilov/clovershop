@@ -14,7 +14,9 @@ import AdminProductsView from "@/views/AdminProductsView"
 import AdminNewCategoryView from "@/views/AdminNewCategoryView"
 import AdminNewSubcategoryView from "@/views/AdminNewSubcategoryView"
 import AdminNewProductView from "@/views/AdminNewProductView"
-
+import AdminUpdateCategoryView from "@/views/AdminUpdateCategoryView"
+import AdminUpdateSubcategoryView from "@/views/AdminUpdateSubcategoryView.vue";
+import AdminUpdateSubcategoryView from "@/views/AdminUpdateSubcategoryView.vue";
 
 const routes = [
     {

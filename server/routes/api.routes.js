@@ -3,6 +3,7 @@ const router = express.Router()
 const controller = require("../controllers/api.controller")
 
 router.get("/categories", controller.listAllCategories);
+router.get("/subcategories", controller.listAllSubcategories)
 router.get("/products", controller.listAllProducts);
 router.get("/product/:productId", controller.listProductById)
 
