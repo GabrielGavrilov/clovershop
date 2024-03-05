@@ -2,12 +2,21 @@ const express = require("express")
 const router = express.Router()
 const controller = require("../controllers/api.controller")
 
+/**
+ * API GET routes
+ */
+
 router.get("/categories", controller.listAllCategories);
 router.get("/subcategories", controller.listAllSubcategories)
+router.get("/subcategory/:subcategoryId", controller.listSubcategoryInformationById)
 router.get("/products", controller.listAllProducts);
-router.get("/product/:productId", controller.listProductById)
+router.get("/product/:productId", controller.listProductInformationById)
 
-router.post("/product", controller.listProductInformation)
+/**
+ * API POST routes
+ */
+
+router.post("/product", controller.listProductInformationByName)
 router.post("/category", controller.listCategoryInformation)
 router.post("/category/subcategories", controller.listAllSubcategoriesInCategory)
 router.post("/category/products", controller.listAllProductsInCategory)

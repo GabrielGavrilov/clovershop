@@ -2,34 +2,14 @@ const Category = require("../models/category.model")
 const Subcategory = require("../models/subcategory.model")
 const Product = require("../models/product.model")
 
+/**
+ * Category Controllers
+ */
+
 async function listAllCategories(req, res) {
     const categories = await Category.find({})
     
     return res.json(categories)
-}
-
-async function listAllSubcategories(req, res) {
-    const subcategories = await Subcategory.find({})
-
-    return res.json(subcategories)
-}
-
-async function listAllProducts(req, res) {
-    const products = await Product.find({})
-    
-    return res.json(products)
-}
-
-async function listProductById(req, res) {
-    const product = await Product.findOne({_id: req.params.productId})
-
-    if(product) {
-        return res.json(product)
-    }
-
-    else {
-        return res.json({status: 404})
-    }
 }
 
 async function listCategoryInformation(req, res) {
@@ -53,6 +33,23 @@ async function listAllProductsInCategory(req, res) {
     return res.json(products)
 }
 
+/**
+ * Subcategory Controllers
+ */
+
+async function listAllSubcategories(req, res) {
+    const subcategories = await Subcategory.find({})
+
+    return res.json(subcategories)
+}
+
+async function listSubcategoryInformationById(req, res) {
+    const subcategoryId = req.params.subcategoryId
+    const subcategory = await Subcategory.findOne({_id: subcategoryId})
+
+    return res.json(subcategory);
+}
+
 async function listAllProductsInSubcategory(req, res) {
     const { categoryName, subcategoryName } = req.body
     const products = await Product.find({categoryName: categoryName, subcategoryName: subcategoryName})
@@ -60,20 +57,44 @@ async function listAllProductsInSubcategory(req, res) {
     return res.json(products)
 }
 
-async function listProductInformation(req, res) {
+/**
+ * Product Controllers
+ */
+
+async function listAllProducts(req, res) {
+    const products = await Product.find({})
+    
+    return res.json(products)
+}
+
+async function listProductInformationByName(req, res) {
     const { categoryName, productName } = req.body
     const product = await Product.findOne({categoryName: categoryName, productName: productName})
     
     return res.json(product)
 }
 
+async function listProductInformationById(req, res) {
+    const product = await Product.findOne({_id: req.params.productId})
+
+    if(product) {
+        return res.json(product)
+    }
+
+    else {
+        return res.json({status: 404})
+    }
+}
+
 module.exports = {
     listAllCategories,
     listAllProducts,
-    listProductById,
+    listAllSubcategories,
     listCategoryInformation,
     listAllSubcategoriesInCategory,
+    listSubcategoryInformationById,
     listAllProductsInCategory,
     listAllProductsInSubcategory,
-    listProductInformation
+    listProductInformationById,
+    listProductInformationByName
 }
