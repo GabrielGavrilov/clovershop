@@ -1,5 +1,13 @@
 <template>
     <DashboardHeaderComponent/>
+    <a v-bind:href="$router.resolve({name: 'New product'}).href">
+        <button>Create new product</button>
+    </a>
+    <ul>
+        <li v-for="product in products">
+            {{ product.productName }}
+        </li>
+    </ul>
 </template>
 
 <script>
@@ -9,6 +17,18 @@ export default {
     name: "AdminProductsView",
     components: {
         DashboardHeaderComponent
+    },
+    data() {
+        return {
+            products: []
+        }
+    },
+    async mounted() {
+        const response = await fetch("http://localhost:3000/api/products/", {
+            headers: {"Content-Type": "application/json"}
+        })
+
+        this.products = await response.json();
     }
 }
 </script>
