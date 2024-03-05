@@ -15,8 +15,8 @@ import AdminNewCategoryView from "@/views/AdminNewCategoryView"
 import AdminNewSubcategoryView from "@/views/AdminNewSubcategoryView"
 import AdminNewProductView from "@/views/AdminNewProductView"
 import AdminUpdateCategoryView from "@/views/AdminUpdateCategoryView"
-import AdminUpdateSubcategoryView from "@/views/AdminUpdateSubcategoryView.vue";
-import AdminUpdateSubcategoryView from "@/views/AdminUpdateSubcategoryView.vue";
+import AdminUpdateSubcategoryView from "@/views/AdminUpdateSubcategoryView"
+import AdminUpdateProductView from "@/views/AdminUpdateProductView"
 
 const routes = [
     {
@@ -60,19 +60,19 @@ const routes = [
         component: AdminCategoriesView
     },
     {
-        path: "/admin/subcategories",
-        name: "Subcategories",
-        component: AdminSubcategoriesView  
-    },
-    {
-        path: "/admin/products",
-        name: "Products",
-        component: AdminProductsView
-    },
-    {
         path: "/admin/categories/new",
         name: "New category",
         component: AdminNewCategoryView
+    },
+    {
+        path: "/admin/category/:categoryId",
+        name: "Update category",
+        component: AdminUpdateCategoryView
+    },
+    {
+        path: "/admin/subcategories",
+        name: "Subcategories",
+        component: AdminSubcategoriesView  
     },
     {
         path: "/admin/subcategories/new",
@@ -80,9 +80,24 @@ const routes = [
         component: AdminNewSubcategoryView
     },
     {
+        path: "/admin/subcategory/:subcategoryId",
+        name: "Update subcategory",
+        component: AdminUpdateSubcategoryView
+    },
+    {
+        path: "/admin/products",
+        name: "Products",
+        component: AdminProductsView
+    },
+    {
         path: "/admin/products/new",
         name: "New product",
         component: AdminNewProductView
+    },
+    {
+        path: "/admin/product/:productId",
+        name: "Update product",
+        component: AdminUpdateProductView
     }
 ]
 
