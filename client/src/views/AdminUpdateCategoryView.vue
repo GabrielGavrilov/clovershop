@@ -24,6 +24,7 @@ export default {
             route: useRoute(),
             router: useRouter(),
             category: reactive({
+                categoryId: "",
                 categoryName: "",
                 categoryDescription: ""
             })
@@ -35,11 +36,14 @@ export default {
         })
 
         const categoryInformation = await response.json()
+        this.category.categoryId = this.route.params.categoryId
         this.category.categoryName = categoryInformation.categoryName
         this.category.categoryDescription = categoryInformation.categoryDescription
     },
     methods: {
         async updateCategory() {
+            console.log(this.category)
+
             const response = await fetch("http://localhost:3000/admin/category/update", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},

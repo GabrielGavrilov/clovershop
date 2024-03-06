@@ -5,7 +5,9 @@
     </a>
     <ul>
         <li v-for="subcategory in subcategories">
-            {{ subcategory.subcategoryName }}
+            <a v-bind:href="$router.resolve({name: 'Update subcategory', params: {subcategoryId: subcategory._id}}).href">
+                {{ subcategory.subcategoryName }}
+            </a>
         </li>
     </ul>
 </template>
