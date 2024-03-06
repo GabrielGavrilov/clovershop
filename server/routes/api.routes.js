@@ -7,6 +7,7 @@ const controller = require("../controllers/api.controller")
  */
 
 router.get("/categories", controller.listAllCategories);
+router.get("/category/:categoryId", controller.listCategoryInformationById)
 router.get("/subcategories", controller.listAllSubcategories)
 router.get("/subcategory/:subcategoryId", controller.listSubcategoryInformationById)
 router.get("/products", controller.listAllProducts);

@@ -19,6 +19,13 @@ async function listCategoryInformation(req, res) {
     return res.json(category)
 }
 
+async function listCategoryInformationById(req, res) {
+    const categoryId = req.params.categoryId
+    const category = await Category.findOne({_id: categoryId})
+
+    return res.json(category)
+}
+
 async function listAllSubcategoriesInCategory(req, res) {
     const { categoryName } = req.body
     const subcategories = await Subcategory.find({categoryName: categoryName})
@@ -91,6 +98,7 @@ module.exports = {
     listAllProducts,
     listAllSubcategories,
     listCategoryInformation,
+    listCategoryInformationById,
     listAllSubcategoriesInCategory,
     listSubcategoryInformationById,
     listAllProductsInCategory,
