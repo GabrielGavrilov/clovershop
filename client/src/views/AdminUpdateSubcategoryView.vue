@@ -1,9 +1,9 @@
 <template>
     <DashboardHeaderComponent/>
-    <form>
-        <input>
+    <form v-on:submit.prevent="updateSubcategory()">
+        <input v-model="subcategory.subcategoryName" type="text" required>
         <br>
-        <button>Update</button>
+        <button type="submit">Update</button>
     </form>
 </template>
 
@@ -20,6 +20,7 @@ export default {
     data() {
         return {
             route: useRoute(),
+            router: useRouter(),
             subcategory: reactive({
                 subcategoryId: "",
                 subcategoryName: ""
@@ -28,8 +29,25 @@ export default {
     },
     async mounted() {
         const response = await fetch(`http://localhost:3000/api/subcategory/${this.route.params.subcategoryId}`, {
-            
+            headers: {"Content-Type": "application/json"}
         })
+
+        const subcategoryInformation = await response.json();
+        this.subcategory.subcategoryId = subcategoryInformation._id
+        this.subcategory.subcategoryName = subcategoryInformation.subcategoryName
+        console.log(this.subcategory)
+    },
+    methods: {
+        async updateSubcategory() {
+            const response = await fetch("http://localhost:3000/admin/subcategory/update", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                credentials: "include",
+                body: JSON.stringify(this.subcategory)
+            })
+
+            await this.router.push("/admin/subcategories")
+        }
     }
 }
 </script>

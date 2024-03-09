@@ -42,8 +42,6 @@ export default {
     },
     methods: {
         async updateCategory() {
-            console.log(this.category)
-
             const response = await fetch("http://localhost:3000/admin/category/update", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},

@@ -5,7 +5,7 @@
     </a>
     <ul>
         <li v-for="product in products">
-            {{ product.productName }}
+            <a v-bind:href="$router.resolve({name: 'Update product', params: {productId: product._id}}).href">{{ product.productName }}</a>
         </li>
     </ul>
 </template>
