@@ -14,6 +14,7 @@
 
 <script>
 import DashboardHeaderComponent from '@/components/DashboardHeaderComponent.vue';
+import { useRouter } from 'vue-router';
 
 export default {
     name: "AdminSubcategoriesView",
@@ -22,15 +23,31 @@ export default {
     },
     data() {
         return {
+            router: useRouter,
             subcategories: []
         }
     },
     async mounted() {
+        await this.authorizeUser()
+
         const response = await fetch("http://localhost:3000/api/subcategories/", {
             headers: {"Content-Type": "application/json"}
         })
 
         this.subcategories = await response.json()
+    },
+    methods: {
+        async authorizeUser() {
+            const response = await fetch("http://localhost:3000/auth/account", {
+                headers: {"Content-Type": "application/json"},
+                credentials: "include"
+            })
+
+            const authResponse = await response.json()
+
+            if(authResponse.status == 401)
+                this.router.push("/admin/login")
+        }
     }
 }
 </script>

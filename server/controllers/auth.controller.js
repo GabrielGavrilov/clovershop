@@ -26,7 +26,10 @@ async function authorizeAdministrator(req, res) {
     const admin = await Admin.findOne({email: email, password: password})
 
     if(!admin) {
-        return res.json({status: 401})
+        return res.json({
+            status: 401,
+            message: "Incorrect email or password"
+        })
     }
 
     else {

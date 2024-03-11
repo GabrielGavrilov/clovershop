@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import { useRouter } from 'vue-router';
 import DashboardHeaderComponent from '@/components/DashboardHeaderComponent.vue';
 
 export default {
@@ -20,15 +21,31 @@ export default {
     },
     data() {
         return {
+            router: useRouter(),
             products: []
         }
     },
     async mounted() {
+        await this.authorizeUser()
+
         const response = await fetch("http://localhost:3000/api/products/", {
             headers: {"Content-Type": "application/json"}
         })
 
         this.products = await response.json();
+    },
+    methods: {
+        async authorizeUser() {
+            const response = await fetch("http://localhost:3000/auth/account", {
+                headers: {"Content-Type": "application/json"},
+                credentials: "include"
+            })
+
+            const authResponse = await response.json()
+
+            if(authResponse.status == 401)
+                this.router.push("/admin/login")
+        }
     }
 }
 </script>

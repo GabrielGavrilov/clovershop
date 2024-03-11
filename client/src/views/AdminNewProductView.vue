@@ -49,6 +49,8 @@ export default {
         }
     },
     async mounted() {
+        await this.authorizeUser()
+
         const response = await fetch("http://localhost:3000/api/categories/", {
             headers: {"Content-Type": "application/json"}
         })
@@ -73,6 +75,18 @@ export default {
             })
 
             await this.router.go()
+        },
+
+        async authorizeUser() {
+            const response = await fetch("http://localhost:3000/auth/account", {
+                headers: {"Content-Type": "application/json"},
+                credentials: "include"
+            })
+
+            const authResponse = await response.json()
+
+            if(authResponse.status == 401)
+                this.router.push("/admin/login")
         }
     }
 }

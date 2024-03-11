@@ -1,5 +1,6 @@
 <template>
     <h2>Log in</h2>
+    <p>{{ message }}</p>
     <form v-on:submit.prevent="submit()">
         <input v-model="login.email" type="email" placeholder="Email" required>
         <br>
@@ -13,15 +14,25 @@
 import { reactive } from 'vue';
 import { useRouter } from "vue-router"
 
-// TODO: Check if already logged in
-
 export default {
     name: "AdminLoginView",
     data() {
         return {
             router: useRouter(),
+            message: "",
             login: reactive({email: '', password: ''})
         }
+    },
+    async mounted() {
+        const response = await fetch("http://localhost:3000/auth/account", {
+            headers: {"Content-Type": "application/json"},
+            credentials: "include"
+        })
+
+        const authResponse = await response.json();
+
+        if(authResponse.email)
+            await this.router.push("/admin/dashboard")
     },
     methods: {
         async submit() {
@@ -32,9 +43,13 @@ export default {
                 body: JSON.stringify(this.login)
             })
 
-            // TODO: Validation
+            const authResponse = await response.json();
+            
+            if(authResponse.status == 401)
+                this.message = authResponse.message
 
-            await this.router.push("/admin/dashboard")
+            else
+                await this.router.push("/admin/dashboard")
         }
     }
 }

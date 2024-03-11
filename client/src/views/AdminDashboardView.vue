@@ -1,13 +1,17 @@
 <template>
     <DashboardHeaderComponent/>
-    <h2>Dashboard</h2>
-    <p>Logged in as {{ adminFullName }}</p>
+    <div v-if="user !== undefined">
+        <h2>Dashboard</h2>
+        <p>Logged in as {{ user.firstName }} {{ user.lastName }}</p>
+    </div>
+    <div v-else>
+        <p>Loading...</p>
+    </div>
 </template>
 
 <script>
 import DashboardHeaderComponent from "@/components/DashboardHeaderComponent.vue"
-
-// TODO: check if user is not logged in.
+import { useRouter } from "vue-router"
 
 export default {
     name: "AdminDashboardView",
@@ -16,7 +20,8 @@ export default {
     },
     data() {
         return {
-            adminFullName: ""
+            router: useRouter(),
+            user: undefined
         }
     },
     async mounted() {
@@ -25,8 +30,13 @@ export default {
             credentials: "include"
         })
 
-        const adminInformation = await response.json()
-        this.adminFullName = `${adminInformation.firstName} ${adminInformation.lastName}`
+        const authResponse = await response.json()
+
+        if(authResponse.status == 401)
+            await this.router.push("/admin/login")
+
+        else
+            this.user = authResponse
     }
 }
 </script>
