@@ -1,6 +1,7 @@
 <template>
     <DashboardHeaderComponent/>
     <p>Categories</p>
+    <p>{{ message }}</p>
     <form v-on:submit.prevent="createCategory()">
         <input v-model="category.categoryName" type="text" placeholder="Category name" required>
         <br>
@@ -22,6 +23,7 @@ export default {
     },
     data() {
         return {
+            message: "",
             router: useRouter(),
             category: reactive({
                 categoryName: '',
@@ -41,7 +43,13 @@ export default {
                 body: JSON.stringify(this.category)
             })
 
-            await this.router.go()
+            const categoryResponse = await response.json()
+
+            if(categoryResponse.status == 409)
+                this.message = categoryResponse.message
+
+            else
+                await this.router.go()
         },
 
         async authorizeUser() {

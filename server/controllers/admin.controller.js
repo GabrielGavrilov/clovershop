@@ -16,7 +16,10 @@ async function createNewCategory(req, res) {
         }
 
         if(categoryExists) {
-            return res.json({status: 409})
+            return res.json({
+                status: 409,
+                message: "A category already exists with the same name"
+            })
         }
 
         const category = new Category({
@@ -51,11 +54,19 @@ async function updateCategory(req, res) {
         const updateProductAndSubcategory = {categoryName: categoryName}
 
         const category = await Category.findOne(findCategory);
+        const checkIfNewCategoryExists = await Category.findOne({categoryName: categoryName});
         const subcategories = await Subcategory.find({categoryName: category.categoryName})
         const products = await Product.find({categoryName: category.categoryName})
 
         if(!auth) {
             return res.json({status: 401})
+        }
+
+        if(checkIfNewCategoryExists) {
+            return res.json({
+                status: 409,
+                message: "A category already exists with the same name"
+            })
         }
 
         for(let i = 0; i < subcategories.length; i++) {
@@ -93,7 +104,10 @@ async function createNewSubcategory(req, res) {
         }
 
         if(subcategoryExists) {
-            return res.json({status: 409})
+            return res.json({
+                status: 409,
+                message: "A subcategory already exists with the same name"
+            })
         }
 
         const subcategory = new Subcategory({
@@ -125,10 +139,18 @@ async function updateSubcategory(req, res) {
         const findSubcategory = {_id: subcategoryId}
         const updateSubcategory = {subcategoryName: subcategoryName}
         const subcategory = await Subcategory.findOne(findSubcategory)
+        const checkIfNewSubcategoryExists = await Subcategory.findOne({subcategoryName: subcategoryName, categoryName: subcategory.categoryName})
         const products = await Product.find({subcategoryName: subcategory.subcategoryName})
 
         if(!auth) {
             return res.json({status: 401})
+        }
+
+        if(checkIfNewSubcategoryExists) {
+            return res.json({
+                status: 409,
+                message: "A subcategory already exists with the same name"
+            })
         }
 
         for(let i = 0; i < products.length; i++) {
@@ -169,7 +191,10 @@ async function createNewProduct(req, res) {
         }
 
         if(productExists) {
-            return res.json({status: 409})
+            return res.json({
+                status: 409,
+                message: "A product already exists with the same name"
+            })
         }
 
         const product = new Product({
