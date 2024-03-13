@@ -232,7 +232,8 @@ async function updateProduct(req, res) {
         } = req.body
         const cookie = req.cookies["jwt"]
         const auth = jwt.verify(cookie, config.SECRET_KEY)
-        
+        const product = await Product.findOne({_id: productId})
+        const productExists = await Product.findOne({productName: productName, categoryName: product.categoryName})
         const findProduct = {_id: productId}
         const updateProduct = {
             productName: productName,
@@ -243,6 +244,13 @@ async function updateProduct(req, res) {
 
         if(!auth) {
             return res.json({status: 401})
+        }
+
+        if(productExists) {
+            return res.json({
+                status: 409,
+                message: "A product already exists with the same name"
+            })
         }
 
         await Product.findOneAndUpdate(findProduct, updateProduct)

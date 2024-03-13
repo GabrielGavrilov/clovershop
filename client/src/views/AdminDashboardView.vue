@@ -32,7 +32,9 @@ export default {
 
         const authResponse = await response.json()
 
-        if(authResponse.status == 401)
+        console.log(authResponse);
+
+        if(authResponse.status == 401 || authResponse.status == 400)
             await this.router.push("/admin/login")
 
         else
