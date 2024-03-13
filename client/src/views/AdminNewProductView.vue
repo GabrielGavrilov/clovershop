@@ -1,6 +1,7 @@
 <template>
     <DashboardHeaderComponent/>
     <p>Products</p>
+    <p>{{ message }}</p>
     <form v-on:submit.prevent="createProduct($event)">
         <input type="file" required>
         <br>
@@ -36,6 +37,7 @@ export default {
     },
     data() {
         return {
+            message: "",
             categories: [],
             router: useRouter(),
             product: reactive({
@@ -74,7 +76,13 @@ export default {
                 body: formData
             })
 
-            await this.router.go()
+            const productResponse = await response.json()
+
+            if(productResponse.status == 409)
+                this.message = productResponse.message
+
+            else
+                await this.router.go()
         },
 
         async authorizeUser() {
@@ -85,7 +93,7 @@ export default {
 
             const authResponse = await response.json()
 
-            if(authResponse.status == 401)
+            if(authResponse.status == 401 || authResponse.status == 400)
                 this.router.push("/admin/login")
         }
     }

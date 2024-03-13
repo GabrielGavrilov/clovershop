@@ -60,7 +60,7 @@ export default {
 
             const authResponse = await response.json()
 
-            if(authResponse.status == 401)
+            if(authResponse.status == 401 || authResponse.status == 400)
                 this.router.push("/admin/login")
         }
     }

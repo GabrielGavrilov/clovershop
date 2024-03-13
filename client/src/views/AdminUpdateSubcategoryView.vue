@@ -1,5 +1,6 @@
 <template>
     <DashboardHeaderComponent/>
+    <p>{{ message }}</p>
     <form v-on:submit.prevent="updateSubcategory()">
         <input v-model="subcategory.subcategoryName" type="text" required>
         <br>
@@ -37,7 +38,6 @@ export default {
         const subcategoryInformation = await response.json();
         this.subcategory.subcategoryId = subcategoryInformation._id
         this.subcategory.subcategoryName = subcategoryInformation.subcategoryName
-        console.log(this.subcategory)
     },
     methods: {
         async updateSubcategory() {
@@ -48,7 +48,13 @@ export default {
                 body: JSON.stringify(this.subcategory)
             })
 
-            await this.router.push("/admin/subcategories")
+            const subcategoryResponse = await response.json()
+
+            if(subcategoryResponse.status == 409)
+                this.message = subcategoryResponse.message
+
+            else
+                await this.router.push("/admin/subcategories")
         },
 
         async authorizeUser() {
@@ -59,7 +65,7 @@ export default {
 
             const authResponse = await response.json()
 
-            if(authResponse.status == 401)
+            if(authResponse.status == 401 || authResponse.status == 400)
                 this.router.push("/admin/login")
         }
     }

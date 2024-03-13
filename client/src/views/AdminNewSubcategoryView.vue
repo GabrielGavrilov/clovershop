@@ -1,6 +1,7 @@
 <template>
     <DashboardHeaderComponent/>
     <p>Subcategories</p>
+    <p>{{ message }}</p>
     <form v-on:submit.prevent="createSubcategory()">
         <input v-model="subcategory.subcategoryName" type="text" placeholder="Subcategory name" required>
         <br>
@@ -26,6 +27,7 @@ export default {
     },
     data() {
         return {
+            message: "",
             router: useRouter(),
             categories: [],
             subcategory: reactive({
@@ -52,7 +54,13 @@ export default {
                 body: JSON.stringify(this.subcategory)
             })
 
-            await this.router.go()
+            const subcategoryResponse = await response.json()
+
+            if(subcategoryResponse.status == 409)
+                this.message = subcategoryResponse.message
+
+            else
+                await this.router.go()
         },
 
         async authorizeUser() {
@@ -63,7 +71,7 @@ export default {
 
             const authResponse = await response.json()
 
-            if(authResponse.status == 401)
+            if(authResponse.status == 401 || authResponse.status == 400)
                 this.router.push("/admin/login")
         }
     }

@@ -1,5 +1,6 @@
 <template>
     <DashboardHeaderComponent/>
+    <p>{{ message }}</p>
     <form v-on:submit.prevent="updateProduct()">
         <input v-model="product.productName" type="text" required>
         <br>
@@ -25,6 +26,7 @@ export default {
     },
     data() {
         return {
+            message: "",
             route: useRoute(),
             router: useRouter(),
             product: reactive({
@@ -59,7 +61,13 @@ export default {
                 body: JSON.stringify(this.product)
             });
 
-            await this.router.push("/admin/products")
+            const productResponse = await response.json()
+
+            if(productResponse.status == 409)
+                this.message = productResponse.message
+
+            else
+                await this.router.push("/admin/products")
         },
 
         async authorizeUser() {
@@ -70,7 +78,7 @@ export default {
 
             const authResponse = await response.json()
 
-            if(authResponse.status == 401)
+            if(authResponse.status == 401 || authResponse.status == 400)
                 this.router.push("/admin/login")
         }
     }
