@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken");
 const config = require("../devconfig")
 const stripe = require("stripe")(config.STRIPE_SECRET_KEY)
 const Product = require("../models/product.model")
@@ -95,6 +96,7 @@ async function processCheckout(req, res) {
                 }
 
                 await Order.findOneAndUpdate(findOrder, markComplete)
+                req.session.cart = []
                 return res.send("Payment completed!")
             })
         })
@@ -104,11 +106,86 @@ async function processCheckout(req, res) {
         console.log(err)
         return res.send("error")
     }
+}
 
+async function displayAllOrders(req, res) {
+    try {
+        const cookie = req.cookies["jwt"]
+        const auth = jwt.verify(cookie, config.SECRET_KEY)
+        const orders = await Order.find({}).sort({date: -1})
+        
+        if(!auth) {
+            return res.json({status: 401})
+        }
+
+        return res.json(orders);
+    }
+    catch(e) {
+        console.log(e);
+        return res.json({status: 401})
+    }
+}
+
+async function listOrderInformationById(req, res) {
+    try {
+        const orderId = req.params.orderId
+        const cookie = req.cookies["jwt"]
+        const auth = jwt.verify(cookie, config.SECRET_KEY)
+        const orders = await Order.findOne({_id: orderId})
+
+        if(!auth) {
+            return res.json({status: 401})
+        }
+
+        return res.json(orders)
+    }
+    catch(e) {
+        console.log(e)
+        return res.json({status: 401})
+    }
+}
+
+async function displayOrderStatistics(req, res) {
+    try {
+        const cookie = req.cookies["jwt"]
+        const auth = jwt.verify(cookie, config.SECRET_KEY)
+        const orders = await Order.find({})
+
+        if(!auth) {
+            return res.json({status: 401})
+        }
+
+        let totalOrdersSum = 0;
+        let totalOrdersCompleted = 0;
+
+        for(let i = 0; i < orders.length; i++) {
+            ordersTotalSum+=orders[i].orderTotal
+            
+            if(orders[i].orderStatus == "complete")
+            {
+                ordersTotalCompleted+=1
+            }
+        }
+
+        const orderStatistics = {
+            totalOrders: orders.length,
+            totalOrdersSum: totalOrdersSum,
+            totalOrdersCompleted: totalOrdersCompleted
+        }
+
+        return res.json(orderStatistics)
+    }
+    catch(e) {
+        console.log(e)
+        return res.json({status: 401})
+    }
 }
 
 module.exports = {
     createOrder,
     displayCheckout,
-    processCheckout
+    processCheckout,
+    displayAllOrders,
+    listOrderInformationById,
+    displayOrderStatistics
 }

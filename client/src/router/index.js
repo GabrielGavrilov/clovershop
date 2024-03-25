@@ -17,6 +17,8 @@ import AdminNewProductView from "@/views/AdminNewProductView"
 import AdminUpdateCategoryView from "@/views/AdminUpdateCategoryView"
 import AdminUpdateSubcategoryView from "@/views/AdminUpdateSubcategoryView"
 import AdminUpdateProductView from "@/views/AdminUpdateProductView"
+import AdminOrdersView from "@/views/AdminOrdersView"
+import AdminOrderInformationView from "@/views/AdminOrderInformationView"
 
 const routes = [
     {
@@ -98,6 +100,16 @@ const routes = [
         path: "/admin/product/:productId",
         name: "Update product",
         component: AdminUpdateProductView
+    },
+    {
+        path: "/admin/orders",
+        name: "Orders",
+        component: AdminOrdersView
+    },
+    {
+        path: "/admin/order/:orderId",
+        name: "Order information",
+        component: AdminOrderInformationView
     }
 ]
 

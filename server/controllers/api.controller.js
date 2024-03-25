@@ -28,14 +28,14 @@ async function listCategoryInformationById(req, res) {
 
 async function listAllSubcategoriesInCategory(req, res) {
     const { categoryName } = req.body
-    const subcategories = await Subcategory.find({categoryName: categoryName})
+    const subcategories = await Subcategory.find({categoryName: categoryName}).sort({date: -1})
     
     return res.json(subcategories)
 }
 
 async function listAllProductsInCategory(req, res) {
     const { categoryName } = req.body
-    const products = await Product.find({categoryName: categoryName})
+    const products = await Product.find({categoryName: categoryName}).sort({date: -1})
     
     return res.json(products)
 }
@@ -45,7 +45,7 @@ async function listAllProductsInCategory(req, res) {
  */
 
 async function listAllSubcategories(req, res) {
-    const subcategories = await Subcategory.find({})
+    const subcategories = await Subcategory.find({}).sort({date: -1})
 
     return res.json(subcategories)
 }
@@ -59,7 +59,7 @@ async function listSubcategoryInformationById(req, res) {
 
 async function listAllProductsInSubcategory(req, res) {
     const { categoryName, subcategoryName } = req.body
-    const products = await Product.find({categoryName: categoryName, subcategoryName: subcategoryName})
+    const products = await Product.find({categoryName: categoryName, subcategoryName: subcategoryName}).sort({date: -1})
     
     return res.json(products)
 }
@@ -69,7 +69,7 @@ async function listAllProductsInSubcategory(req, res) {
  */
 
 async function listAllProducts(req, res) {
-    const products = await Product.find({})
+    const products = await Product.find({}).sort({date: -1})
     
     return res.json(products)
 }

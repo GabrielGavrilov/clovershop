@@ -8,7 +8,7 @@ const productSchema = new mongoose.Schema({
     productQuantity: Number,
     categoryName: String,
     subcategoryName: String
-})
+}, { timestamps: true })
 
 const productModel = new mongoose.model("product", productSchema)
 module.exports = productModel;
