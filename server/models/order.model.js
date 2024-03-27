@@ -4,6 +4,7 @@ const mongoose = require("mongoose")
 // this is bad database development practice
 
 const orderSchema = new mongoose.Schema({
+    orderNumber: Number,
     customerEmail: String,
     customerFirstName: String,
     customerLastName: String,

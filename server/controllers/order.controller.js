@@ -16,6 +16,7 @@ async function createOrder(req, res) {
     } = req.body
     const cart = req.session.cart
     let cartSubtotal = 0
+    const orderCount = await Order.countDocuments({})
 
     // This could definitely be done in the client side
     // or maybe not, this is more secure
@@ -27,6 +28,7 @@ async function createOrder(req, res) {
         }
 
         const order = new Order({
+            orderNumber: orderCount+1,
             customerEmail: customerEmail,
             customerFirstName: customerFirstName,
             customerLastName: customerLastName,
@@ -112,7 +114,7 @@ async function displayAllOrders(req, res) {
     try {
         const cookie = req.cookies["jwt"]
         const auth = jwt.verify(cookie, config.SECRET_KEY)
-        const orders = await Order.find({}).sort({date: -1})
+        const orders = await Order.find({}).sort({updatedAt: -1})
         
         if(!auth) {
             return res.json({status: 401})
