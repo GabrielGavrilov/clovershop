@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import addr from "../../../addresses.js"
 import { reactive } from "vue"
 import { useRouter } from "vue-router";
 import HeaderComponent from '@/components/HeaderComponent.vue';
@@ -44,7 +45,7 @@ export default {
     },
     methods: {
         async createOrder() {
-            const response = await fetch("http://localhost:3000/order/create", {
+            const response = await fetch(`${addr.SERVER_ADDRESS}/order/create`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 credentials: "include",
@@ -52,7 +53,7 @@ export default {
             })
 
             const createdOrder = await response.json()
-            window.location = `http://localhost:3000/order/checkout/${createdOrder._id}`
+            window.location = `${add.SERVER_ADDRESS}/order/checkout/${createdOrder._id}`
         }
     }
 }

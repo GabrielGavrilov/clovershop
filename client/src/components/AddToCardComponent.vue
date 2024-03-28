@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import addr from "../../../addresses.js"
 import { reactive } from 'vue'
 import { useRouter } from "vue-router"
 
@@ -27,7 +28,7 @@ export default {
     },
     methods: {
         async addItemToCart() {
-            const response = await fetch("http://localhost:3000/cart/add", {
+            const response = await fetch(`${addr.SERVER_ADDRESS}/cart/add`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 credentials: "include",

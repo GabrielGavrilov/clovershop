@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import addr from "../../../addresses.js"
 import HeaderComponent from "@/components/HeaderComponent.vue"
 import CategoryProductComponent from "@/components/CategoryProductComponent.vue"
 import { useRoute } from "vue-router"
@@ -44,7 +45,7 @@ export default {
     },
     methods: {
         async getCategoryInformation() {
-            const categoryResponse = await fetch("http://localhost:3000/api/category/", {
+            const categoryResponse = await fetch(`${addr.SERVER_ADDRESS}/api/category/`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({categoryName: this.route.params.category})
@@ -55,7 +56,7 @@ export default {
         },
         
         async getAllSubcategories() {
-            const subcategoriesResponse = await fetch("http://localhost:3000/api/category/subcategories", {
+            const subcategoriesResponse = await fetch(`${addr.SERVER_ADDRESS}/api/category/subcategories`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({categoryName: this.route.params.category})
@@ -66,7 +67,7 @@ export default {
         },
 
         async getAllProductsInCategory() {
-            const productsResponse = await fetch("http://localhost:3000/api/category/products", {
+            const productsResponse = await fetch(`${addr.SERVER_ADDRESS}/api/category/products`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({categoryName: this.category.categoryName})
@@ -77,7 +78,7 @@ export default {
         },
 
         async getProductsBySubcategory(subcategoryName) {
-            const productsResponse = await fetch("http://localhost:3000/api/category/subcategory/products", {
+            const productsResponse = await fetch(`${addr.SERVER_ADDRESS}/api/category/subcategory/products`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({

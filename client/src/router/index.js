@@ -20,6 +20,8 @@ import AdminUpdateProductView from "@/views/AdminUpdateProductView"
 import AdminOrdersView from "@/views/AdminOrdersView"
 import AdminOrderInformationView from "@/views/AdminOrderInformationView"
 
+import PageNotFoundView from "@/views/PageNotFoundView"
+
 const routes = [
     {
         path: "/",

@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import addr from "../../../addresses.js"
 import { onMounted, ref } from "vue"
 
 export default {
@@ -17,7 +18,7 @@ export default {
         let categories = ref()
 
         onMounted(async function() {
-            const response = await fetch("http://localhost:3000/api/categories/", {
+            const response = await fetch(`${addr.SERVER_ADDRESS}/api/categories/`, {
                 headers: {"Content-Type": "application/json"}
             })
 

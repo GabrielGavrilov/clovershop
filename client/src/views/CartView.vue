@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import addr from "../../../addresses.js"
 import HeaderComponent from '@/components/HeaderComponent.vue'
 import CartItemComponent from '@/components/CartItemComponent.vue'
 
@@ -27,7 +28,7 @@ export default {
         }
     },
     async mounted() {
-        const response = await fetch("http://localhost:3000/cart/", {
+        const response = await fetch(`${addr.SERVER_ADDRESS}/cart/`, {
             headers: {"Content-Type": "application/json"},
             credentials: "include"
         })
@@ -49,7 +50,7 @@ export default {
     },
     methods: {
         async getProductInformation(productId) {
-            const response = await fetch(`http://localhost:3000/api/product/${productId}`, {
+            const response = await fetch(`${addr.SERVER_ADDRESS}/api/product/${productId}`, {
                 headers: {"Content-Type": "application/json"}
             })
 

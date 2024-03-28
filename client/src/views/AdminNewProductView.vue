@@ -29,6 +29,7 @@
 import { reactive, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import DashboardHeaderComponent from '@/components/DashboardHeaderComponent.vue';
+import addr from "../../../addresses.js"
 
 export default {
     name: "AdminNewProduct",
@@ -53,7 +54,7 @@ export default {
     async mounted() {
         await this.authorizeUser()
 
-        const response = await fetch("http://localhost:3000/api/categories/", {
+        const response = await fetch(`${addr.SERVER_ADDRESS}/api/categories/`, {
             headers: {"Content-Type": "application/json"}
         })
 
@@ -70,7 +71,7 @@ export default {
             formData.append("categoryName", this.product.categoryName)
             formData.append("subcategoryName", this.product.subcategoryName)
 
-            const response = await fetch("http://localhost:3000/admin/product/new", {
+            const response = await fetch(`${addr.SERVER_ADDRESS}/admin/product/new`, {
                 method: "POST",
                 credentials: "include",
                 body: formData
@@ -86,7 +87,7 @@ export default {
         },
 
         async authorizeUser() {
-            const response = await fetch("http://localhost:3000/auth/account", {
+            const response = await fetch(`${addr.SERVER_ADDRESS}/auth/account`, {
                 headers: {"Content-Type": "application/json"},
                 credentials: "include"
             })

@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import addr from "../../../addresses.js"
 import { reactive } from 'vue';
 import { useRouter } from "vue-router"
 
@@ -24,7 +25,7 @@ export default {
         }
     },
     async mounted() {
-        const response = await fetch("http://localhost:3000/auth/account", {
+        const response = await fetch(`${addr.SERVER_ADDRESS}/auth/account`, {
             headers: {"Content-Type": "application/json"},
             credentials: "include"
         })
@@ -36,7 +37,7 @@ export default {
     },
     methods: {
         async submit() {
-            const response = await fetch("http://localhost:3000/auth/login", {
+            const response = await fetch(`${addr.SERVER_ADDRESS}/auth/login`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 credentials: "include",

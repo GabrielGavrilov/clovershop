@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import addr from "../../../addresses.js"
 import DashboardHeaderComponent from "@/components/DashboardHeaderComponent.vue"
 import { reactive } from "vue";
 import { useRoute, useRouter } from "vue-router";
@@ -35,7 +36,7 @@ export default {
     async mounted() {
         await this.authorizeUser()
 
-        const response = await fetch(`http://localhost:3000/api/category/${this.route.params.categoryId}`, {
+        const response = await fetch(`${addr.SERVER_ADDRESS}/api/category/${this.route.params.categoryId}`, {
             headers: {"Content-Type": "application/json"}
         })
 
@@ -46,7 +47,7 @@ export default {
     },
     methods: {
         async updateCategory() {
-            const response = await fetch("http://localhost:3000/admin/category/update", {
+            const response = await fetch(`${addr.SERVER_ADDRESS}/admin/category/update`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 credentials: "include",
@@ -63,7 +64,7 @@ export default {
         },
 
         async authorizeUser() {
-            const response = await fetch("http://localhost:3000/auth/account", {
+            const response = await fetch(`${addr.SERVER_ADDRESS}/auth/account`, {
                 headers: {"Content-Type": "application/json"},
                 credentials: "include"
             })

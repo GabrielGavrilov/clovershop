@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import addr from "../../../addresses.js"
 import AddToCardComponent from "@/components/AddToCardComponent.vue"
 
 export default {
@@ -39,7 +40,7 @@ export default {
         }
     },
     async mounted() {
-        const response = await fetch("http://localhost:3000/api/product", {
+        const response = await fetch(`${addr.SERVER_ADDRESS}/api/product`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
