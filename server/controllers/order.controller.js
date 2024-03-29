@@ -160,12 +160,11 @@ async function displayOrderStatistics(req, res) {
         let totalOrdersSum = 0;
         let totalOrdersCompleted = 0;
 
-        for(let i = 0; i < orders.length; i++) {
-            ordersTotalSum+=orders[i].orderTotal
-            
+        for(let i = 0; i < orders.length; i++) {            
             if(orders[i].orderStatus == "complete")
             {
-                ordersTotalCompleted+=1
+                totalOrdersCompleted+=1
+                totalOrdersSum+=orders[i].orderTotal
             }
         }
 

@@ -8,7 +8,7 @@
         </a>
     </div>
     <div>
-        <p>{{ productPrice }}</p>
+        <p>${{ productPrice }}</p>
     </div>
 </template>
 

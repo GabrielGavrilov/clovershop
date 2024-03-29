@@ -12,7 +12,7 @@
             v-bind:productId="product._id"
             v-bind:productPicture="product.productPicture"
             v-bind:productName="product.productName"
-            v-bind:productPrice="product.productPrice"
+            v-bind:productPrice="formatPrice(product.productPrice)"
             v-bind:categoryName="categoryName"
         />
     </div>
@@ -88,6 +88,12 @@ export default {
             })
 
             this.products = await productsResponse.json();
+        },
+
+        formatPrice(price) {
+            const priceString = String(price)
+            const formattedPrice = priceString.substring(0, priceString.length - 2) + "." + priceString.substring(priceString.length - 2)
+            return formattedPrice
         }
     }
 }

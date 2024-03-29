@@ -53,7 +53,7 @@ export default {
             })
 
             const createdOrder = await response.json()
-            window.location = `${add.SERVER_ADDRESS}/order/checkout/${createdOrder._id}`
+            window.location = `${addr.SERVER_ADDRESS}/order/checkout/${createdOrder._id}`
         }
     }
 }

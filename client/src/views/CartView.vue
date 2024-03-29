@@ -4,7 +4,7 @@
     <div v-for="item in items">
         <CartItemComponent v-bind:item="item"/>
     </div>
-    <p>{{ cartSubtotal }}</p>
+    <p>${{ formatPrice(cartSubtotal) }}</p>
     <a v-bind:href="$router.resolve({name: 'Checkout'}).href">
         <button>Checkout</button>
     </a>
@@ -56,6 +56,11 @@ export default {
 
             const product = await response.json()
             return product
+        },
+        formatPrice(price) {
+            const priceString = String(price)
+            const formattedPrice = priceString.substring(0, priceString.length - 2) + "." + priceString.substring(priceString.length - 2)
+            return formattedPrice
         }
     }
 }

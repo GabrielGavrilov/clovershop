@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser")
 const session = require("express-session")
 const multer = require("multer")
 const path = require("path")
+const addr = require("../addresses")
 const config = require("./devconfig")
 const app = express()
 
@@ -31,7 +32,7 @@ const sessionStore = new mongoStore({
 app.set("view engine", "ejs")
 app.use(cors({
     credentials: true,
-    origin: ["http://localhost:8080"]
+    origin: [addr.CLIENT_ADDRESS]
 }))
 app.use(express.json())
 app.use(cookieParser())
@@ -51,6 +52,8 @@ app.use("/cart", cartRoutes)
 app.use("/api", categoryRoutes)
 app.use("/order", orderRoutes)
 
-app.listen(3000, function() {
-    console.log("[CloverShop]: Server is running on port 3000");
+const serverPort = addr.SERVER_ADDRESS.split(":")
+
+app.listen(serverPort[2], function() {
+    console.log(`[CloverShop]: Server is running listening at ${addr.SERVER_ADDRESS}`);
 })

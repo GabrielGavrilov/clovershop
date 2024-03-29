@@ -7,7 +7,7 @@
             <p>{{ product.productName }}</p>
         </div>
         <div>
-            <p>{{ product.productPrice }}</p>
+            <p>${{ formatPrice(product.productPrice) }}</p>
         </div>
         <div>
             <p>{{ product.productQuantity }}</p>
@@ -50,6 +50,13 @@ export default {
         })
         
         this.product = await response.json()
+    },
+    methods: {
+        formatPrice(price) {
+            const priceString = String(price)
+            const formattedPrice = priceString.substring(0, priceString.length - 2) + "." + priceString.substring(priceString.length - 2)
+            return formattedPrice
+        }
     }
 }
 </script>
