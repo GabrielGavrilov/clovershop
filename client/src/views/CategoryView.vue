@@ -1,5 +1,10 @@
 <template>
     <HeaderComponent/>
+    <div v-if="!categoryExists">
+        <NotFoundComponent
+            message="The page you are looking for does not exist!"
+        />
+    </div>
     <h2>{{ category.categoryName }}</h2>
     <h3>{{ category.categoryDescription }}</h3>
     <ul>
@@ -22,26 +27,36 @@
 import addr from "../../../addresses.js"
 import HeaderComponent from "@/components/HeaderComponent.vue"
 import CategoryProductComponent from "@/components/CategoryProductComponent.vue"
-import { useRoute } from "vue-router"
+import NotFoundComponent from "@/components/NotFoundComponent.vue"
+import { useRoute, useRouter } from "vue-router"
 
 export default {
     name: "CategoryView",
     components: {
         HeaderComponent,
-        CategoryProductComponent
+        CategoryProductComponent,
+        NotFoundComponent
     },
     data() {
         return {
+            categoryExists: true,
             route: useRoute(),
+            router: useRouter(),
+            category: [],
             subcategories: [],
-            products: [],
-            category: []
+            products: []
         }
     },
     async mounted() {
         this.category = await this.getCategoryInformation()
-        this.subcategories = await this.getAllSubcategories()
-        this.products = await this.getAllProductsInCategory()
+
+        if(this.category.status == 404)
+            this.categoryExists = false
+
+        else {
+            this.subcategories = await this.getAllSubcategories()
+            this.products = await this.getAllProductsInCategory()
+        }
     },
     methods: {
         async getCategoryInformation() {
@@ -54,7 +69,6 @@ export default {
             const categoryInformation = await categoryResponse.json();
             return categoryInformation
         },
-        
         async getAllSubcategories() {
             const subcategoriesResponse = await fetch(`${addr.SERVER_ADDRESS}/api/category/subcategories`, {
                 method: "POST",
@@ -65,7 +79,6 @@ export default {
             const subcategoriesInformation = await subcategoriesResponse.json();
             return subcategoriesInformation
         },
-
         async getAllProductsInCategory() {
             const productsResponse = await fetch(`${addr.SERVER_ADDRESS}/api/category/products`, {
                 method: "POST",
@@ -76,7 +89,6 @@ export default {
             const productsInformation = await productsResponse.json();
             return productsInformation
         },
-
         async getProductsBySubcategory(subcategoryName) {
             const productsResponse = await fetch(`${addr.SERVER_ADDRESS}/api/category/subcategory/products`, {
                 method: "POST",
@@ -89,7 +101,6 @@ export default {
 
             this.products = await productsResponse.json();
         },
-
         formatPrice(price) {
             const priceString = String(price)
             const formattedPrice = priceString.substring(0, priceString.length - 2) + "." + priceString.substring(priceString.length - 2)

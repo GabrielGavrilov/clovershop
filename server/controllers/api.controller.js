@@ -8,7 +8,6 @@ const Product = require("../models/product.model")
 
 async function listAllCategories(req, res) {
     const categories = await Category.find({})
-    
     return res.json(categories)
 }
 
@@ -16,14 +15,20 @@ async function listCategoryInformation(req, res) {
     const { categoryName } = req.body
     const category = await Category.findOne({categoryName: categoryName})
     
-    return res.json(category)
+    if(category)
+        return res.json(category)
+    else 
+        return res.json({status: 404})
 }
 
 async function listCategoryInformationById(req, res) {
     const categoryId = req.params.categoryId
     const category = await Category.findOne({_id: categoryId})
 
-    return res.json(category)
+    if(category)
+        return res.json(category)
+    else
+        return res.json({status: 404})
 }
 
 async function listAllSubcategoriesInCategory(req, res) {
@@ -78,19 +83,19 @@ async function listProductInformationByName(req, res) {
     const { categoryName, productName } = req.body
     const product = await Product.findOne({categoryName: categoryName, productName: productName})
     
-    return res.json(product)
+    if(product)
+        return res.json(product)
+    else
+        return res.json({status: 404})
 }
 
 async function listProductInformationById(req, res) {
     const product = await Product.findOne({_id: req.params.productId})
 
-    if(product) {
+    if(product)
         return res.json(product)
-    }
-
-    else {
+    else 
         return res.json({status: 404})
-    }
 }
 
 module.exports = {

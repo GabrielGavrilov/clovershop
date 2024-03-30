@@ -1,5 +1,8 @@
 <template>
-    <div v-if="product !== undefined">
+    <div v-if="!productExists">
+        <NotFoundComponent message="The page you are looking for does not exist!"/>
+    </div>
+    <div v-else-if="product !== undefined && productExists">
         <div>
             <img v-bind:src="require(`@/assets/${product.productPicture}`)">
         </div>
@@ -27,15 +30,18 @@
 <script>
 import addr from "../../../addresses.js"
 import AddToCardComponent from "@/components/AddToCardComponent.vue"
+import NotFoundComponent from "./NotFoundComponent.vue"
 
 export default {
     name: "ProductComponent",
     props: ["categoryName", "productName"],
     components: {
-        AddToCardComponent
+        AddToCardComponent,
+        NotFoundComponent
     },
     data() {
         return {
+            productExists: true,
             product: undefined
         }
     },
@@ -50,6 +56,9 @@ export default {
         })
         
         this.product = await response.json()
+
+        if(this.product.status == 404)
+            this.productExists = false
     },
     methods: {
         formatPrice(price) {

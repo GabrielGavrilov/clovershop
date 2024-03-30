@@ -112,6 +112,11 @@ const routes = [
         path: "/admin/order/:orderId",
         name: "Order information",
         component: AdminOrderInformationView
+    },
+    {
+        path: "/:pathMatch(.*)*",
+        name: "404",
+        component: PageNotFoundView
     }
 ]
 
