@@ -63,8 +63,10 @@ async function displayCheckout(req, res) {
 
     res.render("checkout.ejs", {
         orderId: order._id,
-        amount: order.orderTotal,
-        name: order._id
+        orderTotal: order.orderTotal,
+        orderNumber: order.orderNumber,
+        orderStatus: order.orderStatus,
+        orderProducts: order.orderProducts
     })
 }
 
@@ -99,7 +101,7 @@ async function processCheckout(req, res) {
 
                 await Order.findOneAndUpdate(findOrder, markComplete)
                 req.session.cart = []
-                return res.send("Payment completed!")
+                return res.redirect(`/order/checkout/${req.params.id}`)
             })
         })
     }

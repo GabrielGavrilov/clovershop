@@ -1,13 +1,18 @@
 <template>
 	<DashboardHeaderComponent/>
 	<div v-if="orders !== undefined">
-		<li v-for="order in orders">
-			<p>#{{ order.orderNumber }}</p>
-			<p>{{ order.createdAt }}</p>
-			<p>{{ order.customerEmail }}</p>
-			<p>{{ order.orderStatus }}</p>
-			<p>{{ order.orderTotal }}</p>
-		</li>
+		<div v-if="orders.length > 0">
+			<li v-for="order in orders">
+				<p>#{{ order.orderNumber }}</p>
+				<p>{{ order.createdAt }}</p>
+				<p>{{ order.customerEmail }}</p>
+				<p>{{ order.orderStatus }}</p>
+				<p>{{ order.orderTotal }}</p>
+			</li>
+		</div>
+		<div v-else>
+			<p>No orders</p>
+		</div>
 	</div>
 	<div v-else>
 		<p>Loading...</p>

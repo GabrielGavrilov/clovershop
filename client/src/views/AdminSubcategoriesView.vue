@@ -3,13 +3,23 @@
     <a v-bind:href="$router.resolve({name: 'New subcategory'}).href">
         <button>Create a new Subcategory</button>
     </a>
-    <ul>
-        <li v-for="subcategory in subcategories">
-            <a v-bind:href="$router.resolve({name: 'Update subcategory', params: {subcategoryId: subcategory._id}}).href">
-                {{ subcategory.subcategoryName }}
-            </a>
-        </li>
-    </ul>
+    <div v-if="subcategories !== undefined">
+        <div v-if="subcategories.length > 0">
+            <ul>
+                <li v-for="subcategory in subcategories">
+                    <a v-bind:href="$router.resolve({name: 'Update subcategory', params: {subcategoryId: subcategory._id}}).href">
+                        {{ subcategory.subcategoryName }}
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div v-else>
+            <p>No subcategories</p>
+        </div>
+    </div>
+    <div v-else>
+        <p>Loading...</p>
+    </div>
 </template>
 
 <script>
@@ -25,7 +35,7 @@ export default {
     data() {
         return {
             router: useRouter,
-            subcategories: []
+            subcategories: undefined
         }
     },
     async mounted() {

@@ -12,7 +12,7 @@
             {{ subcategory.subcategoryName }}
         </li>
     </ul>
-    <div v-for="product in products">
+    <div v-if="products.length > 0" v-for="product in products">
         <CategoryProductComponent 
             v-bind:productId="product._id"
             v-bind:productPicture="product.productPicture"
@@ -20,6 +20,9 @@
             v-bind:productPrice="formatPrice(product.productPrice)"
             v-bind:categoryName="categoryName"
         />
+    </div>
+    <div v-else>
+        <p>No products exist</p>
     </div>
 </template>
 

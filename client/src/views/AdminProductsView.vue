@@ -3,11 +3,21 @@
     <a v-bind:href="$router.resolve({name: 'New product'}).href">
         <button>Create new product</button>
     </a>
-    <ul>
-        <li v-for="product in products">
-            <a v-bind:href="$router.resolve({name: 'Update product', params: {productId: product._id}}).href">{{ product.productName }}</a>
-        </li>
-    </ul>
+    <div v-if="products !== undefined">
+        <div v-if="products.length > 0">
+            <ul>
+                <li v-for="product in products">
+                    <a v-bind:href="$router.resolve({name: 'Update product', params: {productId: product._id}}).href">{{ product.productName }}</a>
+                </li>
+            </ul>
+        </div>
+        <div v-else>
+            <p>No products</p>
+        </div>
+    </div>
+    <div v-else>
+        <p>Loading...</p>
+    </div>
 </template>
 
 <script>
@@ -23,7 +33,7 @@ export default {
     data() {
         return {
             router: useRouter(),
-            products: []
+            products: undefined
         }
     },
     async mounted() {
