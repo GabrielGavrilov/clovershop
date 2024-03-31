@@ -53,11 +53,14 @@ async function deauthorizeAdministrator(req, res) {
 async function getAdministratorInformation(req, res) {
     try {
         const cookie = req.cookies["jwt"]
+
+        if(!cookie)
+            return res.json({status: 401})
+
         const auth = jwt.verify(cookie, config.SECRET_KEY)
 
-        if(!auth) {
+        if(!auth)
             return res.json({status: 401})
-        }
 
         const admin = await Admin.findOne({_id: auth._id})
         return res.json({
