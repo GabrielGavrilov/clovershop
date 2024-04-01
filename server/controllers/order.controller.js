@@ -16,15 +16,18 @@ async function createOrder(req, res) {
     } = req.body
     const cart = req.session.cart
     let cartSubtotal = 0
+    // let orderProducts = []
     const orderCount = await Order.countDocuments({})
 
     // This could definitely be done in the client side
     // or maybe not, this is more secure
     if(cart) {
         for(let i = 0; i < cart.length; i++) {
-            const product = await Product.findOne({_id: cart[i].productId})
+            // const product = await Product.findOne({_id: cart[i].productId})
+            const product = cart[i].product
             const quantity = cart[i].quantity
             cartSubtotal += (product.productPrice * quantity)
+            // orderProducts.push(product)
         }
 
         const order = new Order({

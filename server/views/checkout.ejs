@@ -6,8 +6,10 @@
     <p><%= orderStatus %></p>
     <% if(orderProducts.length > 0) { %>
         <% orderProducts.forEach((item)=> { %>
-            <p><%= item.productId %></p>
+            <p><%= item.product.productName %></p>
+            <p><%= item.product.productPrice %></p>
             <p><%= item.quantity %></p>
+            <p><%= item.quantity * item.product.productPrice %></p>
         <% }) %>
         <p>Order subtotal: <%= orderTotal %></p>
     <% } %>
@@ -29,7 +31,7 @@
       <% if(orderStatus == "unpaid") { %>
         <button type="submit">Pay</button>
       <% } else { %>
-        <button disabled type="submit">Pay</button
+        <button disabled type="submit">Pay</button>
       <% } %>
     </form>
 </body>
