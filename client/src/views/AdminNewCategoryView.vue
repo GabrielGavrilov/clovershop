@@ -52,7 +52,6 @@ export default {
             else
                 await this.router.go()
         },
-
         async authorizeUser() {
             const response = await fetch(`${addr.SERVER_ADDRESS}/auth/account`, {
                 headers: {"Content-Type": "application/json"},

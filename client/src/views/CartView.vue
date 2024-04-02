@@ -34,7 +34,6 @@ export default {
         })
         const cartItems = await response.json()
         
-        // Check if cart even exists
         for(let i = 0; i < cartItems.length; i++) {
             const product = await this.getProductInformation(cartItems[i].productId);
             const quantity = cartItems[i].quantity;

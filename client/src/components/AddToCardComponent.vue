@@ -1,7 +1,7 @@
 <template>
     <form v-on:submit.prevent="addItemToCart()">
         <div>
-            <input v-model="item.quantity" type="number" value="1">
+            <input v-model="item.quantity" type="number" min="1" value="1">
         </div>
         <div>
             <button type="submit">Add to cart</button>
@@ -35,9 +35,7 @@ export default {
                 body: JSON.stringify(this.item)
             })
 
-            console.log(await response.json())
-
-            await this.router.push("/")
+            await this.router.push("/cart")
         }
     }
 }

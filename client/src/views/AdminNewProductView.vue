@@ -61,8 +61,20 @@ export default {
         this.categories = await response.json()
     },
     methods: {
+        async authorizeUser() {
+            const response = await fetch(`${addr.SERVER_ADDRESS}/auth/account`, {
+                headers: {"Content-Type": "application/json"},
+                credentials: "include"
+            })
+
+            const authResponse = await response.json()
+
+            if(authResponse.status == 401 || authResponse.status == 400)
+                this.router.push("/admin/login")
+        },
         async createProduct(event) {
             const formData = new FormData()
+
             formData.append("file", event.target[0].files[0])
             formData.append("productName", this.product.productName)
             formData.append("productDescription", this.product.productDescription)
@@ -84,18 +96,6 @@ export default {
 
             else
                 await this.router.go()
-        },
-
-        async authorizeUser() {
-            const response = await fetch(`${addr.SERVER_ADDRESS}/auth/account`, {
-                headers: {"Content-Type": "application/json"},
-                credentials: "include"
-            })
-
-            const authResponse = await response.json()
-
-            if(authResponse.status == 401 || authResponse.status == 400)
-                this.router.push("/admin/login")
         }
     }
 }

@@ -54,6 +54,17 @@ export default {
         this.product.productQuantity = productInformation.productQuantity
     },
     methods: {
+        async authorizeUser() {
+            const response = await fetch(`${addr.SERVER_ADDRESS}/auth/account`, {
+                headers: {"Content-Type": "application/json"},
+                credentials: "include"
+            })
+
+            const authResponse = await response.json()
+
+            if(authResponse.status == 401 || authResponse.status == 400)
+                this.router.push("/admin/login")
+        },
         async updateProduct() {
             const response = await fetch(`${addr.SERVER_ADDRESS}/admin/product/update`, {
                 method: "POST",
@@ -69,18 +80,6 @@ export default {
 
             else
                 await this.router.push("/admin/products")
-        },
-
-        async authorizeUser() {
-            const response = await fetch(`${addr.SERVER_ADDRESS}/auth/account`, {
-                headers: {"Content-Type": "application/json"},
-                credentials: "include"
-            })
-
-            const authResponse = await response.json()
-
-            if(authResponse.status == 401 || authResponse.status == 400)
-                this.router.push("/admin/login")
         }
     }
 }

@@ -47,6 +47,17 @@ export default {
         this.categories = await response.json()
     },
     methods: {
+        async authorizeUser() {
+            const response = await fetch(`${addr.SERVER_ADDRESS}/auth/account`, {
+                headers: {"Content-Type": "application/json"},
+                credentials: "include"
+            })
+
+            const authResponse = await response.json()
+
+            if(authResponse.status == 401 || authResponse.status == 400)
+                this.router.push("/admin/login")
+        },
         async createSubcategory() {
             const response = await fetch(`${addr.SERVER_ADDRESS}/admin/subcategory/new`, {
                 method: "POST",
@@ -62,18 +73,6 @@ export default {
 
             else
                 await this.router.go()
-        },
-
-        async authorizeUser() {
-            const response = await fetch(`${addr.SERVER_ADDRESS}/auth/account`, {
-                headers: {"Content-Type": "application/json"},
-                credentials: "include"
-            })
-
-            const authResponse = await response.json()
-
-            if(authResponse.status == 401 || authResponse.status == 400)
-                this.router.push("/admin/login")
         }
     }
 }

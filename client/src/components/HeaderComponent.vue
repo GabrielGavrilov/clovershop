@@ -14,20 +14,17 @@ import { onMounted, ref } from "vue"
 
 export default {
     name: "HeaderComponent",
-    setup() {
-        let categories = ref()
-
-        onMounted(async function() {
-            const response = await fetch(`${addr.SERVER_ADDRESS}/api/categories/`, {
-                headers: {"Content-Type": "application/json"}
-            })
-
-            categories.value = await response.json()
+    data() {
+        return {
+            categories: []
+        }
+    },
+    async mounted() {
+        const response = await fetch(`${addr.SERVER_ADDRESS}/api/categories/`, {
+            headers: {"Content-Type": "application/json"}
         })
 
-        return {
-            categories
-        }
+        this.categories = await response.json()
     }
 }
 </script>

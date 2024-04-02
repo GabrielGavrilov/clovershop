@@ -1,9 +1,7 @@
 <template>
     <HeaderComponent/>
     <div v-if="!categoryExists">
-        <NotFoundComponent
-            message="The page you are looking for does not exist!"
-        />
+        <NotFoundComponent message="The page you are looking for does not exist!"/>
     </div>
     <h2>{{ category.categoryName }}</h2>
     <h3>{{ category.categoryDescription }}</h3>
@@ -12,7 +10,7 @@
             {{ subcategory.subcategoryName }}
         </li>
     </ul>
-    <div v-if="products.length > 0" v-for="product in products">
+    <div v-if="products.length > 0 && categoryExists" v-for="product in products">
         <CategoryProductComponent 
             v-bind:productId="product._id"
             v-bind:productPicture="product.productPicture"
@@ -21,7 +19,7 @@
             v-bind:categoryName="categoryName"
         />
     </div>
-    <div v-else>
+    <div v-else-if="products.length == 0 && categoryExists">
         <p>No products exist</p>
     </div>
 </template>
