@@ -20,7 +20,7 @@ async function addProductToCart(req, res) {
 
     if(product) {
         const cartItem = {
-            product: product,
+            productId: productId,
             quantity: quantity
         }
 

@@ -4,14 +4,14 @@
 <body>
     <p>Order #<%= orderNumber %></p>
     <p><%= orderStatus %></p>
+
     <% if(orderProducts.length > 0) { %>
-        <% orderProducts.forEach((item)=> { %>
-            <p><%= item.product.productName %></p>
-            <p><%= item.product.productPrice %></p>
-            <p><%= item.quantity %></p>
-            <p><%= item.quantity * item.product.productPrice %></p>
-        <% }) %>
-        <p>Order subtotal: <%= orderTotal %></p>
+      <% for(let i = 0; i < orderProducts.length; i++) { %>
+        <p><%= orderProductsInformation[i].productName %></p>
+        <p><%= orderProductsInformation[i].productPrice %></p>
+        <p><%= orderProducts[i].quantity %></p>
+        <p><%= orderProducts[i].quantity * orderProductsInformation[i].productPrice %></p>
+      <% } %>
     <% } %>
 
     <form action="/order/checkout/<%= orderId %>" method="POST">

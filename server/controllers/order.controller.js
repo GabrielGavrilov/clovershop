@@ -16,18 +16,15 @@ async function createOrder(req, res) {
     } = req.body
     const cart = req.session.cart
     let cartSubtotal = 0
-    // let orderProducts = []
     const orderCount = await Order.countDocuments({})
 
     // This could definitely be done in the client side
     // or maybe not, this is more secure
     if(cart) {
         for(let i = 0; i < cart.length; i++) {
-            // const product = await Product.findOne({_id: cart[i].productId})
-            const product = cart[i].product
+            const product = await Product.findOne({_id: cart[i].productId})
             const quantity = cart[i].quantity
             cartSubtotal += (product.productPrice * quantity)
-            // orderProducts.push(product)
         }
 
         const order = new Order({
@@ -63,13 +60,20 @@ async function createOrder(req, res) {
 
 async function displayCheckout(req, res) {
     const order = await Order.findOne({_id: req.params.id})
+    let products = []
+
+    for(let i = 0; i < order.orderProducts.length; i++) {
+        const product = await Product.findOne({_id: order.orderProducts[i].productId})
+        products.push(product)
+    }
 
     res.render("checkout.ejs", {
         orderId: order._id,
         orderTotal: order.orderTotal,
         orderNumber: order.orderNumber,
         orderStatus: order.orderStatus,
-        orderProducts: order.orderProducts
+        orderProducts: order.orderProducts,
+        orderProductsInformation: products
     })
 }
 

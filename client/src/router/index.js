@@ -23,6 +23,9 @@ import AdminOrderInformationView from "@/views/AdminOrderInformationView"
 import PageNotFoundView from "@/views/PageNotFoundView"
 
 const routes = [
+    
+    // User routes
+
     {
         path: "/",
         name: "Home",
@@ -48,6 +51,9 @@ const routes = [
         name: "Checkout",
         component: CheckoutView
     },
+
+    // Admin routes
+
     {
         path: "/admin/login",
         name: "Log in",
@@ -113,6 +119,9 @@ const routes = [
         name: "Order information",
         component: AdminOrderInformationView
     },
+
+    // wild card route
+
     {
         path: "/:pathMatch(.*)*",
         name: "404",
