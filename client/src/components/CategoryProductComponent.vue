@@ -1,13 +1,13 @@
 <template>
     <div>
-        <img v-bind:src="require(`@/assets/${productPicture}`)">
+        <img class="shop-item-image" v-bind:src="require(`@/assets/${productPicture}`)">
     </div>
-    <div>
-        <a v-bind:href="$router.resolve({name: 'Product', params: {category: categoryName, product: productName}}).href">
+    <div class="shop-item-title">
+        <a class="shop-item-link" v-bind:href="$router.resolve({name: 'Product', params: {category: categoryName, product: productName}}).href">
             {{ productName }}
         </a>
     </div>
-    <div>
+    <div class="shop-item-price">
         <p>${{ productPrice }}</p>
     </div>
 </template>
@@ -24,3 +24,32 @@ export default {
     ]
 }
 </script>
+
+<style>
+.shop-item-image 
+{
+    height: 250px;
+    width: 250px;
+    background-color: #f6f6f6;
+}
+
+.shop-item-title
+{
+    width: 250px;
+    margin-top: 1rem;
+    font-weight: 700;
+}
+
+.shop-item-link
+{
+    color: black;
+    text-decoration: none;
+}
+
+.shop-item-price
+{
+    width: 250px;
+    margin-top: .5rem;
+    margin-bottom: 2rem;
+}
+</style>

@@ -1,31 +1,55 @@
 <template>
     <HeaderComponent/>
-    <div v-if="!categoryExists">
-        <NotFoundComponent message="The page you are looking for does not exist!"/>
-    </div>
-    <h2>{{ category.categoryName }}</h2>
-    <h3>{{ category.categoryDescription }}</h3>
-    <ul>
-        <li @click="getProductsBySubcategory(subcategory.subcategoryName)" v-for="subcategory in subcategories">
-            {{ subcategory.subcategoryName }}
-        </li>
-    </ul>
-    <div v-if="products.length > 0 && categoryExists" v-for="product in products">
-        <CategoryProductComponent 
-            v-bind:productId="product._id"
-            v-bind:productPicture="product.productPicture"
-            v-bind:productName="product.productName"
-            v-bind:productPrice="formatPrice(product.productPrice)"
-            v-bind:categoryName="categoryName"
-        />
-    </div>
-    <div v-else-if="products.length == 0 && categoryExists">
-        <p>No products exist</p>
-    </div>
+    <main>
+        <div v-if="!categoryExists">
+            <NotFoundComponent message="The page you are looking for does not exist!"/>
+        </div>
+        <div class="category-banner-content">
+            <div class="shop-banner-text">
+                <div class="shop-banner-title">
+                    <p>{{ category.categoryName }}</p>
+                </div>
+                <div class="shop-banner-description">
+                    <p>{{ category.categoryDescription }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="shop-content">
+            <div class="shop-settings">
+                <div>
+                    <p class="category-title">Subcategories</p>
+                    <div class="category-line"></div>
+                    <ul>
+                        <li @click="getProductsBySubcategory(subcategory.subcategoryName)" v-for="subcategory in subcategories">
+                            {{ subcategory.subcategoryName }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="shop-container">
+                
+                <div class="shop-item" v-if="products.length > 0 && categoryExists" v-for="product in products">
+                    <CategoryProductComponent 
+                        v-bind:productId="product._id"
+                        v-bind:productPicture="product.productPicture"
+                        v-bind:productName="product.productName"
+                        v-bind:productPrice="formatPrice(product.productPrice)"
+                        v-bind:categoryName="categoryName"
+                    />
+                </div>
+                <div v-else-if="products.length == 0 && categoryExists">
+                    <p>No products exist</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
 </template>
 
 <script>
 import addr from "../../../addresses.js"
+import style from "@/assets/css/category.css"
 import HeaderComponent from "@/components/HeaderComponent.vue"
 import CategoryProductComponent from "@/components/CategoryProductComponent.vue"
 import NotFoundComponent from "@/components/NotFoundComponent.vue"

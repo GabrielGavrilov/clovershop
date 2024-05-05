@@ -22,7 +22,7 @@
             </div>
         </div>
     </header>
-    <div class="hr-line"></div>
+    <div class="light-line"></div>
 </template>
 
 <script>
