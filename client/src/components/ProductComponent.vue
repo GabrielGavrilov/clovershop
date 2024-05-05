@@ -2,24 +2,26 @@
     <div v-if="!productExists">
         <NotFoundComponent message="The page you are looking for does not exist!"/>
     </div>
-    <div v-else-if="product !== undefined && productExists">
-        <div>
-            <img v-bind:src="require(`@/assets/${product.productPicture}`)">
+    <div class="product-content" v-else-if="product !== undefined && productExists">
+        <div class="product-picture">
+            <img class="product-img" v-bind:src="require(`@/assets/${product.productPicture}`)">
         </div>
-        <div>
-            <p>{{ product.productName }}</p>
-        </div>
-        <div>
-            <p>${{ formatPrice(product.productPrice) }}</p>
-        </div>
-        <div>
-            <p>{{ product.productQuantity }}</p>
-        </div>
-        <div>
-            <AddToCardComponent v-bind:productId="product._id"/>
-        </div>
-        <div>
-            <p>{{ product.productDescription }}</p>
+        <div class="product-information">
+            <div class="product-name">
+                <p>{{ product.productName }}</p>
+            </div>
+            <div class="product-price">
+                <p>${{ formatPrice(product.productPrice) }}</p>
+            </div>
+            <div class="product-stock">
+                <p>{{ product.productQuantity }}</p>
+            </div>
+            <div>
+                <AddToCardComponent v-bind:productId="product._id"/>
+            </div>
+            <div class="product-description">
+                <p>{{ product.productDescription }}</p>
+            </div>
         </div>
     </div>
     <div v-else>
@@ -29,6 +31,7 @@
 
 <script>
 import addr from "../../../addresses.js"
+import style from "@/assets/css/product.css"
 import AddToCardComponent from "@/components/AddToCardComponent.vue"
 import NotFoundComponent from "./NotFoundComponent.vue"
 
