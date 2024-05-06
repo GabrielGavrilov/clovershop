@@ -1,17 +1,48 @@
 <template>
     <HeaderComponent/>
-    <h2>Cart</h2>
-    <div v-for="item in items">
-        <CartItemComponent v-bind:item="item"/>
-    </div>
-    <p>${{ formatPrice(cartSubtotal) }}</p>
-    <a v-bind:href="$router.resolve({name: 'Checkout'}).href">
-        <button>Checkout</button>
-    </a>
+    <main>
+        <div class="cart-content">
+            <div class="cart-items">
+                <div class="products-header">PRODUCTS</div>
+                <div class="light-line"></div>
+                <div v-for="item in items">
+                    <CartItemComponent v-bind:item="item"/>
+                </div>
+                <div class="light-line"></div>
+                <div class="cart-summary">
+                    <div class="cart-total">
+                        <p>${{ formatPrice(cartSubtotal) }}</p>
+                    </div>
+                    <div class="reset-cart">
+                        <a @click="resetCart()"><p>Reset cart</p></a>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="cart-checkout">
+                <p class="checkout-header">CHECKOUT</p>
+                <div class="light-line checkout-header-line"></div>
+                <div class="cart-checkout-subtotal">
+                    <p class="subtotal-text">Subtotal</p>
+                    <p class="subtotal-amount">${{ formatPrice(cartSubtotal) }}</p>
+                </div>
+                <div class="cart-checkout-text">
+                    <p>Taxes and shipping calculated at checkout</p>
+                </div>
+                <div class="cart-checkout-button">
+                    <a v-bind:href="$router.resolve({name: 'Checkout'}).href">
+                        <button class="cart-checkout-btn">Checkout</button>
+                    </a>
+                </div>
+            </div>      
+        </div>
+    </main>
 </template>
 
 <script>
 import addr from "../../../addresses.js"
+import style from "@/assets/css/cart.css"
+import { useRouter } from "vue-router"
 import HeaderComponent from '@/components/HeaderComponent.vue'
 import CartItemComponent from '@/components/CartItemComponent.vue'
 
@@ -23,6 +54,7 @@ export default {
     },
     data() {
         return {
+            router: useRouter(),
             items: [],
             cartSubtotal: 0
         }
@@ -55,6 +87,18 @@ export default {
 
             const product = await response.json()
             return product
+        },
+        async resetCart() {
+            const response = await fetch(`${addr.SERVER_ADDRESS}/cart/reset`, {
+                headers: {"Content-Type": "application/json"},
+                credentials: "include",
+                method: "POST"
+            })
+
+            const cartResponse = await response.json()
+
+            if(cartResponse.status == 200)
+                await this.router.go()
         },
         formatPrice(price) {
             const priceString = String(price)

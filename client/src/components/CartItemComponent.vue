@@ -1,8 +1,13 @@
 <template>
-        <p>{{ item.product.productName }}</p>
-        <p>${{ formatPrice(item.product.productPrice) }}</p>
-        <p>{{ item.quantity }}</p>
-        <p>${{ formatPrice(item.product.productPrice * item.quantity) }}</p>
+    <div class="cart-product">
+        <img class="cart-product-image" v-bind:src="require(`@/assets/${item.product.productPicture}`)">
+        <div class="cart-product-information">
+            <p class="cart-product-title">{{ item.product.productName }}</p>
+            <p class="cart-product-quantity">Qty: {{ item.quantity }}</p>
+            <p class="cart-product-price">${{ formatPrice(item.product.productPrice) }}</p>
+            <!-- <p class="cart-product-price">${{ formatPrice(item.product.productPrice * item.quantity) }}</p> -->
+        </div>
+    </div>
 </template>
 
 <script>
@@ -18,3 +23,49 @@ export default {
     }
 }
 </script>
+
+<style>
+.cart-product 
+{
+    margin-top: .25rem;
+    margin-bottom: .25rem;
+    display: flex;
+}
+
+.cart-product-image 
+{
+    height: 100px;
+}
+
+.cart-product-information 
+{
+    margin-left: 1rem;
+    width: 100%;
+    display: flex;
+}
+
+.cart-product-title
+{
+    font-weight: 700;
+    height: 100%;
+    width: 66%;
+    display: flex;
+    align-items: center;
+}
+
+.cart-product-quantity 
+{
+    height: 100%;
+    width: 33%;
+    display: flex;
+    align-items: center;
+}
+
+.cart-product-price
+{
+    height: 100%;
+    width: 33%;
+    display: flex;
+    align-items: center;
+}
+</style>
