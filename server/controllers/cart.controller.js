@@ -63,7 +63,7 @@ async function displayCart(req, res) {
 
 function resetCart(req, res) {
     req.session.cart = []
-    return res.json({stauts: 200})
+    return res.json({status: 200})
 }
 
 module.exports = {

@@ -31,7 +31,6 @@
 
 <script>
 import addr from "../../../addresses.js"
-import style from "@/assets/css/product.css"
 import AddToCardComponent from "@/components/AddToCardComponent.vue"
 import NotFoundComponent from "./NotFoundComponent.vue"
 

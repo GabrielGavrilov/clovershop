@@ -97,6 +97,8 @@ export default {
 
             const cartResponse = await response.json()
 
+            console.log(cartResponse.status)
+
             if(cartResponse.status == 200)
                 await this.router.go()
         },

@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import style from '@/assets/css/product.css'
 import HeaderComponent from '@/components/HeaderComponent.vue';
 import ProductComponent from '@/components/ProductComponent.vue';
 
@@ -22,15 +23,3 @@ export default {
     }
 }
 </script>
-
-<style>
-main
-{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-}
-</style>

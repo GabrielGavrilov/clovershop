@@ -13,6 +13,7 @@
 </template>
 
 <script>
+
 export default {
     name: "CategoryProductComponent",
     props: [
@@ -24,32 +25,3 @@ export default {
     ]
 }
 </script>
-
-<style>
-.shop-item-image 
-{
-    height: 250px;
-    width: 250px;
-    background-color: #f6f6f6;
-}
-
-.shop-item-title
-{
-    width: 250px;
-    margin-top: 1rem;
-    font-weight: 700;
-}
-
-.shop-item-link
-{
-    color: black;
-    text-decoration: none;
-}
-
-.shop-item-price
-{
-    width: 250px;
-    margin-top: .5rem;
-    margin-bottom: 2rem;
-}
-</style>
