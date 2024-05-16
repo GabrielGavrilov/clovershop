@@ -1,10 +1,10 @@
 <template>
-    <div class="cart-product">
-        <img class="cart-product-image" v-bind:src="require(`@/assets/${item.product.productPicture}`)">
-        <div class="cart-product-information">
-            <p class="cart-product-title">{{ item.product.productName }}</p>
-            <p class="cart-product-quantity">Qty: {{ item.quantity }}</p>
-            <p class="cart-product-price">${{ formatPrice(item.product.productPrice) }}</p>
+    <div class="cart-item">
+        <img class="cart-item-image" v-bind:src="require(`@/assets/${item.product.productPicture}`)">
+        <div class="cart-item-information">
+            <p class="cart-item-title">{{ item.product.productName }}</p>
+            <p class="cart-item-quantity">Qty: {{ item.quantity }}</p>
+            <p class="cart-item-price">${{ formatPrice(item.product.productPrice) }}</p>
             <!-- <p class="cart-product-price">${{ formatPrice(item.product.productPrice * item.quantity) }}</p> -->
         </div>
     </div>

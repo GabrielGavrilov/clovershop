@@ -3,8 +3,8 @@
         <NotFoundComponent message="The page you are looking for does not exist!"/>
     </div>
     <div class="product-content" v-else-if="product !== undefined && productExists">
-        <div class="product-picture">
-            <img class="product-img" v-bind:src="require(`@/assets/${product.productPicture}`)">
+        <div class="product-picture-content">
+            <img class="product-picture" v-bind:src="require(`@/assets/${product.productPicture}`)">
         </div>
         <div class="product-information">
             <div class="product-name">

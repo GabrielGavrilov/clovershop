@@ -2,15 +2,15 @@
     <HeaderComponent/>
     <main>
         <div class="cart-content">
-            <div class="cart-items">
-                <div class="products-header">PRODUCTS</div>
+            <div class="cart-product-items-content">
+                <div class="cart-products-header">PRODUCTS</div>
                 <div class="light-line"></div>
                 <div v-for="item in items">
                     <CartItemComponent v-bind:item="item"/>
                 </div>
                 <div class="light-line"></div>
                 <div class="cart-summary">
-                    <div class="cart-total">
+                    <div class="cart-total-price">
                         <p>${{ formatPrice(cartSubtotal) }}</p>
                     </div>
                     <div class="reset-cart">
@@ -19,19 +19,19 @@
                 </div>
             </div>
     
-            <div class="cart-checkout">
-                <p class="checkout-header">CHECKOUT</p>
-                <div class="light-line checkout-header-line"></div>
+            <div class="cart-checkout-content">
+                <p class="cart-checkout-header">CHECKOUT</p>
+                <div class="light-line cart-checkout-header-line"></div>
                 <div class="cart-checkout-subtotal">
-                    <p class="subtotal-text">Subtotal</p>
-                    <p class="subtotal-amount">${{ formatPrice(cartSubtotal) }}</p>
+                    <p class="cart-subtotal-text">Subtotal</p>
+                    <p class="cart-subtotal-amount">${{ formatPrice(cartSubtotal) }}</p>
                 </div>
-                <div class="cart-checkout-text">
+                <div class="cart-checkout-shipping-text">
                     <p>Taxes and shipping calculated at checkout</p>
                 </div>
-                <div class="cart-checkout-button">
+                <div class="cart-checkout-button-content">
                     <a v-bind:href="$router.resolve({name: 'Checkout'}).href">
-                        <button class="cart-checkout-btn">Checkout</button>
+                        <button class="cart-checkout-button">Checkout</button>
                     </a>
                 </div>
             </div>      
@@ -64,6 +64,7 @@ export default {
             headers: {"Content-Type": "application/json"},
             credentials: "include"
         })
+        
         const cartItems = await response.json()
         
         for(let i = 0; i < cartItems.length; i++) {
