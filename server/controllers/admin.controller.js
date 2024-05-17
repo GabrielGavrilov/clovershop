@@ -3,6 +3,7 @@ const config = require("../devconfig")
 const Category = require("../models/category.model")
 const Subcategory = require("../models/subcategory.model")
 const Product = require("../models/product.model")
+const stripe = require("stripe")(config.STRIPE_SECRET_KEY)
 
 async function createNewCategory(req, res) {
     try {
@@ -172,6 +173,17 @@ async function updateSubcategory(req, res) {
     }
 }
 
+async function createStripeProductAndGetId(productName, productPrice) {
+    const price = await stripe.prices.create({
+        currency: 'cad',
+        unit_amount: productPrice,
+        product_data: {
+            name: productName,
+        },
+    });
+    return price
+}
+
 async function createNewProduct(req, res) {
     try {
         const {
@@ -197,7 +209,11 @@ async function createNewProduct(req, res) {
             })
         }
 
+        const stripeProduct = await createStripeProductAndGetId(productName, productPrice);
+
         const product = new Product({
+            productStripeProductId: stripeProduct.product,
+            productStripePriceId: stripeProduct.id,
             productPicture: req.file.filename,
             productName: productName,
             productDescription: productDescription,

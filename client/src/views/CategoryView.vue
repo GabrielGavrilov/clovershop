@@ -83,47 +83,32 @@ export default {
         }
     },
     methods: {
-        async getCategoryInformation() {
-            const categoryResponse = await fetch(`${addr.SERVER_ADDRESS}/api/category/`, {
+        async postFetch(url, body) {
+            const response = await fetch(url, {
                 method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({categoryName: this.route.params.category})
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(body)
             })
 
-            const categoryInformation = await categoryResponse.json();
+            return await response.json();
+        },
+        async getCategoryInformation() {
+            const categoryInformation = await this.postFetch(`${addr.SERVER_ADDRESS}/api/category`, {categoryName: this.route.params.category})
             return categoryInformation
         },
         async getAllSubcategories() {
-            const subcategoriesResponse = await fetch(`${addr.SERVER_ADDRESS}/api/category/subcategories`, {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({categoryName: this.route.params.category})
-            })
-
-            const subcategoriesInformation = await subcategoriesResponse.json();
+            const subcategoriesInformation = this.postFetch(`${addr.SERVER_ADDRESS}/api/category/subcategories`, {categoryName: this.route.params.category})
             return subcategoriesInformation
         },
         async getAllProductsInCategory() {
-            const productsResponse = await fetch(`${addr.SERVER_ADDRESS}/api/category/products`, {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({categoryName: this.category.categoryName})
-            })
-
-            const productsInformation = await productsResponse.json();
+            const productsInformation = await this.postFetch(`${addr.SERVER_ADDRESS}/api/category/products`, {categoryName: this.category.categoryName});
             return productsInformation
         },
         async getProductsBySubcategory(subcategoryName) {
-            const productsResponse = await fetch(`${addr.SERVER_ADDRESS}/api/category/subcategory/products`, {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({
-                    categoryName: this.category.categoryName,
-                    subcategoryName: subcategoryName
-                })
-            })
-
-            this.products = await productsResponse.json();
+            this.products = await this.postFetch(`${addr.SERVER_ADDRESS}/api/category/subcategory/products`, {
+                categoryName: this.category.categoryName,
+                subcategoryName: subcategoryName
+            });
         },
         formatPrice(price) {
             const priceString = String(price)

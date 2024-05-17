@@ -1,6 +1,6 @@
 <template>
     <div class="cart-item">
-        <img class="cart-item-image" v-bind:src="require(`@/assets/${item.product.productPicture}`)">
+        <img class="cart-item-image" v-bind:src="require(`@/assets/images/${item.product.productPicture}`)">
         <div class="cart-item-information">
             <p class="cart-item-title">{{ item.product.productName }}</p>
             <p class="cart-item-quantity">Qty: {{ item.quantity }}</p>
