@@ -18,8 +18,6 @@ async function createOrder(req, res) {
     let cartSubtotal = 0
     const orderCount = await Order.countDocuments({})
 
-    // This could definitely be done in the client side
-    // or maybe not, this is more secure
     if(cart) {
         for(let i = 0; i < cart.length; i++) {
             const product = await Product.findOne({_id: cart[i].productId})
@@ -27,6 +25,7 @@ async function createOrder(req, res) {
             cartSubtotal += (product.productPrice * quantity)
         }
 
+        // maybe also create a stripe customer in the future?
         const order = new Order({
             orderNumber: orderCount+1,
             customerEmail: customerEmail,
@@ -42,7 +41,6 @@ async function createOrder(req, res) {
         })
     
         await order.save()
-
         .then(function() {
             console.log(`[CloverShop]: New order created.`)
             return res.json(order)
@@ -55,6 +53,34 @@ async function createOrder(req, res) {
 
     else if(!cart) {
         return res.json({status: 404})
+    }
+}
+
+async function createStripePaymentLinkFromOrder(req, res) {
+    const { orderId } = req.body
+    const order = await Order.findOne({_id: orderId})
+    let products = []
+
+    for (let i = 0; i < order.orderProducts.length; i++) {
+        const product = await Product.findOne({ _id: order.orderProducts[i].productId })
+        const quantity = order.orderProducts[i].quantity
+        products.push(
+            {
+                price: product.productStripePriceId,
+                quantity: quantity
+            }
+        )
+    }
+
+    try {
+        const paymentLink = await stripe.paymentLinks.create({
+            line_items: products
+        })
+        return res.json(paymentLink)
+    }
+    catch (e) {
+        console.log(e)
+        return res.json({status: 400, message: "There was an issue with creating a payment link."})
     }
 }
 
@@ -83,7 +109,7 @@ async function processCheckout(req, res) {
     const findOrder = {_id: req.params.id}
     const markComplete = {orderStatus: "complete"}
     
-    // add customer 
+    // add customer?
 
     try {
         await stripe.paymentIntents.create({
@@ -193,6 +219,7 @@ async function displayOrderStatistics(req, res) {
 
 module.exports = {
     createOrder,
+    createStripePaymentLinkFromOrder,
     displayCheckout,
     processCheckout,
     displayAllOrders,

@@ -44,6 +44,18 @@ export default {
         }
     },
     methods: {
+        async createStripePaymentLink(orderId) {
+            const response = await fetch(`${addr.SERVER_ADDRESS}/order/stripe`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({orderId: orderId})
+            })
+
+            const stripePaymentLink = await response.json()
+            console.log(stripePaymentLink)
+        },
+
         async createOrder() {
             const response = await fetch(`${addr.SERVER_ADDRESS}/order/create`, {
                 method: "POST",
@@ -53,7 +65,11 @@ export default {
             })
 
             const createdOrder = await response.json()
-            window.location = `${addr.SERVER_ADDRESS}/order/checkout/${createdOrder._id}`
+
+            if (createdOrder._id)
+                await this.createStripePaymentLink(createdOrder._id)
+            else 
+                console.log(createdOrder.message)
         }
     }
 }

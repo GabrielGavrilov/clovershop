@@ -17,5 +17,6 @@ router.get("/checkout/:id", controller.displayCheckout)
 
 router.post("/checkout/:id", controller.processCheckout)
 router.post("/create", controller.createOrder)
+router.post("/stripe", controller.createStripePaymentLinkFromOrder)
 
 module.exports = router
