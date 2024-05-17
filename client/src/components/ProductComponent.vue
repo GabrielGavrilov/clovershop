@@ -4,7 +4,7 @@
     </div>
     <div class="product-content" v-else-if="product !== undefined && productExists">
         <div class="product-picture-content">
-            <img class="product-picture" v-bind:src="require(`@/assets/images/${product.productPicture}`)">
+            <img class="product-picture" v-bind:src="require(`@/assets/images/uploads/${product.productPicture}`)">
         </div>
         <div class="product-information">
             <div class="product-name">

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <img class="category-product-image" v-bind:src="require(`@/assets/images/${productPicture}`)">
+        <img class="category-product-image" v-bind:src="require(`@/assets/images/uploads/${productPicture}`)">
     </div>
     <div class="category-product-title">
         <a class="category-product-link" v-bind:href="$router.resolve({name: 'Product', params: {category: categoryName, product: productName}}).href">
