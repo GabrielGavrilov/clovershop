@@ -1,3 +1,4 @@
+const addr = require("../../addresses")
 const jwt = require("jsonwebtoken");
 const config = require("../devconfig")
 const stripe = require("stripe")(config.STRIPE_SECRET_KEY)
@@ -74,7 +75,13 @@ async function createStripePaymentLinkFromOrder(req, res) {
 
     try {
         const paymentLink = await stripe.paymentLinks.create({
-            line_items: products
+            line_items: products,
+            after_completion: {
+                type: 'redirect',
+                redirect: {
+                    url: `${addr.CLIENT_ADDRESS}/order/${orderId}`
+                }
+            }
         })
         return res.json(paymentLink)
     }
@@ -164,22 +171,15 @@ async function displayAllOrders(req, res) {
 }
 
 async function listOrderInformationById(req, res) {
-    try {
-        const orderId = req.params.orderId
-        const cookie = req.cookies["jwt"]
-        const auth = jwt.verify(cookie, config.SECRET_KEY)
-        const orders = await Order.findOne({_id: orderId})
+    const { orderId } = req.body
+    // const cookie = req.cookies["jwt"]
+    // const auth = jwt.verify(cookie, config.SECRET_KEY)
+    const order = await Order.findOne({_id: orderId})
 
-        if(!auth) {
-            return res.json({status: 401})
-        }
+    if(!order)
+        return res.json({status: 404})
 
-        return res.json(orders)
-    }
-    catch(e) {
-        console.log(e)
-        return res.json({status: 401})
-    }
+    return res.json(order)
 }
 
 async function displayOrderStatistics(req, res) {

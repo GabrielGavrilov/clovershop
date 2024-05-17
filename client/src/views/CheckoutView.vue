@@ -53,7 +53,7 @@ export default {
             })
 
             const stripePaymentLink = await response.json()
-            console.log(stripePaymentLink)
+            window.location = stripePaymentLink.url
         },
 
         async createOrder() {

@@ -7,7 +7,6 @@ const controller = require("../controllers/order.controller")
  */
 
 router.get("/", controller.displayAllOrders)
-router.get("/id", controller.listOrderInformationById)
 router.get("/statistics", controller.displayOrderStatistics)
 router.get("/checkout/:id", controller.displayCheckout)
 
@@ -15,6 +14,7 @@ router.get("/checkout/:id", controller.displayCheckout)
  * Order POST routes
  */
 
+router.post("/", controller.listOrderInformationById)
 router.post("/checkout/:id", controller.processCheckout)
 router.post("/create", controller.createOrder)
 router.post("/stripe", controller.createStripePaymentLinkFromOrder)
