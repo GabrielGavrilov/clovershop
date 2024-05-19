@@ -110,6 +110,19 @@ async function displayCheckout(req, res) {
     })
 }
 
+async function processOrderAfterStripePayment(req, res) {
+    const { orderId } = req.body
+    const order = await Order.findOneAndUpdate({ _id: orderId }, { orderStatus: "complete" })
+    req.session.cart = []
+    console.log(req.session.cart)
+
+    if(order)
+        return res.json(order)
+
+    else
+        return res.json({status: 404, message: "Order does not exist!"})
+}
+
 async function processCheckout(req, res) {
     const { stripeEmail, stripeToken } = req.body
     const order = await Order.findOne({_id: req.params.id})
@@ -171,15 +184,24 @@ async function displayAllOrders(req, res) {
 }
 
 async function listOrderInformationById(req, res) {
-    const { orderId } = req.body
-    // const cookie = req.cookies["jwt"]
-    // const auth = jwt.verify(cookie, config.SECRET_KEY)
-    const order = await Order.findOne({_id: orderId})
+    try {
+        const { orderId } = req.body
+        const cookie = req.cookies["jwt"]
+        const auth = jwt.verify(cookie, config.SECRET_KEY)
+        const order = await Order.findOne({_id: orderId})
 
-    if(!order)
-        return res.json({status: 404})
+        if(!auth)
+            return res.json({status: 401})
 
-    return res.json(order)
+        if(!order)
+            return res.json({status: 404})
+
+        return res.json(order)
+    }
+    catch (e) {
+        console.log(e)
+        return res.json({status: 401})
+    }
 }
 
 async function displayOrderStatistics(req, res) {
@@ -220,6 +242,7 @@ async function displayOrderStatistics(req, res) {
 module.exports = {
     createOrder,
     createStripePaymentLinkFromOrder,
+    processOrderAfterStripePayment,
     displayCheckout,
     processCheckout,
     displayAllOrders,

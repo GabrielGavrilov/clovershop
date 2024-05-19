@@ -34,15 +34,26 @@ async function addProductToCart(req, res) {
 
             return res.json({status: 200})
         }
-
         else {
             let updatedCart = []
-
             updatedCart = req.session.cart
-            updatedCart.push(cartItem)
-            req.session.cart = updatedCart
+            
+            // if product is already in cart, update its quantity. 
+            if (updatedCart.find(o => o.productId === productId)) {
+                updatedCart.find((o, i) => {
+                    if (o.productId === productId) {
+                        let count = updatedCart[i].quantity
+                        updatedCart[i].quantity = count + 1
+                        return res.json({status: 200})
+                    }
+                })
+            }
+            else {
+                updatedCart.push(cartItem)
+                req.session.cart = updatedCart
 
-            return res.json({status: 200})
+                return res.json({status: 200})
+            }
         }
     }
 

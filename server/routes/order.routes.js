@@ -14,7 +14,8 @@ router.get("/checkout/:id", controller.displayCheckout)
  * Order POST routes
  */
 
-router.post("/", controller.listOrderInformationById)
+router.post("/id", controller.listOrderInformationById)
+router.post("/process", controller.processOrderAfterStripePayment)
 router.post("/checkout/:id", controller.processCheckout)
 router.post("/create", controller.createOrder)
 router.post("/stripe", controller.createStripePaymentLinkFromOrder)

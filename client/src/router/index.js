@@ -5,7 +5,7 @@ import CategoryView from "@/views/CategoryView"
 import ProductView from "@/views/ProductView"
 import CartView from "@/views/CartView"
 import CheckoutView from "@/views/CheckoutView"
-import SuccessView from "@/views/SuccessView.vue"
+import AfterCheckoutView from "@/views/AfterCheckoutView.vue"
 
 import AdminLoginView from "@/views/AdminLoginView"
 import AdminDashboardView from "@/views/AdminDashboardView"
@@ -53,9 +53,9 @@ const routes = [
         component: CheckoutView
     },
     {
-        path: "/order/:orderId",
-        name: "Order",
-        component: SuccessView
+        path: "/checkout/:orderId",
+        name: "After checkout",
+        component: AfterCheckoutView
     },
 
     // Admin routes
