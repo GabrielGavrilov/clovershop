@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken")
-const config = require("../devconfig")
+const config = require("../../config/index")
 const Category = require("../models/category.model")
 const Subcategory = require("../models/subcategory.model")
 const Product = require("../models/product.model")
@@ -9,7 +9,7 @@ async function createNewCategory(req, res) {
     try {
         const { categoryName, categoryDescription } = req.body
         const cookie = req.cookies["jwt"]
-        const auth = jwt.verify(cookie, config.SECRET_KEY)
+        const auth = jwt.verify(cookie, config.SERVER_SESSION_SECRET_KEY)
         const categoryExists = await Category.findOne({categoryName: categoryName})
 
         if(!auth) {
@@ -49,7 +49,7 @@ async function updateCategory(req, res) {
     try {
         const { categoryId, categoryName, categoryDescription } = req.body
         const cookie = req.cookies["jwt"]
-        const auth = jwt.verify(cookie, config.SECRET_KEY)
+        const auth = jwt.verify(cookie, config.SERVER_SESSION_SECRET_KEY)
         const findCategory = {_id: categoryId}
         const updateCategory = {categoryName: categoryName, categoryDescription: categoryDescription}
         const updateProductAndSubcategory = {categoryName: categoryName}
@@ -97,7 +97,7 @@ async function createNewSubcategory(req, res) {
     try {
         const { subcategoryName, categoryName } = req.body
         const cookie = req.cookies["jwt"]
-        const auth = jwt.verify(cookie, config.SECRET_KEY)
+        const auth = jwt.verify(cookie, config.SERVER_SESSION_SECRET_KEY)
         const subcategoryExists = await Subcategory.findOne({subcategoryName: subcategoryName, categoryName: categoryName})
 
         if(!auth) {
@@ -135,7 +135,7 @@ async function updateSubcategory(req, res) {
     try {
         const { subcategoryId, subcategoryName } = req.body
         const cookie = req.cookies["jwt"]
-        const auth = jwt.verify(cookie, config.SECRET_KEY)
+        const auth = jwt.verify(cookie, config.SERVER_SESSION_SECRET_KEY)
 
         const findSubcategory = {_id: subcategoryId}
         const updateSubcategory = {subcategoryName: subcategoryName}
@@ -195,7 +195,7 @@ async function createNewProduct(req, res) {
             subcategoryName
         } = req.body
         const cookie = req.cookies["jwt"]
-        const auth = jwt.verify(cookie, config.SECRET_KEY)
+        const auth = jwt.verify(cookie, config.SERVER_SESSION_SECRET_KEY)
         const productExists = await Product.findOne({productName: productName, categoryName: categoryName})
 
         if(!auth) {
@@ -247,7 +247,7 @@ async function updateProduct(req, res) {
             productQuantity
         } = req.body
         const cookie = req.cookies["jwt"]
-        const auth = jwt.verify(cookie, config.SECRET_KEY)
+        const auth = jwt.verify(cookie, config.SERVER_SESSION_SECRET_KEY)
         const product = await Product.findOne({_id: productId})
         const productExists = await Product.findOne({productName: productName, categoryName: product.categoryName})
         const findProduct = {_id: productId}

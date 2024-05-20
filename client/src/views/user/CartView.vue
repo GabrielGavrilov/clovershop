@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import addr from "../../../addresses.js"
+import config from "../../../../config/index.js"
 import style from "@/assets/css/cart.css"
 import { useRouter } from "vue-router"
 import HeaderComponent from '@/components/HeaderComponent.vue'
@@ -56,11 +56,12 @@ export default {
         return {
             router: useRouter(),
             items: [],
-            cartSubtotal: 0
+            cartSubtotal: 0,
+            server: `${config.SERVER_PROTCOL}:${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
         }
     },
     async mounted() {
-        const response = await fetch(`${addr.SERVER_ADDRESS}/cart/`, {
+        const response = await fetch(`${this.server}/cart/`, {
             headers: {"Content-Type": "application/json"},
             credentials: "include"
         })
@@ -82,7 +83,7 @@ export default {
     },
     methods: {
         async getProductInformation(productId) {
-            const response = await fetch(`${addr.SERVER_ADDRESS}/api/product/${productId}`, {
+            const response = await fetch(`${this.server}/api/product/${productId}`, {
                 headers: {"Content-Type": "application/json"}
             })
 
@@ -90,7 +91,7 @@ export default {
             return product
         },
         async resetCart() {
-            const response = await fetch(`${addr.SERVER_ADDRESS}/cart/reset`, {
+            const response = await fetch(`${this.server}/cart/reset`, {
                 headers: {"Content-Type": "application/json"},
                 credentials: "include",
                 method: "POST"

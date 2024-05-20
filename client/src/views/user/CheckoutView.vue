@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import addr from "../../../addresses.js"
+import config from "../../../../config/index.js"
 import { reactive } from "vue"
 import { useRouter } from "vue-router";
 import HeaderComponent from '@/components/HeaderComponent.vue';
@@ -39,13 +39,14 @@ export default {
                 customerAddress: "",
                 customerCity: "",
                 customerProvince: "",
-                customerPostalCode: ""
+                customerPostalCode: "",
+                server: `${config.SERVER_PROTCOL}:${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
             })
         }
     },
     methods: {
         async createStripePaymentLink(orderId) {
-            const response = await fetch(`${addr.SERVER_ADDRESS}/order/stripe`, {
+            const response = await fetch(`${this.server}/order/stripe`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
@@ -57,7 +58,7 @@ export default {
         },
 
         async createOrder() {
-            const response = await fetch(`${addr.SERVER_ADDRESS}/order/create`, {
+            const response = await fetch(`${this.server}/order/create`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 credentials: "include",

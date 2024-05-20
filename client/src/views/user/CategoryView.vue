@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import addr from "../../../addresses.js"
+import config from "../../../../config/index.js"
 import style from "@/assets/css/category.css"
 import HeaderComponent from "@/components/HeaderComponent.vue"
 import CategoryProductComponent from "@/components/CategoryProductComponent.vue"
@@ -68,7 +68,8 @@ export default {
             router: useRouter(),
             category: [],
             subcategories: [],
-            products: []
+            products: [],
+            server: `${config.SERVER_PROTCOL}:${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
         }
     },
     async mounted() {
@@ -93,19 +94,19 @@ export default {
             return await response.json();
         },
         async getCategoryInformation() {
-            const categoryInformation = await this.postFetch(`${addr.SERVER_ADDRESS}/api/category`, {categoryName: this.route.params.category})
+            const categoryInformation = await this.postFetch(`${this.server}/api/category`, {categoryName: this.route.params.category})
             return categoryInformation
         },
         async getAllSubcategories() {
-            const subcategoriesInformation = this.postFetch(`${addr.SERVER_ADDRESS}/api/category/subcategories`, {categoryName: this.route.params.category})
+            const subcategoriesInformation = this.postFetch(`${this.server}/api/category/subcategories`, {categoryName: this.route.params.category})
             return subcategoriesInformation
         },
         async getAllProductsInCategory() {
-            const productsInformation = await this.postFetch(`${addr.SERVER_ADDRESS}/api/category/products`, {categoryName: this.category.categoryName});
+            const productsInformation = await this.postFetch(`${this.server}/api/category/products`, {categoryName: this.category.categoryName});
             return productsInformation
         },
         async getProductsBySubcategory(subcategoryName) {
-            this.products = await this.postFetch(`${addr.SERVER_ADDRESS}/api/category/subcategory/products`, {
+            this.products = await this.postFetch(`${this.server}/api/category/subcategory/products`, {
                 categoryName: this.category.categoryName,
                 subcategoryName: subcategoryName
             });

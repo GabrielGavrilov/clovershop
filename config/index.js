@@ -8,7 +8,7 @@ if(typeof process !== "undefined") {
 
 module.exports = {
     SERVER_SESSION_SECRET_KEY: process.env.SERVER_SESSION_SECRET_KEY,
-    SERVER_PROTCOL: process.env.SERVER_PROTCOL,
+    SERVER_PROTCOL: process.env.SERVER_PROTOCOL,
     SERVER_DOMAIN: process.env.SERVER_DOMAIN,
     SERVER_PORT: process.env.SERVER_PORT,
 

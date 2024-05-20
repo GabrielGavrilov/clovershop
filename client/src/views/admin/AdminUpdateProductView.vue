@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import addr from "../../../addresses.js"
+import config from "../../../../config/index.js"
 import DashboardHeaderComponent from '@/components/DashboardHeaderComponent.vue';
 import {useRoute, useRouter} from "vue-router"
 import { reactive } from 'vue';
@@ -36,13 +36,14 @@ export default {
                 productDescription: "",
                 productPrice: "",
                 productQuantity: ""
-            })
+            }),
+            server: `${config.SERVER_PROTCOL}:${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
         }
     },
     async mounted() {
         await this.authorizeUser()
 
-        const response = await fetch(`${addr.SERVER_ADDRESS}/api/product/${this.route.params.productId}`, {
+        const response = await fetch(`${this.server}/api/product/${this.route.params.productId}`, {
             headers: {"Content-Type": "application/json"}
         })
 
@@ -55,7 +56,7 @@ export default {
     },
     methods: {
         async authorizeUser() {
-            const response = await fetch(`${addr.SERVER_ADDRESS}/auth/account`, {
+            const response = await fetch(`${this.server}/auth/account`, {
                 headers: {"Content-Type": "application/json"},
                 credentials: "include"
             })
@@ -66,7 +67,7 @@ export default {
                 this.router.push("/admin/login")
         },
         async updateProduct() {
-            const response = await fetch(`${addr.SERVER_ADDRESS}/admin/product/update`, {
+            const response = await fetch(`${this.server}/admin/product/update`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 credentials: "include",

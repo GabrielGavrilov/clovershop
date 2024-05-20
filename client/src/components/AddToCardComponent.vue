@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import addr from "../../../addresses.js"
+import config from "../../../config/index.js"
 import { reactive } from 'vue'
 import { useRouter } from "vue-router"
 
@@ -23,7 +23,8 @@ export default {
             item: reactive({
                 productId: this.$props.productId,
                 quantity: 1
-            })
+            }),
+            server: `${config.SERVER_PROTCOL}:${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
         }
     },
     methods: {
@@ -40,39 +41,3 @@ export default {
     }
 }
 </script>
-
-<style>
-.add-to-cart-button
-{
-    width: 100%;
-    margin-bottom: 1rem;
-}
-
-.quantity-input
-{
-    padding-bottom: .25rem;
-    width: 10%;
-}
-
-.product-quantity
-{
-    padding: 14px 18px;
-    background: none;
-    border: 1px solid #3a3a3a;
-    border-radius: 4px;
-    font-size: 100%;
-    width: 100%;
-}
-
-.product-button
-{
-    border: 1px solid #3a3a3a;
-    color: #3a3a3a;
-    background-color: white;
-    width: 100%;
-    padding: 14px 18px;
-    font-size: 13px;
-    text-transform: uppercase;
-    border-radius:4px;
-}
-</style>

@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import addr from "../../../addresses.js"
+import config from "../../../../config/index.js"
 import DashboardHeaderComponent from '@/components/DashboardHeaderComponent.vue';
 import { useRouter } from 'vue-router';
 
@@ -35,13 +35,14 @@ export default {
     data() {
         return {
             router: useRouter,
-            subcategories: undefined
+            subcategories: undefined,
+            server: `${config.SERVER_PROTCOL}:${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
         }
     },
     async mounted() {
         await this.authorizeUser()
 
-        const response = await fetch(`${addr.SERVER_ADDRESS}/api/subcategories/`, {
+        const response = await fetch(`${this.server}/api/subcategories/`, {
             headers: {"Content-Type": "application/json"}
         })
 
@@ -49,7 +50,7 @@ export default {
     },
     methods: {
         async authorizeUser() {
-            const response = await fetch(`${addr.SERVER_ADDRESS}/auth/account`, {
+            const response = await fetch(`${this.server}/auth/account`, {
                 headers: {"Content-Type": "application/json"},
                 credentials: "include"
             })

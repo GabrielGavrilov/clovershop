@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import addr from "../../../addresses.js"
+import config from "../../../../config/index.js"
 import DashboardHeaderComponent from "@/components/DashboardHeaderComponent.vue"
 import { reactive } from "vue";
 import { useRoute, useRouter } from "vue-router"
@@ -26,13 +26,14 @@ export default {
             subcategory: reactive({
                 subcategoryId: "",
                 subcategoryName: ""
-            })
+            }),
+            server: `${config.SERVER_PROTCOL}:${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
         }
     },
     async mounted() {
         await this.authorizeUser()
 
-        const response = await fetch(`${addr.SERVER_ADDRESS}/api/subcategory/${this.route.params.subcategoryId}`, {
+        const response = await fetch(`${this.server}/api/subcategory/${this.route.params.subcategoryId}`, {
             headers: {"Content-Type": "application/json"}
         })
 
@@ -42,7 +43,7 @@ export default {
     },
     methods: {
         async authorizeUser() {
-            const response = await fetch(`${addr.SERVER_ADDRESS}/auth/account`, {
+            const response = await fetch(`${this.server}/auth/account`, {
                 headers: {"Content-Type": "application/json"},
                 credentials: "include"
             })
@@ -53,7 +54,7 @@ export default {
                 this.router.push("/admin/login")
         },
         async updateSubcategory() {
-            const response = await fetch(`${addr.SERVER_ADDRESS}/admin/subcategory/update`, {
+            const response = await fetch(`${this.server}/admin/subcategory/update`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 credentials: "include",

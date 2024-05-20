@@ -1,6 +1,5 @@
-const addr = require("../../addresses")
 const jwt = require("jsonwebtoken");
-const config = require("../devconfig")
+const config = require("../../config/index")
 const stripe = require("stripe")(config.STRIPE_SECRET_KEY)
 const Product = require("../models/product.model")
 const Order = require("../models/order.model")
@@ -79,7 +78,7 @@ async function createStripePaymentLinkFromOrder(req, res) {
             after_completion: {
                 type: 'redirect',
                 redirect: {
-                    url: `${addr.CLIENT_ADDRESS}/order/${orderId}`
+                    url: `${config.CLIENT_PROTOCOL}:${config.CLIENT_DOMAIN}:${config.CLIENT_PORT}/order/${orderId}`
                 }
             }
         })
@@ -168,7 +167,7 @@ async function processCheckout(req, res) {
 async function displayAllOrders(req, res) {
     try {
         const cookie = req.cookies["jwt"]
-        const auth = jwt.verify(cookie, config.SECRET_KEY)
+        const auth = jwt.verify(cookie, config.SERVER_SESSION_SECRET_KEY)
         const orders = await Order.find({}).sort({updatedAt: -1})
         
         if(!auth) {
@@ -187,7 +186,7 @@ async function listOrderInformationById(req, res) {
     try {
         const { orderId } = req.body
         const cookie = req.cookies["jwt"]
-        const auth = jwt.verify(cookie, config.SECRET_KEY)
+        const auth = jwt.verify(cookie, config.SERVER_SESSION_SECRET_KEY)
         const order = await Order.findOne({_id: orderId})
 
         if(!auth)
@@ -207,7 +206,7 @@ async function listOrderInformationById(req, res) {
 async function displayOrderStatistics(req, res) {
     try {
         const cookie = req.cookies["jwt"]
-        const auth = jwt.verify(cookie, config.SECRET_KEY)
+        const auth = jwt.verify(cookie, config.SERVER_SESSION_SECRET_KEY)
         const orders = await Order.find({})
 
         if(!auth) {

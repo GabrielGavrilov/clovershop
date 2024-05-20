@@ -20,7 +20,7 @@
 </template>
 
 <script>
-	import addr from "../../../addresses.js"
+	import config from "../../../../config/index.js"
 	import DashboardHeaderComponent from "@/components/DashboardHeaderComponent.vue"
 	import { useRouter } from "vue-router"
 
@@ -32,13 +32,14 @@
 		data() {
 			return {
 				router: useRouter(),
-				orders: undefined
+				orders: undefined,
+				server: `${config.SERVER_PROTCOL}:${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
 			}
 		},
 		async mounted() {
 			await this.authorizeUser()
 
-			const ordersResponse = await fetch(`${addr.SERVER_ADDRESS}/order/`, {
+			const ordersResponse = await fetch(`${this.server}/order/`, {
 				headers: {"Content-Type": "application/json"},
 				credentials: "include"
 			})
@@ -47,7 +48,7 @@
 		},
 		methods: {
 			async authorizeUser() {
-				const response = await fetch(`${addr.SERVER_ADDRESS}/auth/account`, {
+				const response = await fetch(`${this.server}/auth/account`, {
 					headers: {"Content-Type": "application/json"},
 					credentials: "include"
 				})

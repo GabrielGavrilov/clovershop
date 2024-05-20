@@ -1,5 +1,5 @@
 const Admin = require("../models/admin.model")
-const config = require("../devconfig")
+const config = require("../../config/index")
 const jwt = require("jsonwebtoken")
 
 async function registerAdministrator(req, res) {
@@ -33,7 +33,7 @@ async function authorizeAdministrator(req, res) {
     }
 
     else {
-        const token = jwt.sign({_id: admin._id}, config.SECRET_KEY)
+        const token = jwt.sign({_id: admin._id}, config.SERVER_SESSION_SECRET_KEY)
         res.cookie("jwt", token, {
             httpOnly: true,
             maxAge: 24 * 60 * 60 * 1000
@@ -57,7 +57,7 @@ async function getAdministratorInformation(req, res) {
         if(!cookie)
             return res.json({status: 401})
 
-        const auth = jwt.verify(cookie, config.SECRET_KEY)
+        const auth = jwt.verify(cookie, config.SERVER_SESSION_SECRET_KEY)
 
         if(!auth)
             return res.json({status: 401})

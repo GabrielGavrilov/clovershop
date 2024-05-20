@@ -1,27 +1,27 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import HomeView from "@/views/HomeView.vue"
-import CategoryView from "@/views/CategoryView"
-import ProductView from "@/views/ProductView"
-import CartView from "@/views/CartView"
-import CheckoutView from "@/views/CheckoutView"
-import AfterCheckoutView from "@/views/AfterCheckoutView.vue"
+import HomeView from "@/views/user/HomeView.vue"
+import CategoryView from "@/views/user/CategoryView"
+import ProductView from "@/views/user/ProductView"
+import CartView from "@/views/user/CartView"
+import CheckoutView from "@/views/user/CheckoutView"
+import AfterCheckoutView from "@/views/user/AfterCheckoutView.vue"
 
-import AdminLoginView from "@/views/AdminLoginView"
-import AdminDashboardView from "@/views/AdminDashboardView"
-import AdminCategoriesView from "@/views/AdminCategoriesView"
-import AdminSubcategoriesView from "@/views/AdminSubcategoriesView"
-import AdminProductsView from "@/views/AdminProductsView"
-import AdminNewCategoryView from "@/views/AdminNewCategoryView"
-import AdminNewSubcategoryView from "@/views/AdminNewSubcategoryView"
-import AdminNewProductView from "@/views/AdminNewProductView"
-import AdminUpdateCategoryView from "@/views/AdminUpdateCategoryView"
-import AdminUpdateSubcategoryView from "@/views/AdminUpdateSubcategoryView"
-import AdminUpdateProductView from "@/views/AdminUpdateProductView"
-import AdminOrdersView from "@/views/AdminOrdersView"
-import AdminOrderInformationView from "@/views/AdminOrderInformationView"
+import AdminLoginView from "@/views/admin/AdminLoginView"
+import AdminDashboardView from "@/views/admin/AdminDashboardView"
+import AdminCategoriesView from "@/views/admin/AdminCategoriesView"
+import AdminSubcategoriesView from "@/views/admin/AdminSubcategoriesView"
+import AdminProductsView from "@/views/admin/AdminProductsView"
+import AdminNewCategoryView from "@/views/admin/AdminNewCategoryView"
+import AdminNewSubcategoryView from "@/views/admin/AdminNewSubcategoryView"
+import AdminNewProductView from "@/views/admin/AdminNewProductView"
+import AdminUpdateCategoryView from "@/views/admin/AdminUpdateCategoryView"
+import AdminUpdateSubcategoryView from "@/views/admin/AdminUpdateSubcategoryView"
+import AdminUpdateProductView from "@/views/admin/AdminUpdateProductView"
+import AdminOrdersView from "@/views/admin/AdminOrdersView"
+import AdminOrderInformationView from "@/views/admin/AdminOrderInformationView"
 
-import PageNotFoundView from "@/views/PageNotFoundView"
+import PageNotFoundView from "@/views/user/PageNotFoundView"
 
 const routes = [
     
@@ -126,7 +126,7 @@ const routes = [
         component: AdminOrderInformationView
     },
 
-    // wild card route
+    // 404 route
 
     {
         path: "/:pathMatch(.*)*",

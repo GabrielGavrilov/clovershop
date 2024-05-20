@@ -1,27 +1,6 @@
 const Category = require("../models/category.model")
 const Subcategory = require("../models/subcategory.model")
 const Product = require("../models/product.model")
-const config = require("../devconfig")
-const stripe = require("stripe")(config.STRIPE_SECRET_KEY)
-
-async function createProduct(req, res) {
-    const { productName } = req.body
-    try {
-        const paymentLink = await stripe.paymentLinks.create({
-            line_items: [
-                {
-                    price: productName,
-                    quantity: 1,
-                },
-            ],
-        })
-        return res.json(paymentLink)
-    }
-    catch (e) {
-        console.log(e)
-        return res.json({msg: "err"})
-    }
-}
 
 /**
  * Category Controllers
@@ -119,7 +98,6 @@ async function listProductInformationById(req, res) {
 }
 
 module.exports = {
-    createProduct,
     listAllCategories,
     listAllProducts,
     listAllSubcategories,

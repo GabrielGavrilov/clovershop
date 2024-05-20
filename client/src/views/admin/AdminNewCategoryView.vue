@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import addr from "../../../addresses.js"
+import config from "../../../../config/index.js"
 import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import DashboardHeaderComponent from '@/components/DashboardHeaderComponent.vue';
@@ -29,7 +29,8 @@ export default {
             category: reactive({
                 categoryName: '',
                 categoryDescription: ''
-            })
+            }),
+            server: `${config.SERVER_PROTCOL}:${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
         }
     },
     async mounted() {
@@ -37,7 +38,7 @@ export default {
     },
     methods: {
         async createCategory() {
-            const response = await fetch(`${addr.SERVER_ADDRESS}/admin/category/new`, {
+            const response = await fetch(`${this.server}/admin/category/new`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 credentials: "include",
@@ -53,7 +54,7 @@ export default {
                 await this.router.go()
         },
         async authorizeUser() {
-            const response = await fetch(`${addr.SERVER_ADDRESS}/auth/account`, {
+            const response = await fetch(`${this.server}/auth/account`, {
                 headers: {"Content-Type": "application/json"},
                 credentials: "include"
             })

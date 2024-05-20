@@ -16,7 +16,7 @@
 
 <script>
 import DashboardHeaderComponent from "@/components/DashboardHeaderComponent.vue"
-import addr from "../../../addresses.js"
+import config from "../../../../config/index.js"
 import { useRouter } from "vue-router"
 
 export default {
@@ -28,19 +28,17 @@ export default {
         return {
             router: useRouter(),
             user: undefined,
-            shopStatistics: undefined
+            shopStatistics: undefined,
+            server: `${config.SERVER_PROTCOL}:${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
         }
     },
     async mounted() {
         await this.authorizeUser()
         this.shopStatistics = await this.getShopStatistics()
-
-        console.log(this.shopStatistics);
-
     },
     methods: {
         async authorizeUser() {
-            const response = await fetch(`${addr.SERVER_ADDRESS}/auth/account`, {
+            const response = await fetch(`${this.server}/auth/account`, {
                 headers: {"Content-Type": "application/json"},
                 credentials: "include"
             })
@@ -54,7 +52,7 @@ export default {
                 this.user = authResponse
         },
         async getShopStatistics() {
-            const response = await fetch(`${addr.SERVER_ADDRESS}/order/statistics`, {
+            const response = await fetch(`${this.server}/order/statistics`, {
                 headers: {"Content-Type": "application/json"},
                 credentials: "include"
             })
