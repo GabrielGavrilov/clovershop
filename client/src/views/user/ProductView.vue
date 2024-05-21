@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import style from '@/assets/css/product.css'
 import HeaderComponent from '@/components/HeaderComponent.vue';
 import ProductComponent from '@/components/ProductComponent.vue';
 import { useRoute } from 'vue-router';

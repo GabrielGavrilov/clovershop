@@ -27,7 +27,6 @@
 
 <script>
 import config from "../../../config/index.js"
-import style from "@/assets/css/header.css"
 import { onMounted, ref } from "vue"
 
 export default {
@@ -35,7 +34,7 @@ export default {
     data() {
         return {
             categories: [],
-            server: `${config.SERVER_PROTCOL}:${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
+            server: `${config.SERVER_PROTOCOL}://${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
         }
     },
     async mounted() {

@@ -41,7 +41,6 @@
 
 <script>
 import config from "../../../../config/index.js"
-import style from "@/assets/css/cart.css"
 import { useRouter } from "vue-router"
 import HeaderComponent from '@/components/HeaderComponent.vue'
 import CartItemComponent from '@/components/CartItemComponent.vue'
@@ -57,7 +56,7 @@ export default {
             router: useRouter(),
             items: [],
             cartSubtotal: 0,
-            server: `${config.SERVER_PROTCOL}:${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
+            server: `${config.SERVER_PROTOCOL}://${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
         }
     },
     async mounted() {

@@ -51,5 +51,5 @@ app.use("/api", categoryRoutes)
 app.use("/order", orderRoutes)
 
 app.listen(config.SERVER_PORT, config.SERVER_DOMAIN, function() {
-    console.log(`[CloverShop]: Server is running listening at ${config.SERVER_PROTCOL}://${config.SERVER_DOMAIN}:${config.SERVER_PORT}`);
+    console.log(`[CloverShop]: Server is running listening at ${config.SERVER_PROTOCOL}://${config.SERVER_DOMAIN}:${config.SERVER_PORT}`);
 })

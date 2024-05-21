@@ -48,7 +48,6 @@
 
 <script>
 import config from "../../../../config/index.js"
-import style from "@/assets/css/category.css"
 import HeaderComponent from "@/components/HeaderComponent.vue"
 import CategoryProductComponent from "@/components/CategoryProductComponent.vue"
 import NotFoundComponent from "@/components/NotFoundComponent.vue"
@@ -69,7 +68,7 @@ export default {
             category: [],
             subcategories: [],
             products: [],
-            server: `${config.SERVER_PROTCOL}:${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
+            server: `${config.SERVER_PROTOCOL}://${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
         }
     },
     async mounted() {

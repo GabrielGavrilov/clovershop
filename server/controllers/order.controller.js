@@ -78,7 +78,7 @@ async function createStripePaymentLinkFromOrder(req, res) {
             after_completion: {
                 type: 'redirect',
                 redirect: {
-                    url: `${config.CLIENT_PROTOCOL}:${config.CLIENT_DOMAIN}:${config.CLIENT_PORT}/order/${orderId}`
+                    url: `${config.CLIENT_PROTOCOL}://${config.CLIENT_DOMAIN}:${config.CLIENT_PORT}/order/${orderId}`
                 }
             }
         })

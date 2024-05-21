@@ -6,9 +6,11 @@ if(typeof process !== "undefined") {
     dotenv.config({path: path.resolve(__dirname, `../.env.${mode}`)})
 }
 
+console.log("here: " + process.argv[2])
+
 module.exports = {
     SERVER_SESSION_SECRET_KEY: process.env.SERVER_SESSION_SECRET_KEY,
-    SERVER_PROTCOL: process.env.SERVER_PROTOCOL,
+    SERVER_PROTOCOL: process.env.SERVER_PROTOCOL,
     SERVER_DOMAIN: process.env.SERVER_DOMAIN,
     SERVER_PORT: process.env.SERVER_PORT,
 
