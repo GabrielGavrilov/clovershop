@@ -8,11 +8,12 @@
         </a>
     </div>
     <div class="category-product-price">
-        <p>${{ productPrice }}</p>
+        <p>${{ price(productPrice) }}</p>
     </div>
 </template>
 
 <script>
+import { formatPrice } from '@/modules/FunctionsModule';
 
 export default {
     name: "CategoryProductComponent",
@@ -22,6 +23,9 @@ export default {
         "productName",
         "productPrice",
         "categoryName"
-    ]
+    ],
+    methods: {
+        price: formatPrice
+    }
 }
 </script>

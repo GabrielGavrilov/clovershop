@@ -26,7 +26,8 @@
 </template>
 
 <script>
-import config from "../../../config/index.js"
+import { test } from "@/modules/FunctionsModule"
+import server from "@/modules/ServerInfoModule"
 import { onMounted, ref } from "vue"
 
 export default {
@@ -34,11 +35,10 @@ export default {
     data() {
         return {
             categories: [],
-            server: `${config.SERVER_PROTOCOL}://${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
         }
     },
     async mounted() {
-        const response = await fetch(`${this.server}/api/categories/`, {
+        const response = await fetch(`${server.url}/api/categories/`, {
             headers: {"Content-Type": "application/json"}
         })
 

@@ -11,7 +11,7 @@
                 <p>{{ product.productName }}</p>
             </div>
             <div class="product-price">
-                <p>${{ formatPrice(product.productPrice) }}</p>
+                <p>${{ price(product.productPrice) }}</p>
             </div>
             <div class="product-stock">
                 <p>{{ product.productQuantity }}</p>
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import config from "../../../config/index.js"
+import { formatPrice, sendFetchRequestToServer } from "@/modules/FunctionsModule"
 import NotFoundComponent from "./NotFoundComponent.vue"
 import { reactive } from "vue"
 import { useRouter } from "vue-router"
@@ -56,21 +56,15 @@ export default {
             productModel: reactive({
                 productId: undefined,
                 quantity: 1
-            }),
-            server: `${config.SERVER_PROTOCOL}://${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
+            })
         }
     },
     async mounted() {
-        const response = await fetch(`${this.server}/api/product`, {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                categoryName: this.categoryName,
-                productName: this.productName
-            })
+        this.product = await sendFetchRequestToServer("POST", "/api/product", {
+            categoryName: this.categoryName,
+            productName: this.productName
         })
-        
-        this.product = await response.json()
+
         this.productModel.productId = this.product._id
 
         if(this.product.status == 404)
@@ -78,20 +72,10 @@ export default {
     },
     methods: {
         async addItemToCart() {
-            const response = await fetch(`${this.server}/cart/add`, {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                credentials: "include",
-                body: JSON.stringify(this.productModel)
-            })
-
+            await sendFetchRequestToServer("POST", "/cart/add", this.productModel);
             await this.router.push("/cart")
         },
-        formatPrice(price) {
-            const priceString = String(price)
-            const formattedPrice = priceString.substring(0, priceString.length - 2) + "." + priceString.substring(priceString.length - 2)
-            return formattedPrice
-        }
+        price: formatPrice
     }
 }
 </script>
