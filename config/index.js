@@ -2,17 +2,18 @@ const path = require("path")
 const dotenv = require("dotenv")
 
 if(typeof process !== "undefined") {
-    const mode = ((process.argv[2] || "dev") === "dev" ? "hidden" : "production")
+    const mode = ((process.argv[2] || process.env.NODE_ENV) === "development" ? "hidden" : "production")
+    console.log(mode)
     dotenv.config({path: path.resolve(__dirname, `../.env.${mode}`)})
 }
 
-console.log("here: " + process.argv[2])
+console.log(process.env)
 
 module.exports = {
     SERVER_SESSION_SECRET_KEY: process.env.SERVER_SESSION_SECRET_KEY,
-    SERVER_PROTOCOL: process.env.SERVER_PROTOCOL,
-    SERVER_DOMAIN: process.env.SERVER_DOMAIN,
-    SERVER_PORT: process.env.SERVER_PORT,
+    SERVER_PROTOCOL: process.env.VUE_APP_SERVER_PROTOCOL,
+    SERVER_DOMAIN: process.env.VUE_APP_SERVER_DOMAIN,
+    SERVER_PORT: process.env.VUE_APP_SERVER_PORT,
 
     CLIENT_PROTOCOL: process.env.CLIENT_PROTOCOL,
     CLIENT_DOMAIN: process.env.CLIENT_DOMAIN,
