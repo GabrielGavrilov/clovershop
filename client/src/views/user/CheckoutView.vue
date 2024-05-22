@@ -20,9 +20,8 @@
 </template>
 
 <script>
-import config from "../../../../config/index.js"
+import { credentialFetchRequestToServerWithBody } from "@/modules/FetchModule";
 import { reactive } from "vue"
-import { useRouter } from "vue-router";
 import HeaderComponent from '@/components/HeaderComponent.vue';
 
 export default {
@@ -40,33 +39,18 @@ export default {
                 customerCity: "",
                 customerProvince: "",
                 customerPostalCode: "",
-            }),
-            server: `${config.SERVER_PROTCOL}://${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
+            })
         }
     },
     methods: {
         async createStripePaymentLink(orderId) {
-            const response = await fetch(`${this.server}/order/stripe`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                credentials: "include",
-                body: JSON.stringify({orderId: orderId})
-            })
-
-            const stripePaymentLink = await response.json()
+            const stripePaymentLink = await credentialFetchRequestToServerWithBody("POST", "/order/stripe", {orderId: orderId})
             window.location = stripePaymentLink.url
         },
-
         async createOrder() {
-            const response = await fetch(`${this.server}/order/create`, {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                credentials: "include",
-                body: JSON.stringify(this.checkout)
-            })
+            const createdOrder = await credentialFetchRequestToServerWithBody("POST", "/order/create", this.checkout)
 
-            const createdOrder = await response.json()
-
+            // Add status message
             if (createdOrder._id)
                 await this.createStripePaymentLink(createdOrder._id)
             else 

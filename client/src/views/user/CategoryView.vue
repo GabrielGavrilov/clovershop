@@ -33,7 +33,7 @@
                         v-bind:productId="product._id"
                         v-bind:productPicture="product.productPicture"
                         v-bind:productName="product.productName"
-                        v-bind:productPrice="formatPrice(product.productPrice)"
+                        v-bind:productPrice="product.productPrice"
                         v-bind:categoryName="categoryName"
                     />
                 </div>
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import config from "../../../../config/index.js"
+import { fetchRequestToServerWithBody } from "@/modules/FetchModule"
 import HeaderComponent from "@/components/HeaderComponent.vue"
 import CategoryProductComponent from "@/components/CategoryProductComponent.vue"
 import NotFoundComponent from "@/components/NotFoundComponent.vue"
@@ -67,8 +67,7 @@ export default {
             router: useRouter(),
             category: [],
             subcategories: [],
-            products: [],
-            server: `${config.SERVER_PROTOCOL}://${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
+            products: []
         }
     },
     async mounted() {
@@ -83,37 +82,20 @@ export default {
         }
     },
     methods: {
-        async postFetch(url, body) {
-            const response = await fetch(url, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(body)
-            })
-
-            return await response.json();
-        },
         async getCategoryInformation() {
-            const categoryInformation = await this.postFetch(`${this.server}/api/category`, {categoryName: this.route.params.category})
-            return categoryInformation
+            return await fetchRequestToServerWithBody("POST", "/api/category", {categoryName: this.route.params.category});
         },
         async getAllSubcategories() {
-            const subcategoriesInformation = this.postFetch(`${this.server}/api/category/subcategories`, {categoryName: this.route.params.category})
-            return subcategoriesInformation
+            return await fetchRequestToServerWithBody("POST", "/api/category/subcategories", {categoryName: this.route.params.category})
         },
         async getAllProductsInCategory() {
-            const productsInformation = await this.postFetch(`${this.server}/api/category/products`, {categoryName: this.category.categoryName});
-            return productsInformation
+            return await fetchRequestToServerWithBody("POST", "/api/category/products", {categoryName: this.category.categoryName})
         },
         async getProductsBySubcategory(subcategoryName) {
-            this.products = await this.postFetch(`${this.server}/api/category/subcategory/products`, {
+            this.products = await fetchRequestToServerWithBody("POST", "/api/category/subcategory/products", {
                 categoryName: this.category.categoryName,
                 subcategoryName: subcategoryName
-            });
-        },
-        formatPrice(price) {
-            const priceString = String(price)
-            const formattedPrice = priceString.substring(0, priceString.length - 2) + "." + priceString.substring(priceString.length - 2)
-            return formattedPrice
+            })
         }
     }
 }

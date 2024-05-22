@@ -40,9 +40,7 @@
 </template>
 
 <script>
-import {
-    credentialFetchRequestToServer
-} from "@/modules/FetchModule.js"
+import { credentialFetchRequestToServer } from "@/modules/FetchModule.js"
 import { formatPrice } from "@/modules/CommonModule"
 import { useRouter } from "vue-router"
 import HeaderComponent from '@/components/HeaderComponent.vue'
