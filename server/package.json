@@ -15,8 +15,8 @@
   "description": "TBD",
   "main": "index.js",
   "scripts": {
-    "prod": "node index.js prod",
-    "dev": "node index.js dev",
+    "production": "node index.js production",
+    "development": "node index.js development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

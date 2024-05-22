@@ -40,6 +40,7 @@
 import config from "../../../config/index.js"
 import NotFoundComponent from "./NotFoundComponent.vue"
 import { reactive } from "vue"
+import { useRouter } from "vue-router"
 
 export default {
     name: "ProductComponent",
@@ -51,6 +52,7 @@ export default {
         return {
             productExists: true,
             product: undefined,
+            router: useRouter(),
             productModel: reactive({
                 productId: undefined,
                 quantity: 1
@@ -76,7 +78,7 @@ export default {
     },
     methods: {
         async addItemToCart() {
-            const response = await fetch(`${addr.SERVER_ADDRESS}/cart/add`, {
+            const response = await fetch(`${this.server}/cart/add`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 credentials: "include",

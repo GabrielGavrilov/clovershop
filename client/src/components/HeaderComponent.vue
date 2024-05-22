@@ -3,7 +3,7 @@
         <div class="header-content">
             <div class="header-left">
                 <a href="/">
-                    <img class="header-site-icon" v-bind:src="require(`@/assets/images/maple-leaf.png`)">
+                    <img class="header-site-icon" v-bind:src="require(`@/assets/images/clover.png`)">
                 </a>
             </div>
             <div class="header-center">
