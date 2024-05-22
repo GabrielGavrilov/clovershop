@@ -37,7 +37,8 @@
 </template>
 
 <script>
-import { formatPrice, sendFetchRequestToServer } from "@/modules/FunctionsModule"
+import { fetchRequestToServerWithBody } from "@/modules/FetchModule"
+import { formatPrice } from "@/modules/CommonModule"
 import NotFoundComponent from "./NotFoundComponent.vue"
 import { reactive } from "vue"
 import { useRouter } from "vue-router"
@@ -60,7 +61,7 @@ export default {
         }
     },
     async mounted() {
-        this.product = await sendFetchRequestToServer("POST", "/api/product", {
+        this.product = await fetchRequestToServerWithBody("POST", "/api/product", {
             categoryName: this.categoryName,
             productName: this.productName
         })
@@ -72,7 +73,7 @@ export default {
     },
     methods: {
         async addItemToCart() {
-            await sendFetchRequestToServer("POST", "/cart/add", this.productModel);
+            await fetchRequestToServerWithBody("POST", "/cart/add", this.productModel);
             await this.router.push("/cart")
         },
         price: formatPrice

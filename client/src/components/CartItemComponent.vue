@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { formatPrice } from "@/modules/FunctionsModule.js"
+import { formatPrice } from "@/modules/CommonModule.js"
 
 export default {
     name: "CartItemComponent",

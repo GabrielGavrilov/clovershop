@@ -11,7 +11,7 @@
                 <div class="light-line"></div>
                 <div class="cart-summary">
                     <div class="cart-total-price">
-                        <p>${{ formatPrice(cartSubtotal) }}</p>
+                        <p>${{ price(cartSubtotal) }}</p>
                     </div>
                     <div class="reset-cart">
                         <a @click="resetCart()"><p>Reset cart</p></a>
@@ -24,7 +24,7 @@
                 <div class="light-line cart-checkout-header-line"></div>
                 <div class="cart-checkout-subtotal">
                     <p class="cart-subtotal-text">Subtotal</p>
-                    <p class="cart-subtotal-amount">${{ formatPrice(cartSubtotal) }}</p>
+                    <p class="cart-subtotal-amount">${{ price(cartSubtotal) }}</p>
                 </div>
                 <div class="cart-checkout-shipping-text">
                     <p>Taxes and shipping calculated at checkout</p>
@@ -40,7 +40,10 @@
 </template>
 
 <script>
-import config from "../../../../config/index.js"
+import {
+    credentialFetchRequestToServer
+} from "@/modules/FetchModule.js"
+import { formatPrice } from "@/modules/CommonModule"
 import { useRouter } from "vue-router"
 import HeaderComponent from '@/components/HeaderComponent.vue'
 import CartItemComponent from '@/components/CartItemComponent.vue'
@@ -56,17 +59,11 @@ export default {
             router: useRouter(),
             items: [],
             cartSubtotal: 0,
-            server: `${config.SERVER_PROTOCOL}://${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
         }
     },
     async mounted() {
-        const response = await fetch(`${this.server}/cart/`, {
-            headers: {"Content-Type": "application/json"},
-            credentials: "include"
-        })
-        
-        const cartItems = await response.json()
-        
+        const cartItems = await credentialFetchRequestToServer("GET", "/cart/")
+
         for(let i = 0; i < cartItems.length; i++) {
             const product = await this.getProductInformation(cartItems[i].productId);
             const quantity = cartItems[i].quantity;
@@ -76,36 +73,21 @@ export default {
                 quantity: quantity
             }
 
-            this.cartSubtotal += (product.productPrice * quantity)
             this.items.push(cartItem)
+            this.cartSubtotal += (product.productPrice * quantity)
         }
     },
     methods: {
         async getProductInformation(productId) {
-            const response = await fetch(`${this.server}/api/product/${productId}`, {
-                headers: {"Content-Type": "application/json"}
-            })
-
-            const product = await response.json()
-            return product
+            return await credentialFetchRequestToServer("GET", `/api/product/${productId}`)
         },
         async resetCart() {
-            const response = await fetch(`${this.server}/cart/reset`, {
-                headers: {"Content-Type": "application/json"},
-                credentials: "include",
-                method: "POST"
-            })
-
-            const cartResponse = await response.json()
+            const cartResponse = await credentialFetchRequestToServer("POST", "/cart/reset")
 
             if(cartResponse.status == 200)
                 await this.router.go()
         },
-        formatPrice(price) {
-            const priceString = String(price)
-            const formattedPrice = priceString.substring(0, priceString.length - 2) + "." + priceString.substring(priceString.length - 2)
-            return formattedPrice
-        }
+        price: formatPrice
     }
 }
 </script>

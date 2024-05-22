@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import { test } from "@/modules/FunctionsModule"
 import server from "@/modules/ServerInfoModule"
 import { onMounted, ref } from "vue"
 
