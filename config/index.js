@@ -6,8 +6,6 @@ if(typeof process !== "undefined") {
     dotenv.config({path: path.resolve(__dirname, `../.env.${mode}`)})
 }
 
-console.log(process.env)
-
 module.exports = {
     SERVER_PROTOCOL: process.env.VUE_APP_SERVER_PROTOCOL,
     SERVER_DOMAIN: process.env.VUE_APP_SERVER_DOMAIN,
