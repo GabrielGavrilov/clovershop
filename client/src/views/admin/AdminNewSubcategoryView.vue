@@ -16,10 +16,11 @@
 </template>
 
 <script>
-import config from "../../../../config/index.js"
 import { reactive } from 'vue';
 import { useRouter } from "vue-router"
 import DashboardHeaderComponent from '@/components/DashboardHeaderComponent.vue';
+import { isUserAuthorized } from '@/modules/CommonModule';
+import { credentialFetchRequestToServerWithBody, fetchRequestToServer } from '@/modules/FetchModule';
 
 export default {
     name: "AdminNewSubcategoryView",
@@ -35,43 +36,20 @@ export default {
                 subcategoryName: "",
                 categoryName: ""
             }),
-            server: `${config.SERVER_PROTOCOL}://${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
         }
     },
     async mounted() {
-        await this.authorizeUser()
+        if(!await isUserAuthorized())
+            this.router.push("/admin/login")
 
-        const response = await fetch(`${this.server}/api/categories/`, {
-            headers: {"Content-Type": "application/json"}
-        })
-
-        this.categories = await response.json()
+        this.categories = await fetchRequestToServer("POST", "/api/categories")
     },
     methods: {
-        async authorizeUser() {
-            const response = await fetch(`${this.server}/auth/account`, {
-                headers: {"Content-Type": "application/json"},
-                credentials: "include"
-            })
-
-            const authResponse = await response.json()
-
-            if(authResponse.status == 401 || authResponse.status == 400)
-                this.router.push("/admin/login")
-        },
         async createSubcategory() {
-            const response = await fetch(`${this.server}/admin/subcategory/new`, {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                credentials: "include",
-                body: JSON.stringify(this.subcategory)
-            })
-
-            const subcategoryResponse = await response.json()
+            const subcategoryResponse = await credentialFetchRequestToServerWithBody("POST", "/admin/subcategory/new", this.subcategory)
 
             if(subcategoryResponse.status == 409)
                 this.message = subcategoryResponse.message
-
             else
                 await this.router.go()
         }

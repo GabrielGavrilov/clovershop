@@ -10,14 +10,15 @@
     <div v-if="shopStatistics !== undefined">
         <p>{{ shopStatistics.totalOrders }} orders</p>
         <p>{{ shopStatistics.totalOrdersCompleted }} completed orders</p>
-        <p>${{ formatPrice(shopStatistics.totalOrdersSum) }} in sales</p>
+        <p>${{ price(shopStatistics.totalOrdersSum) }} in sales</p>
     </div>
 </template>
 
 <script>
+import { formatPrice, isUserAuthorized } from "@/modules/CommonModule"
 import DashboardHeaderComponent from "@/components/DashboardHeaderComponent.vue"
-import config from "../../../../config/index.js"
 import { useRouter } from "vue-router"
+import { credentialFetchRequestToServer } from "@/modules/FetchModule"
 
 export default {
     name: "AdminDashboardView",
@@ -29,42 +30,19 @@ export default {
             router: useRouter(),
             user: undefined,
             shopStatistics: undefined,
-            server: `${config.SERVER_PROTOCOL}://${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
         }
     },
     async mounted() {
-        await this.authorizeUser()
-        this.shopStatistics = await this.getShopStatistics()
+
+        // undefined loading because user is not definded after authorization
+
+        if(!await isUserAuthorized())
+            await this.router.push("/admin/login")
+
+        this.shopStatistics = await credentialFetchRequestToServer("GET","/order/statistics")
     },
     methods: {
-        async authorizeUser() {
-            const response = await fetch(`${this.server}/auth/account`, {
-                headers: {"Content-Type": "application/json"},
-                credentials: "include"
-            })
-
-            const authResponse = await response.json()
-
-            if(authResponse.status == 401 || authResponse.status == 400)
-                await this.router.push("/admin/login")
-
-            else
-                this.user = authResponse
-        },
-        async getShopStatistics() {
-            const response = await fetch(`${this.server}/order/statistics`, {
-                headers: {"Content-Type": "application/json"},
-                credentials: "include"
-            })
-
-            const shopStatsResponse = await response.json()
-            return shopStatsResponse
-        },
-        formatPrice(price) {
-            const priceString = String(price)
-            const formattedPrice = priceString.substring(0, priceString.length - 2) + "." + priceString.substring(priceString.length - 2)
-            return formattedPrice
-        }
+        price: formatPrice
     }
 }
 </script>

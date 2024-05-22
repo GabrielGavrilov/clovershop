@@ -31,7 +31,7 @@ async function credentialFetchRequestToServerWithBody(method, route, body) {
         method: method,
         headers: {"Content-Type": "application/json"},
         credentials: "include",
-        body: body
+        body: JSON.stringify(body)
     })
     return await response.json();
 }

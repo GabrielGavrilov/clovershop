@@ -21,9 +21,10 @@
 </template>
 
 <script>
-import config from "../../../../config/index.js"
 import { useRouter } from 'vue-router';
 import DashboardHeaderComponent from '@/components/DashboardHeaderComponent.vue';
+import { isUserAuthorized } from '@/modules/CommonModule';
+import { fetchRequestToServer } from '@/modules/FetchModule';
 
 export default {
     name: "AdminProductsView",
@@ -34,30 +35,13 @@ export default {
         return {
             router: useRouter(),
             products: undefined,
-            server: `${config.SERVER_PROTOCOL}://${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
         }
     },
     async mounted() {
-        await this.authorizeUser()
+        if(!await isUserAuthorized())
+            this.router.push("/admin/login")
 
-        const response = await fetch(`${this.server}/api/products/`, {
-            headers: {"Content-Type": "application/json"}
-        })
-
-        this.products = await response.json();
-    },
-    methods: {
-        async authorizeUser() {
-            const response = await fetch(`${this.server}/auth/account`, {
-                headers: {"Content-Type": "application/json"},
-                credentials: "include"
-            })
-
-            const authResponse = await response.json()
-
-            if(authResponse.status == 401 || authResponse.status == 400)
-                this.router.push("/admin/login")
-        }
+        this.products = await fetchRequestToServer("GET", "/api/products")
     }
 }
 </script>

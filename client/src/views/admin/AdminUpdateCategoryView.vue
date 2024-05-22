@@ -11,8 +11,9 @@
 </template>
 
 <script>
-import config from "../../../../config/index.js"
 import DashboardHeaderComponent from "@/components/DashboardHeaderComponent.vue"
+import { isUserAuthorized } from "@/modules/CommonModule";
+import { credentialFetchRequestToServerWithBody, fetchRequestToServer } from "@/modules/FetchModule";
 import { reactive } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
@@ -31,46 +32,25 @@ export default {
                 categoryName: "",
                 categoryDescription: ""
             }),
-            server: `${config.SERVER_PROTOCOL}://${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
         }
     },
     async mounted() {
-        await this.authorizeUser()
+        if(!await isUserAuthorized())
+            this.route.push("/admin/login")
 
-        const response = await fetch(`${this.server}/api/category/${this.route.params.categoryId}`, {
-            headers: {"Content-Type": "application/json"}
-        })
+        const categoryInformation = await fetchRequestToServer("GET", `/api/category/${this.route.params.categoryId}`)
 
-        const categoryInformation = await response.json()
+        // unnecessary?
         this.category.categoryId = this.route.params.categoryId
         this.category.categoryName = categoryInformation.categoryName
         this.category.categoryDescription = categoryInformation.categoryDescription
     },
     methods: {
-        async authorizeUser() {
-            const response = await fetch(`${this.server}/auth/account`, {
-                headers: {"Content-Type": "application/json"},
-                credentials: "include"
-            })
-
-            const authResponse = await response.json()
-
-            if(authResponse.status == 401 || authResponse.status == 400)
-                this.router.push("/admin/login")
-        },
         async updateCategory() {
-            const response = await fetch(`${this.server}/admin/category/update`, {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                credentials: "include",
-                body: JSON.stringify(this.category)
-            })
-
-            const categoryResponse = await response.json()
+            const categoryResponse = await credentialFetchRequestToServerWithBody("POST", "/admin/category/update", this.category)
 
             if(categoryResponse.status == 409)
                 this.message = categoryResponse.message
-
             else
                 await this.router.push("/admin/categories")
         }

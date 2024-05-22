@@ -1,3 +1,12 @@
+const fet = require("@/modules/FetchModule")
+
+async function isUserAuthorized() {
+    const response = await fet.credentialFetchRequestToServer("GET", "/auth/account");
+    if(response.status == 401 || response.status == 400)
+        return false
+    return true
+}
+
 function formatPrice(price) {
     const priceString = String(price)
     const formattedPrice = priceString.substring(0, priceString.length - 2) + "." + priceString.substring(priceString.length - 2)
@@ -5,5 +14,6 @@ function formatPrice(price) {
 }
 
 module.exports = {
+    isUserAuthorized,
     formatPrice
 }

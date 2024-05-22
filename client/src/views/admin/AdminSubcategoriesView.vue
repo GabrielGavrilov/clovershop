@@ -23,8 +23,9 @@
 </template>
 
 <script>
-import config from "../../../../config/index.js"
 import DashboardHeaderComponent from '@/components/DashboardHeaderComponent.vue';
+import { isUserAuthorized } from '@/modules/CommonModule';
+import { fetchRequestToServer } from '@/modules/FetchModule';
 import { useRouter } from 'vue-router';
 
 export default {
@@ -34,32 +35,15 @@ export default {
     },
     data() {
         return {
-            router: useRouter,
+            router: useRouter(),
             subcategories: undefined,
-            server: `${config.SERVER_PROTOCOL}://${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
         }
     },
     async mounted() {
-        await this.authorizeUser()
+        if(!await isUserAuthorized())
+            this.router.push("/admin/login")
 
-        const response = await fetch(`${this.server}/api/subcategories/`, {
-            headers: {"Content-Type": "application/json"}
-        })
-
-        this.subcategories = await response.json()
-    },
-    methods: {
-        async authorizeUser() {
-            const response = await fetch(`${this.server}/auth/account`, {
-                headers: {"Content-Type": "application/json"},
-                credentials: "include"
-            })
-
-            const authResponse = await response.json()
-
-            if(authResponse.status == 401 || authResponse.status == 400)
-                this.router.push("/admin/login")
-        }
+        this.subcategories = await fetchRequestToServer("/api/subcategories")
     }
 }
 </script>

@@ -12,10 +12,11 @@
 </template>
 
 <script>
-import config from "../../../../config/index.js"
 import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import DashboardHeaderComponent from '@/components/DashboardHeaderComponent.vue';
+import { isUserAuthorized } from "@/modules/CommonModule";
+import { credentialFetchRequestToServerWithBody } from "@/modules/FetchModule";
 
 export default {
     name: "AdminNewCategoryView",
@@ -30,39 +31,20 @@ export default {
                 categoryName: '',
                 categoryDescription: ''
             }),
-            server: `${config.SERVER_PROTOCOL}://${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
         }
     },
     async mounted() {
-        await this.authorizeUser()
+        if(!await isUserAuthorized())
+            this.router.push("/admin/login")
     },
     methods: {
         async createCategory() {
-            const response = await fetch(`${this.server}/admin/category/new`, {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                credentials: "include",
-                body: JSON.stringify(this.category)
-            })
-
-            const categoryResponse = await response.json()
+            const categoryResponse = await credentialFetchRequestToServerWithBody("POST", "/admin/category/new", this.category)
 
             if(categoryResponse.status == 409)
                 this.message = categoryResponse.message
-
             else
                 await this.router.go()
-        },
-        async authorizeUser() {
-            const response = await fetch(`${this.server}/auth/account`, {
-                headers: {"Content-Type": "application/json"},
-                credentials: "include"
-            })
-
-            const authResponse = await response.json()
-
-            if(authResponse.status == 401 || authResponse.status == 400)
-                this.router.push("/admin/login")
         }
     }
 }

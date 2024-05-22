@@ -29,7 +29,8 @@
 import { reactive, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import DashboardHeaderComponent from '@/components/DashboardHeaderComponent.vue';
-import config from "../../../../config/index.js"
+import { credentialFetchRequestToServerWithBody, fetchRequestToServer } from '@/modules/FetchModule';
+import { isUserAuthorized } from '@/modules/CommonModule';
 
 export default {
     name: "AdminNewProduct",
@@ -49,30 +50,15 @@ export default {
                 categoryName: "",
                 subcategoryName: ""
             }),
-            server: `${config.SERVER_PROTOCOL}://${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
         }
     },
     async mounted() {
-        await this.authorizeUser()
+        if(!await isUserAuthorized())
+            this.router.push("/admin/login")
 
-        const response = await fetch(`${this.server}/api/categories/`, {
-            headers: {"Content-Type": "application/json"}
-        })
-
-        this.categories = await response.json()
+        this.categories = await fetchRequestToServer("GET", "/api/categories/")
     },
     methods: {
-        async authorizeUser() {
-            const response = await fetch(`${this.server}/auth/account`, {
-                headers: {"Content-Type": "application/json"},
-                credentials: "include"
-            })
-
-            const authResponse = await response.json()
-
-            if(authResponse.status == 401 || authResponse.status == 400)
-                this.router.push("/admin/login")
-        },
         async createProduct(event) {
             const formData = new FormData()
 
@@ -84,17 +70,10 @@ export default {
             formData.append("categoryName", this.product.categoryName)
             formData.append("subcategoryName", this.product.subcategoryName)
 
-            const response = await fetch(`${this.server}/admin/product/new`, {
-                method: "POST",
-                credentials: "include",
-                body: formData
-            })
-
-            const productResponse = await response.json()
+            const productResponse = await credentialFetchRequestToServerWithBody("POST", "/admin/product/new", formData)
 
             if(productResponse.status == 409)
                 this.message = productResponse.message
-
             else
                 await this.router.go()
         }

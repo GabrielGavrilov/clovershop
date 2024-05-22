@@ -23,10 +23,10 @@
 </template>
 
 <script>
+import { isUserAuthorized } from '@/modules/CommonModule';
+import { fetchRequestToServer } from '@/modules/FetchModule';
 import DashboardHeaderComponent from '@/components/DashboardHeaderComponent.vue';
-import config from "../../../../config/index.js"
 import { useRouter } from "vue-router"
-
 
 export default {
     name: "AdminCategoriesView",
@@ -37,30 +37,13 @@ export default {
         return {
             router: useRouter(),
             categories: undefined,
-            server: `${config.SERVER_PROTOCOL}://${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
         }
     },
     async mounted() {
-        await this.authorizeUser()
+        if(!await isUserAuthorized())
+            this.router.push("/admin/login")
 
-        const response = await fetch(`${this.server}/api/categories/`, {
-            headers: {"Content-Type": "application/json"}    
-        })
-
-        this.categories = await response.json()
-    },
-    methods: {
-        async authorizeUser() {
-            const response = await fetch(`${this.server}/auth/account`, {
-                headers: {"Content-Type": "application/json"},
-                credentials: "include"
-            })
-
-            const authResponse = await response.json()
-
-            if(authResponse.status == 401 || authResponse.status == 400)
-                this.router.push("/admin/login")
-        }
+        this.categories = await fetchRequestToServer("GET", "/api/categories");
     }
 }
 </script>

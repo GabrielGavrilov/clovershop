@@ -20,44 +20,27 @@
 </template>
 
 <script>
-	import config from "../../../../config/index.js"
-	import DashboardHeaderComponent from "@/components/DashboardHeaderComponent.vue"
-	import { useRouter } from "vue-router"
+import DashboardHeaderComponent from "@/components/DashboardHeaderComponent.vue"
+import { isUserAuthorized } from "@/modules/CommonModule"
+import { credentialFetchRequestToServer } from "@/modules/FetchModule"
+import { useRouter } from "vue-router"
 
-	export default {
-		name: "AdminOrdersView",
-		components: {
-			DashboardHeaderComponent
-		},
-		data() {
-			return {
-				router: useRouter(),
-				orders: undefined,
-				server: `${config.SERVER_PROTOCOL}://${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
-			}
-		},
-		async mounted() {
-			await this.authorizeUser()
-
-			const ordersResponse = await fetch(`${this.server}/order/`, {
-				headers: {"Content-Type": "application/json"},
-				credentials: "include"
-			})
-
-			this.orders = await ordersResponse.json()
-		},
-		methods: {
-			async authorizeUser() {
-				const response = await fetch(`${this.server}/auth/account`, {
-					headers: {"Content-Type": "application/json"},
-					credentials: "include"
-				})
-
-				const authResponse = await response.json()
-
-				if(authResponse.status == 401 || authResponse == 400)
-					this.router.push("/admin/login")
-			}
+export default {
+	name: "AdminOrdersView",
+	components: {
+		DashboardHeaderComponent
+	},
+	data() {
+		return {
+			router: useRouter(),
+			orders: undefined,
 		}
+	},
+	async mounted() {
+		if(!await isUserAuthorized())
+			this.router.push("/admin/login")
+
+		this.orders = await credentialFetchRequestToServer("GET", "/order/")
 	}
+}
 </script>
