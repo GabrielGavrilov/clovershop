@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { fetchRequestToServerWithBody } from "@/modules/FetchModule"
+import { credentialFetchRequestToServerWithBody, fetchRequestToServerWithBody } from "@/modules/FetchModule"
 import { formatPrice } from "@/modules/CommonModule"
 import NotFoundComponent from "./NotFoundComponent.vue"
 import { reactive } from "vue"
@@ -73,7 +73,7 @@ export default {
     },
     methods: {
         async addItemToCart() {
-            await fetchRequestToServerWithBody("POST", "/cart/add", this.productModel);
+            await credentialFetchRequestToServerWithBody("POST", "/cart/add", this.productModel);
             await this.router.push("/cart")
         },
         price: formatPrice

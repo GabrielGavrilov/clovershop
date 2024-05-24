@@ -44,6 +44,7 @@ async function addProductToCart(req, res) {
                     if (o.productId === productId) {
                         let count = updatedCart[i].quantity
                         updatedCart[i].quantity = count + 1
+                        console.log(req.session.cart)
                         return res.json({status: 200})
                     }
                 })
