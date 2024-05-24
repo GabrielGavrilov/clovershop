@@ -15,10 +15,11 @@
 </template>
 
 <script>
-import config from "../../../../config/index.js"
 import DashboardHeaderComponent from '@/components/DashboardHeaderComponent.vue';
 import {useRoute, useRouter} from "vue-router"
 import { reactive } from 'vue';
+import { isUserAuthorized } from '@/modules/CommonModule';
+import { credentialFetchRequestToServerWithBody, fetchRequestToServer } from '@/modules/FetchModule';
 
 export default {
     name: "AdminUpdateProductView.vue",
@@ -37,17 +38,14 @@ export default {
                 productPrice: "",
                 productQuantity: ""
             }),
-            server: `${config.SERVER_PROTOCOL}://${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
         }
     },
     async mounted() {
-        await this.authorizeUser()
+        if(!await isUserAuthorized())
+            this.router.push("/admin/login")
 
-        const response = await fetch(`${this.server}/api/product/${this.route.params.productId}`, {
-            headers: {"Content-Type": "application/json"}
-        })
+        const productInformation = await fetchRequestToServer("GET", `/api/product/${this.route.params.productId}`)
 
-        const productInformation = await response.json();
         this.product.productId = productInformation._id
         this.product.productName = productInformation.productName
         this.product.productDescription = productInformation.productDescription
@@ -55,30 +53,11 @@ export default {
         this.product.productQuantity = productInformation.productQuantity
     },
     methods: {
-        async authorizeUser() {
-            const response = await fetch(`${this.server}/auth/account`, {
-                headers: {"Content-Type": "application/json"},
-                credentials: "include"
-            })
-
-            const authResponse = await response.json()
-
-            if(authResponse.status == 401 || authResponse.status == 400)
-                this.router.push("/admin/login")
-        },
         async updateProduct() {
-            const response = await fetch(`${this.server}/admin/product/update`, {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                credentials: "include",
-                body: JSON.stringify(this.product)
-            });
-
-            const productResponse = await response.json()
+            const productResponse = await credentialFetchRequestToServerWithBody("POST", ".admin/product/update", this.product)
 
             if(productResponse.status == 409)
                 this.message = productResponse.message
-
             else
                 await this.router.push("/admin/products")
         }

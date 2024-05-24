@@ -9,8 +9,9 @@
 </template>
 
 <script>
-import config from "../../../../config/index.js"
 import DashboardHeaderComponent from "@/components/DashboardHeaderComponent.vue"
+import { isUserAuthorized } from "@/modules/CommonModule";
+import { credentialFetchRequestToServerWithBody, fetchRequestToServer } from "@/modules/FetchModule";
 import { reactive } from "vue";
 import { useRoute, useRouter } from "vue-router"
 
@@ -26,46 +27,24 @@ export default {
             subcategory: reactive({
                 subcategoryId: "",
                 subcategoryName: ""
-            }),
-            server: `${config.SERVER_PROTOCOL}://${config.SERVER_DOMAIN}:${config.SERVER_PORT}`
+            })
         }
     },
     async mounted() {
-        await this.authorizeUser()
+        if(!await isUserAuthorized())
+            this.router.push("/admin/login")
 
-        const response = await fetch(`${this.server}/api/subcategory/${this.route.params.subcategoryId}`, {
-            headers: {"Content-Type": "application/json"}
-        })
+        const subcategoryInformation = await fetchRequestToServer("GET", `/api/subcategory/${this.route.params.subcategoryId}`);
 
-        const subcategoryInformation = await response.json();
         this.subcategory.subcategoryId = subcategoryInformation._id
         this.subcategory.subcategoryName = subcategoryInformation.subcategoryName
     },
     methods: {
-        async authorizeUser() {
-            const response = await fetch(`${this.server}/auth/account`, {
-                headers: {"Content-Type": "application/json"},
-                credentials: "include"
-            })
-
-            const authResponse = await response.json()
-
-            if(authResponse.status == 401 || authResponse.status == 400)
-                this.router.push("/admin/login")
-        },
         async updateSubcategory() {
-            const response = await fetch(`${this.server}/admin/subcategory/update`, {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                credentials: "include",
-                body: JSON.stringify(this.subcategory)
-            })
-
-            const subcategoryResponse = await response.json()
+            const subcategoryResponse = await credentialFetchRequestToServerWithBody("POST", "/admin/subcategory/update", this.subcategory)
 
             if(subcategoryResponse.status == 409)
                 this.message = subcategoryResponse.message
-
             else
                 await this.router.push("/admin/subcategories")
         }
