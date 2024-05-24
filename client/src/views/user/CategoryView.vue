@@ -4,21 +4,21 @@
         <div v-if="!categoryExists">
             <NotFoundComponent message="The page you are looking for does not exist!"/>
         </div>
-        <div class="category-banner">
-            <div class="category-banner-content">
-                <div class="category-banner-title">
+        <div>
+            <div>
+                <div>
                     <p>{{ category.categoryName }}</p>
                 </div>
-                <div class="category-banner-description">
+                <div>
                     <p>{{ category.categoryDescription }}</p>
                 </div>
             </div>
         </div>
-        <div class="category-content">
-            <div class="subcategory-content">
+        <div>
+            <div>
                 <div>
-                    <p class="subcategory-title">Subcategories</p>
-                    <div class="subcategory-line"></div>
+                    <p>Subcategories</p>
+                    <div></div>
                     <ul>
                         <li @click="getProductsBySubcategory(subcategory.subcategoryName)" v-for="subcategory in subcategories">
                             {{ subcategory.subcategoryName }}
@@ -27,8 +27,8 @@
                 </div>
             </div>
 
-            <div class="category-product-container">
-                <div class="category-product-item" v-if="products.length > 0 && categoryExists" v-for="product in products">
+            <div>
+                <div v-if="products.length > 0 && categoryExists" v-for="product in products">
                     <CategoryProductComponent 
                         v-bind:productId="product._id"
                         v-bind:productPicture="product.productPicture"

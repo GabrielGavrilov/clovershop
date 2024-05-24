@@ -2,31 +2,31 @@
     <div v-if="!productExists">
         <NotFoundComponent message="The page you are looking for does not exist!"/>
     </div>
-    <div class="product-content" v-else-if="product !== undefined && productExists">
-        <div class="product-picture-content">
-            <img class="product-picture" v-bind:src="require(`@/assets/images/uploads/${product.productPicture}`)">
+    <div v-else-if="product !== undefined && productExists">
+        <div>
+            <img v-bind:src="require(`@/assets/images/uploads/${product.productPicture}`)">
         </div>
-        <div class="product-information">
-            <div class="product-name">
+        <div>
+            <div>
                 <p>{{ product.productName }}</p>
             </div>
-            <div class="product-price">
+            <div>
                 <p>${{ price(product.productPrice) }}</p>
             </div>
-            <div class="product-stock">
+            <div>
                 <p>{{ product.productQuantity }}</p>
             </div>
             <div>
                 <form v-on:submit.prevent="addItemToCart()">
-                    <div class="quantity-input">
-                        <input class="product-quantity" v-model="productModel.quantity" type="number" min="1" value="1">
+                    <div>
+                        <input v-model="productModel.quantity" type="number" min="1" value="1">
                     </div>
-                    <div class="add-to-cart-button">
-                        <button class="product-button" type="submit">Add to cart</button>
+                    <div>
+                        <button type="submit">Add to cart</button>
                     </div>
                 </form>
             </div>
-            <div class="product-description">
+            <div>
                 <p>{{ product.productDescription }}</p>
             </div>
         </div>

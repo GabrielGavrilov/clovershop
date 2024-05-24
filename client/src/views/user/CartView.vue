@@ -1,37 +1,31 @@
 <template>
     <HeaderComponent/>
     <main>
-        <div class="cart-content">
-            <div class="cart-product-items-content">
-                <div class="cart-products-header">PRODUCTS</div>
-                <div class="light-line"></div>
+        <div>
+            <div>
                 <div v-for="item in items">
                     <CartItemComponent v-bind:item="item"/>
                 </div>
-                <div class="light-line"></div>
-                <div class="cart-summary">
-                    <div class="cart-total-price">
+                <div>
+                    <div>
                         <p>${{ price(cartSubtotal) }}</p>
                     </div>
-                    <div class="reset-cart">
+                    <div>
                         <a @click="resetCart()"><p>Reset cart</p></a>
                     </div>
                 </div>
             </div>
     
-            <div class="cart-checkout-content">
-                <p class="cart-checkout-header">CHECKOUT</p>
-                <div class="light-line cart-checkout-header-line"></div>
-                <div class="cart-checkout-subtotal">
-                    <p class="cart-subtotal-text">Subtotal</p>
-                    <p class="cart-subtotal-amount">${{ price(cartSubtotal) }}</p>
+            <div>
+                <div>
+                    <p>${{ price(cartSubtotal) }}</p>
                 </div>
-                <div class="cart-checkout-shipping-text">
+                <div>
                     <p>Taxes and shipping calculated at checkout</p>
                 </div>
-                <div class="cart-checkout-button-content">
+                <div>
                     <a v-bind:href="$router.resolve({name: 'Checkout'}).href">
-                        <button class="cart-checkout-button">Checkout</button>
+                        <button>Checkout</button>
                     </a>
                 </div>
             </div>      
