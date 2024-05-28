@@ -17,7 +17,6 @@ const upload = multer({storage: uploadStorage})
 /**
  * Admin POST routes
  */
-
 router.post("/category/new", controller.createNewCategory)
 router.post("/category/update", controller.updateCategory)
 router.post("/subcategory/new", controller.createNewSubcategory)

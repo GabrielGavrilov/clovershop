@@ -90,25 +90,7 @@ async function createStripePaymentLinkFromOrder(req, res) {
     }
 }
 
-async function displayCheckout(req, res) {
-    const order = await Order.findOne({_id: req.params.id})
-    let products = []
-
-    for(let i = 0; i < order.orderProducts.length; i++) {
-        const product = await Product.findOne({_id: order.orderProducts[i].productId})
-        products.push(product)
-    }
-
-    res.render("checkout.ejs", {
-        orderId: order._id,
-        orderTotal: order.orderTotal,
-        orderNumber: order.orderNumber,
-        orderStatus: order.orderStatus,
-        orderProducts: order.orderProducts,
-        orderProductsInformation: products
-    })
-}
-
+// insecure?
 async function processOrderAfterStripePayment(req, res) {
     const { orderId } = req.body
     const order = await Order.findOneAndUpdate({ _id: orderId }, { orderStatus: "complete" })
@@ -120,48 +102,6 @@ async function processOrderAfterStripePayment(req, res) {
 
     else
         return res.json({status: 404, message: "Order does not exist!"})
-}
-
-async function processCheckout(req, res) {
-    const { stripeEmail, stripeToken } = req.body
-    const order = await Order.findOne({_id: req.params.id})
-    const findOrder = {_id: req.params.id}
-    const markComplete = {orderStatus: "complete"}
-    
-    // add customer?
-
-    try {
-        await stripe.paymentIntents.create({
-            amount: order.orderTotal,
-            currency: "cad",
-            payment_method_types: ["card"],
-            receipt_email: "test@gmail.com"
-
-        }, async function(err, paymentIntent) {
-            if(err) {
-                console.log(err)
-                return res.send("There has been an issue.")
-            }
-
-            await stripe.paymentIntents.confirm(paymentIntent.id, {
-                payment_method: "pm_card_visa"
-            }, async function(err, paymentIntent) {
-                if(err) {
-                    console.log(err);
-                    return res.send("There has been an issue.")
-                }
-
-                await Order.findOneAndUpdate(findOrder, markComplete)
-                req.session.cart = []
-                return res.redirect(`/order/checkout/${req.params.id}`)
-            })
-        })
-    }
-
-    catch(err) {
-        console.log(err)
-        return res.send("error")
-    }
 }
 
 async function displayAllOrders(req, res) {
@@ -242,8 +182,6 @@ module.exports = {
     createOrder,
     createStripePaymentLinkFromOrder,
     processOrderAfterStripePayment,
-    displayCheckout,
-    processCheckout,
     displayAllOrders,
     listOrderInformationById,
     displayOrderStatistics

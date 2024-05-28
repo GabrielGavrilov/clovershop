@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { credentialFetchRequestToServer } from "@/modules/FetchModule.js"
+import { fetchRequestToServer } from "@/modules/FetchModule.js"
 import { formatPrice } from "@/modules/CommonModule"
 import { useRouter } from "vue-router"
 import HeaderComponent from '@/components/HeaderComponent.vue'
@@ -71,7 +71,7 @@ export default {
     },
     methods: {
         async getProductInformation(productId) {
-            return await credentialFetchRequestToServer("GET", `/api/product/${productId}`)
+            return await fetchRequestToServer("GET", `/api/product/${productId}`)
         },
         async resetCart() {
             const cartResponse = await credentialFetchRequestToServer("POST", "/cart/reset")
