@@ -25,7 +25,7 @@
 <script>
 import { isUserAuthorized } from '@/modules/CommonModule';
 import { fetchRequestToServer } from '@/modules/FetchModule';
-import DashboardHeaderComponent from '@/components/DashboardHeaderComponent.vue';
+import DashboardHeaderComponent from '@/components/AdminSideMenuComponent.vue';
 import { useRouter } from "vue-router"
 
 export default {

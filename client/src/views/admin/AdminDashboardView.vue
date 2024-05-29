@@ -1,29 +1,38 @@
 <template>
-    <DashboardHeaderComponent/>
-    <div v-if="user !== undefined">
-        <h2>Dashboard</h2>
-        <p>Logged in as {{ user.firstName }} {{ user.lastName }}</p>
-    </div>
-    <div v-else>
-        <p>Loading...</p>
-    </div>
-    <div v-if="shopStatistics !== undefined">
-        <p>{{ shopStatistics.totalOrders }} orders</p>
-        <p>{{ shopStatistics.totalOrdersCompleted }} completed orders</p>
-        <p>${{ price(shopStatistics.totalOrdersSum) }} in sales</p>
-    </div>
+    <AdminHeaderComponent/>
+    <main>
+        <div class="page-dashboard">
+            <DashboardHeaderComponent/>
+        </div>
+        <div class="page-content">
+            <div v-if="user !== undefined">
+                <h2>Dashboard</h2>
+                <p>Logged in as {{ user.firstName }} {{ user.lastName }}</p>
+            </div>
+            <div v-else>
+                <p>Loading...</p>
+            </div>
+            <div v-if="shopStatistics !== undefined">
+                <p>{{ shopStatistics.totalOrders }} orders</p>
+                <p>{{ shopStatistics.totalOrdersCompleted }} completed orders</p>
+                <p>${{ price(shopStatistics.totalOrdersSum) }} in sales</p>
+            </div>
+        </div>
+    </main>
 </template>
 
 <script>
 import { formatPrice, isUserAuthorized } from "@/modules/CommonModule"
-import DashboardHeaderComponent from "@/components/DashboardHeaderComponent.vue"
+import DashboardHeaderComponent from "@/components/AdminSideMenuComponent.vue"
+import AdminHeaderComponent from "@/components/AdminHeaderComponent.vue"
 import { useRouter } from "vue-router"
 import { credentialFetchRequestToServer } from "@/modules/FetchModule"
 
 export default {
     name: "AdminDashboardView",
     components: {
-        DashboardHeaderComponent
+        DashboardHeaderComponent,
+        AdminHeaderComponent
     },
     data() {
         return {
@@ -33,13 +42,11 @@ export default {
         }
     },
     async mounted() {
-
-        // undefined loading because user is not definded after authorization
-
         if(!await isUserAuthorized())
             await this.router.push("/admin/login")
 
         this.shopStatistics = await credentialFetchRequestToServer("GET","/order/statistics")
+        this.user = await credentialFetchRequestToServer("GET", "/auth/account")
     },
     methods: {
         price: formatPrice

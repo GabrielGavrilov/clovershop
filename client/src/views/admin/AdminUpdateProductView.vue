@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import DashboardHeaderComponent from '@/components/DashboardHeaderComponent.vue';
+import DashboardHeaderComponent from '@/components/AdminSideMenuComponent.vue';
 import {useRoute, useRouter} from "vue-router"
 import { reactive } from 'vue';
 import { isUserAuthorized } from '@/modules/CommonModule';

@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import DashboardHeaderComponent from "@/components/DashboardHeaderComponent.vue"
+import DashboardHeaderComponent from "@/components/AdminSideMenuComponent.vue"
 import { isUserAuthorized } from "@/modules/CommonModule"
 import { credentialFetchRequestToServer } from "@/modules/FetchModule"
 import { useRouter } from "vue-router"

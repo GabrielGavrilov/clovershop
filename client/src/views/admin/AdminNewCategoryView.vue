@@ -14,7 +14,7 @@
 <script>
 import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
-import DashboardHeaderComponent from '@/components/DashboardHeaderComponent.vue';
+import DashboardHeaderComponent from '@/components/AdminSideMenuComponent.vue';
 import { isUserAuthorized } from "@/modules/CommonModule";
 import { credentialFetchRequestToServerWithBody } from "@/modules/FetchModule";
 

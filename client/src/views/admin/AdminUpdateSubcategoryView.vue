@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import DashboardHeaderComponent from "@/components/DashboardHeaderComponent.vue"
+import DashboardHeaderComponent from "@/components/AdminSideMenuComponent.vue"
 import { isUserAuthorized } from "@/modules/CommonModule";
 import { credentialFetchRequestToServerWithBody, fetchRequestToServer } from "@/modules/FetchModule";
 import { reactive } from "vue";

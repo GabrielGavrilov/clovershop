@@ -3,7 +3,7 @@
 </template>
 
 <script>
-	import DashboardHeaderComponent from "@/components/DashboardHeaderComponent"
+	import DashboardHeaderComponent from "@/components/AdminSideMenuComponent"
 	import { useRouter } from "vue-router"
 
 	export default {
