@@ -1,22 +1,17 @@
 <template>
-    <AdminHeaderComponent/>
+    <DashboardHeaderComponent/>
     <main>
-        <div class="page-dashboard">
-            <DashboardHeaderComponent/>
+        <div v-if="user !== undefined">
+            <h2>Dashboard</h2>
+            <p>Logged in as {{ user.firstName }} {{ user.lastName }}</p>
         </div>
-        <div class="page-content">
-            <div v-if="user !== undefined">
-                <h2>Dashboard</h2>
-                <p>Logged in as {{ user.firstName }} {{ user.lastName }}</p>
-            </div>
-            <div v-else>
-                <p>Loading...</p>
-            </div>
-            <div v-if="shopStatistics !== undefined">
-                <p>{{ shopStatistics.totalOrders }} orders</p>
-                <p>{{ shopStatistics.totalOrdersCompleted }} completed orders</p>
-                <p>${{ price(shopStatistics.totalOrdersSum) }} in sales</p>
-            </div>
+        <div v-else>
+            <p>Loading...</p>
+        </div>
+        <div v-if="shopStatistics !== undefined">
+            <p>{{ shopStatistics.totalOrders }} orders</p>
+            <p>{{ shopStatistics.totalOrdersCompleted }} completed orders</p>
+            <p>${{ price(shopStatistics.totalOrdersSum) }} in sales</p>
         </div>
     </main>
 </template>

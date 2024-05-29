@@ -16,8 +16,6 @@
 </template>
 
 <script>
-import AdminHeaderStyle from "@/assets/styles/AdminHeader.css"
-
 export default {
     name: "AdminHeaderComponent"
 }
