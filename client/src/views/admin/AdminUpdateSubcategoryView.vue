@@ -1,11 +1,13 @@
 <template>
     <DashboardHeaderComponent/>
-    <p>{{ message }}</p>
-    <form v-on:submit.prevent="updateSubcategory()">
-        <input v-model="subcategory.subcategoryName" type="text" required>
-        <br>
-        <button type="submit">Update</button>
-    </form>
+    <main>
+        <p>{{ message }}</p>
+        <form v-on:submit.prevent="updateSubcategory()">
+            <input v-model="subcategory.subcategoryName" type="text" required>
+            <br>
+            <button type="submit">Update</button>
+        </form>
+    </main>
 </template>
 
 <script>

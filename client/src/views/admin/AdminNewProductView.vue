@@ -1,28 +1,30 @@
 <template>
     <DashboardHeaderComponent/>
-    <p>Products</p>
-    <p>{{ message }}</p>
-    <form v-on:submit.prevent="createProduct($event)">
-        <input type="file" required>
-        <br>
-        <input v-model="product.productName" type="text" placeholder="Name" required>
-        <br>
-        <input v-model="product.productDescription" type="text" placeholder="Description" required>
-        <br>
-        <input v-model="product.productPrice" type="number" placeholder="Price" required>
-        <br>
-        <input v-model="product.productQuantity" type="number" placeholder="Quantity" required>
-        <br>
-        <select v-model="product.categoryName">
-            <option v-for="category in categories" v-bind:value="category.categoryName">
-                {{ category.categoryName }}
-            </option>
-        </select>
-        <br>
-        <input v-model="product.subcategoryName" type="text" placeholder="Subcategory name" required>
-        <br>
-        <button type="submit">Create product</button>
-    </form>
+    <main>
+        <p>Products</p>
+        <p>{{ message }}</p>
+        <form v-on:submit.prevent="createProduct($event)">
+            <input type="file" required>
+            <br>
+            <input v-model="product.productName" type="text" placeholder="Name" required>
+            <br>
+            <input v-model="product.productDescription" type="text" placeholder="Description" required>
+            <br>
+            <input v-model="product.productPrice" type="number" placeholder="Price" required>
+            <br>
+            <input v-model="product.productQuantity" type="number" placeholder="Quantity" required>
+            <br>
+            <select v-model="product.categoryName">
+                <option v-for="category in categories" v-bind:value="category.categoryName">
+                    {{ category.categoryName }}
+                </option>
+            </select>
+            <br>
+            <input v-model="product.subcategoryName" type="text" placeholder="Subcategory name" required>
+            <br>
+            <button type="submit">Create product</button>
+        </form>
+    </main>
 </template>
 
 <script>

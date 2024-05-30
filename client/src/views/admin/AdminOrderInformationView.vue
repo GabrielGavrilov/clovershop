@@ -1,5 +1,7 @@
 <template>
 	<DashboardHeaderComponent/>
+	<main>
+	</main>
 </template>
 
 <script>

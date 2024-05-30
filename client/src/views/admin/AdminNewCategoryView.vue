@@ -1,14 +1,16 @@
 <template>
     <DashboardHeaderComponent/>
-    <p>Categories</p>
-    <p>{{ message }}</p>
-    <form v-on:submit.prevent="createCategory()">
-        <input v-model="category.categoryName" type="text" placeholder="Category name" required>
-        <br>
-        <input v-model="category.categoryDescription" type="text" placeholder="Category description" required>
-        <br>
-        <button type="submit">Create category</button>
-    </form>
+    <main>
+        <p>Categories</p>
+        <p>{{ message }}</p>
+        <form v-on:submit.prevent="createCategory()">
+            <input v-model="category.categoryName" type="text" placeholder="Category name" required>
+            <br>
+            <input v-model="category.categoryDescription" type="text" placeholder="Category description" required>
+            <br>
+            <button type="submit">Create category</button>
+        </form>
+    </main>
 </template>
 
 <script>

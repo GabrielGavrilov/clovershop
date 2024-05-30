@@ -1,13 +1,15 @@
 <template>
     <DashboardHeaderComponent/>
-    <p>{{ message }}</p>
-    <form v-on:submit.prevent="updateCategory()">
-        <input v-model="category.categoryName" type="text" required>
-        <br>
-        <input v-model="category.categoryDescription" type="text" required>
-        <br>
-        <button type="submit">Update</button>
-    </form>
+    <main>
+        <p>{{ message }}</p>
+        <form v-on:submit.prevent="updateCategory()">
+            <input v-model="category.categoryName" type="text" required>
+            <br>
+            <input v-model="category.categoryDescription" type="text" required>
+            <br>
+            <button type="submit">Update</button>
+        </form>
+    </main>
 </template>
 
 <script>

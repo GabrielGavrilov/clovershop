@@ -1,4 +1,5 @@
 <template>
+    <AdminHeaderComponent/>
     <DashboardHeaderComponent/>
     <main>
         <div v-if="user !== undefined">

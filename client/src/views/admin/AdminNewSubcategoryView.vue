@@ -1,18 +1,20 @@
 <template>
     <DashboardHeaderComponent/>
-    <p>Subcategories</p>
-    <p>{{ message }}</p>
-    <form v-on:submit.prevent="createSubcategory()">
-        <input v-model="subcategory.subcategoryName" type="text" placeholder="Subcategory name" required>
-        <br>
-        <select v-model="subcategory.categoryName">
-            <option v-for="category in categories" v-bind:value="category.categoryName">
-                {{ category.categoryName }}
-            </option>
-        </select>
-        <br>
-        <button type="submit">Create subcategory</button>
-    </form>
+    <main>
+        <p>Subcategories</p>
+        <p>{{ message }}</p>
+        <form v-on:submit.prevent="createSubcategory()">
+            <input v-model="subcategory.subcategoryName" type="text" placeholder="Subcategory name" required>
+            <br>
+            <select v-model="subcategory.categoryName">
+                <option v-for="category in categories" v-bind:value="category.categoryName">
+                    {{ category.categoryName }}
+                </option>
+            </select>
+            <br>
+            <button type="submit">Create subcategory</button>
+        </form>
+    </main>
 </template>
 
 <script>
@@ -42,7 +44,7 @@ export default {
         if(!await isUserAuthorized())
             this.router.push("/admin/login")
 
-        this.categories = await fetchRequestToServer("POST", "/api/categories")
+        this.categories = await fetchRequestToServer("GET", "/api/categories")
     },
     methods: {
         async createSubcategory() {

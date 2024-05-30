@@ -1,17 +1,19 @@
 <template>
     <DashboardHeaderComponent/>
-    <p>{{ message }}</p>
-    <form v-on:submit.prevent="updateProduct()">
-        <input v-model="product.productName" type="text" required>
-        <br>
-        <input v-model="product.productDescription" type="text" required>
-        <br>
-        <input v-model="product.productPrice" type="number" required>
-        <br>
-        <input v-model="product.productQuantity" type="number" required>
-        <br>
-        <button type="submit">Update</button>
-    </form>
+    <main>
+        <p>{{ message }}</p>
+        <form v-on:submit.prevent="updateProduct()">
+            <input v-model="product.productName" type="text" required>
+            <br>
+            <input v-model="product.productDescription" type="text" required>
+            <br>
+            <input v-model="product.productPrice" type="number" required>
+            <br>
+            <input v-model="product.productQuantity" type="number" required>
+            <br>
+            <button type="submit">Update</button>
+        </form>
+    </main>
 </template>
 
 <script>
