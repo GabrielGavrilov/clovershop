@@ -1,6 +1,21 @@
 <template>
     <div class="sidebar">
         <ul>
+            <P class="sidebar-section-title">Quick links </P>
+            <li>
+                <a href="/admin/categories/new">
+                    <div class="sidebar-button">
+                        <button>New category</button>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/products/new">
+                    <div class="sidebar-button">
+                        <button>New product</button>
+                    </div>
+                </a>
+            </li>
             <p class="sidebar-section-title">Catalog</p>
             <li>
                 <a href="/admin/categories">
@@ -16,7 +31,6 @@
                     </div>
                 </a>
             </li>
-            <p class="sidebar-section-title">Products</p>
             <li>
                 <a href="/admin/products">
                     <div class="sidebar-button">
