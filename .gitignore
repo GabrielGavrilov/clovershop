@@ -1,5 +1,4 @@
 .env.hidden
 config/node_modules/
 client/node_modules/
-server/node_modules/
-server/devconfig.js
+api/node_modules/
