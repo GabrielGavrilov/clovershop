@@ -47,12 +47,12 @@ async function createOrder(req, res) {
         })
         .catch(function(err) {
             console.log(err)
-            return res.json({status: 400})
+            return res.status(400).json({message: "There was an issue with creating your order"})
         })
     }
 
     else if(!cart) {
-        return res.json({status: 404})
+        return res.status(404)
     }
 }
 
@@ -64,8 +64,7 @@ async function createStripePaymentLinkFromOrder(req, res) {
     for (let i = 0; i < order.orderProducts.length; i++) {
         const product = await Product.findOne({ _id: order.orderProducts[i].productId })
         const quantity = order.orderProducts[i].quantity
-        products.push(
-            {
+        products.push({
                 price: product.productStripePriceId,
                 quantity: quantity
             }
@@ -86,7 +85,7 @@ async function createStripePaymentLinkFromOrder(req, res) {
     }
     catch (e) {
         console.log(e)
-        return res.json({status: 400, message: "There was an issue with creating a payment link."})
+        return res.status(400).json({message: "There was an issue with creating a Stripe payment link."})
     }
 }
 
@@ -95,13 +94,11 @@ async function processOrderAfterStripePayment(req, res) {
     const { orderId } = req.body
     const order = await Order.findOneAndUpdate({ _id: orderId }, { orderStatus: "complete" })
     req.session.cart = []
-    console.log(req.session.cart)
 
     if(order)
         return res.json(order)
-
     else
-        return res.json({status: 404, message: "Order does not exist!"})
+        return res.status(404)
 }
 
 async function displayAllOrders(req, res) {
@@ -110,15 +107,14 @@ async function displayAllOrders(req, res) {
         const auth = jwt.verify(cookie, config.SERVER_SESSION_SECRET_KEY)
         const orders = await Order.find({}).sort({updatedAt: -1})
         
-        if(!auth) {
-            return res.json({status: 401})
-        }
+        if(!auth)
+            return res.status(401)
 
         return res.json(orders);
     }
     catch(e) {
         console.log(e);
-        return res.json({status: 401})
+        return res.status(401).json({message: "Unable to load all orders"})
     }
 }
 
@@ -130,16 +126,16 @@ async function listOrderInformationById(req, res) {
         const order = await Order.findOne({_id: orderId})
 
         if(!auth)
-            return res.json({status: 401})
+            return res.status(401)
 
         if(!order)
-            return res.json({status: 404})
+            return res.status(404)
 
         return res.json(order)
     }
     catch (e) {
         console.log(e)
-        return res.json({status: 401})
+        return res.status(401).json({message: "Unable to display order information"})
     }
 }
 
@@ -149,9 +145,8 @@ async function displayOrderStatistics(req, res) {
         const auth = jwt.verify(cookie, config.SERVER_SESSION_SECRET_KEY)
         const orders = await Order.find({})
 
-        if(!auth) {
-            return res.json({status: 401})
-        }
+        if(!auth)
+            return res.status(401)
 
         let totalOrdersSum = 0;
         let totalOrdersCompleted = 0;
@@ -174,7 +169,7 @@ async function displayOrderStatistics(req, res) {
     }
     catch(e) {
         console.log(e)
-        return res.json({status: 401})
+        return res.status(401).json({message: "Unable to display order statistics"})
     }
 }
 

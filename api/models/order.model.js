@@ -1,8 +1,7 @@
 const mongoose = require("mongoose")
 
 // in the future, maybe make the customer and the order separately?
-// this is bad database development practice
-
+// it'll be much better database management practice
 const orderSchema = new mongoose.Schema({
     orderNumber: Number,
     customerEmail: String,

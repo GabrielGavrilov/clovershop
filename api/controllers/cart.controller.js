@@ -19,7 +19,7 @@ async function addProductToCart(req, res) {
             updatedCart.push(cartItem)
             req.session.cart = updatedCart
 
-            return res.json({status: 200})
+            return res.status(200)
         }
         else {
             let updatedCart = []
@@ -31,16 +31,14 @@ async function addProductToCart(req, res) {
                     if (o.productId === productId) {
                         let count = updatedCart[i].quantity
                         updatedCart[i].quantity = count + 1
-
-                        return res.json({status: 200})
+                        return res.status(200)
                     }
                 })
             }
             else {
                 updatedCart.push(cartItem)
                 req.session.cart = updatedCart
-
-                return res.json({status: 200})
+                return res.status(200)
             }
         }
     }
@@ -51,22 +49,18 @@ async function addProductToCart(req, res) {
 }
 
 async function displayCart(req, res) {
-    if(req.session.cart) {
+    if(req.session.cart)
         return res.json(req.session.cart)
-    }
-
-    else {
-        return res.json({status: 404})
-    }
+    else
+        return res.status(404)
 }
 
 function resetCart(req, res) {
     req.session.cart = []
-    return res.json({status: 200})
+    return res.status(200)
 }
 
 module.exports = {
-    // displayProductInformation,
     addProductToCart,
     displayCart,
     resetCart

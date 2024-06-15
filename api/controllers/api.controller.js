@@ -17,7 +17,7 @@ async function listCategoryInformation(req, res) {
     if(category)
         return res.json(category)
     else 
-        return res.json({status: 404})
+        return res.status(404)
 }
 
 async function listCategoryInformationById(req, res) {
@@ -27,30 +27,26 @@ async function listCategoryInformationById(req, res) {
     if(category)
         return res.json(category)
     else
-        return res.json({status: 404})
+        return res.status(404)
 }
 
 async function listAllSubcategoriesInCategory(req, res) {
     const { categoryName } = req.body
     const subcategories = await Subcategory.find({categoryName: categoryName}).sort({date: -1})
-    
     return res.json(subcategories)
 }
 
 async function listAllProductsInCategory(req, res) {
     const { categoryName } = req.body
     const products = await Product.find({categoryName: categoryName}).sort({date: -1})
-    
     return res.json(products)
 }
 
 /**
  * Subcategory Controllers
  */
-
 async function listAllSubcategories(req, res) {
     const subcategories = await Subcategory.find({}).sort({date: -1})
-
     return res.json(subcategories)
 }
 
@@ -58,23 +54,17 @@ async function listSubcategoryInformationById(req, res) {
     const subcategoryId = req.params.subcategoryId
     const subcategory = await Subcategory.findOne({_id: subcategoryId})
 
-    return res.json(subcategory);
-}
-
-async function listAllProductsInSubcategory(req, res) {
-    const { categoryName, subcategoryName } = req.body
-    const products = await Product.find({categoryName: categoryName, subcategoryName: subcategoryName}).sort({date: -1})
-    
-    return res.json(products)
+    if(subcategory)
+        return res.json(subcategory)
+    else
+        return res.status(404)
 }
 
 /**
  * Product Controllers
  */
-
 async function listAllProducts(req, res) {
     const products = await Product.find({}).sort({date: -1})
-    
     return res.json(products)
 }
 
@@ -85,7 +75,7 @@ async function listProductInformationByName(req, res) {
     if(product)
         return res.json(product)
     else
-        return res.json({status: 404})
+        return res.status(404)
 }
 
 async function listProductInformationById(req, res) {

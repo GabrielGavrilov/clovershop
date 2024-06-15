@@ -1,7 +1,7 @@
-const fet = require("@/modules/FetchModule")
+const fm = require("@/modules/FetchModule")
 
 async function isUserAuthorized() {
-    const response = await fet.credentialFetchRequestToServer("GET", "/auth/account");
+    const response = await fm.credentialFetchRequestToServer("GET", "/auth/account");
     if(response.status == 401 || response.status == 400)
         return false
     return true

@@ -12,16 +12,11 @@ async function createNewCategory(req, res) {
         const auth = jwt.verify(cookie, config.SERVER_SESSION_SECRET_KEY)
         const categoryExists = await Category.findOne({categoryName: categoryName})
 
-        if(!auth) {
-            return res.json({status: 401})
-        }
+        if(!auth)
+            return res.status(401)
 
-        if(categoryExists) {
-            return res.json({
-                status: 409,
-                message: "A category already exists with the same name"
-            })
-        }
+        if(categoryExists)
+            return res.status(409).json({ message: "A category already exists with the same name" })
 
         const category = new Category({
             categoryName: categoryName,
@@ -31,17 +26,16 @@ async function createNewCategory(req, res) {
         await category.save()
         .then(function() {
             console.log(`[CloverShop]: Category ${categoryName} has been created.`)
-            return res.json({status: 200})
+            return res.status(200)
         })
         .catch(function(err) {
             console.log(err)
-            return res.json({status: 400})
+            return res.status(400).json({message: "Unable to create the category"})
         })
-
     }
     catch(e) {
         console.log(e)
-        return res.json({status: 401})
+        return res.status(401)
     }
 }
 
@@ -59,16 +53,11 @@ async function updateCategory(req, res) {
         const subcategories = await Subcategory.find({categoryName: category.categoryName})
         const products = await Product.find({categoryName: category.categoryName})
 
-        if(!auth) {
-            return res.json({status: 401})
-        }
+        if(!auth)
+            return res.status(401)
 
-        if(checkIfNewCategoryExists) {
-            return res.json({
-                status: 409,
-                message: "A category already exists with the same name"
-            })
-        }
+        if(checkIfNewCategoryExists)
+            return res.status(409).json({ message: "A category already exists with the same name" })
 
         for(let i = 0; i < subcategories.length; i++) {
             await Subcategory.findOneAndUpdate({_id: subcategories[i]._id}, updateProductAndSubcategory);
@@ -81,15 +70,16 @@ async function updateCategory(req, res) {
         await Category.findOneAndUpdate(findCategory, updateCategory)
         .then(function() {
             console.log(`[CloverShop]: Category updated.`)
-            return res.json({status: 200})
+            return res.status(200)
         })
         .catch(function(err) {
-            return res.json({status: 400})
+            console.log(err)
+            return res.status(400).json({message: "Unable to update the category"})
         })
     }
     catch(e) {
         console.log(e)
-        return res.json({status: 401})
+        return res.status(401)
     }
 }
 
@@ -100,16 +90,11 @@ async function createNewSubcategory(req, res) {
         const auth = jwt.verify(cookie, config.SERVER_SESSION_SECRET_KEY)
         const subcategoryExists = await Subcategory.findOne({subcategoryName: subcategoryName, categoryName: categoryName})
 
-        if(!auth) {
-            return res.json({status: 401})
-        }
+        if(!auth)
+            return res.status(401)
 
-        if(subcategoryExists) {
-            return res.json({
-                status: 409,
-                message: "A subcategory already exists with the same name"
-            })
-        }
+        if(subcategoryExists)
+            return res.status(409).json({message: "A subcategory already exists with the same name"})
 
         const subcategory = new Subcategory({
             subcategoryName: subcategoryName,
@@ -119,15 +104,16 @@ async function createNewSubcategory(req, res) {
         await subcategory.save()
         .then(function() {
             console.log(`[CloverShop]: Subcategory ${subcategoryName} has been created under ${categoryName}.`)
-            return res.json({status: 200})
+            return res.status(200)
         })
         .catch(function(err) {
-            return res.json({status: 400})
+            console.log(err)
+            return res.status(400).json({message: "Unable to create the subcategory"})
         })
         
     }
     catch(e) {
-        return res.json({status: 401})
+        return res.status(401)
     }
 }
 
@@ -143,16 +129,11 @@ async function updateSubcategory(req, res) {
         const checkIfNewSubcategoryExists = await Subcategory.findOne({subcategoryName: subcategoryName, categoryName: subcategory.categoryName})
         const products = await Product.find({subcategoryName: subcategory.subcategoryName})
 
-        if(!auth) {
-            return res.json({status: 401})
-        }
+        if(!auth)
+            return res.status(401)
 
-        if(checkIfNewSubcategoryExists) {
-            return res.json({
-                status: 409,
-                message: "A subcategory already exists with the same name"
-            })
-        }
+        if(checkIfNewSubcategoryExists)
+            return res.status(409).json({message: "A subcategory already exists with the same name"})
 
         for(let i = 0; i < products.length; i++) {
             await Product.findOneAndUpdate({_id: products[i]._id}, updateSubcategory)
@@ -161,27 +142,28 @@ async function updateSubcategory(req, res) {
         await Subcategory.findOneAndUpdate(findSubcategory, updateSubcategory)
         .then(function() {
             console.log("[CloverShop]: Subcategory updated.")
-            return res.json({status: 200})
+            return res.status(200)
         })
         .catch(function(err) {
             console.log(err)
-            return res.json({status: 400})
+            return res.status(400).json({message: "Unable to updating the subcategory"})
         })
     }
     catch(e) {
-        return res.json({status: 401})
+        return res.status(401)
     }
 }
 
 async function createStripeProductAndGetId(productName, productPrice) {
-    const price = await stripe.prices.create({
+    // TODO: add more information(?)
+    const product = await stripe.prices.create({
         currency: 'cad',
         unit_amount: productPrice,
         product_data: {
             name: productName,
         },
     });
-    return price
+    return product
 }
 
 async function createNewProduct(req, res) {
@@ -198,16 +180,11 @@ async function createNewProduct(req, res) {
         const auth = jwt.verify(cookie, config.SERVER_SESSION_SECRET_KEY)
         const productExists = await Product.findOne({productName: productName, categoryName: categoryName})
 
-        if(!auth) {
-            return res.json({status: 401})
-        }
+        if(!auth)
+            return res.status(401)
 
-        if(productExists) {
-            return res.json({
-                status: 409,
-                message: "A product already exists with the same name"
-            })
-        }
+        if(productExists)
+            return res.status(409).json({message: "A product already exists with the same name"})
 
         const stripeProduct = await createStripeProductAndGetId(productName, productPrice);
 
@@ -226,17 +203,20 @@ async function createNewProduct(req, res) {
         await product.save()
         .then(function() {
             console.log(`[CloverShop]: Product '${productName}' has been created.`)
-            return res.json({status: 200})
+            return res.status(200)
         })
         .catch(function(err) {
-            return res.json({status: 400})
+            console.log(err)
+            return res.status(400).json({message: "Unable to create the product"})
         })
     }
     catch(e) {
-        return res.json({status: 401})
+        return res.status(401)
     }
 }
 
+// TODO: Update product on Stripe
+// TODO: Update product picture as well
 async function updateProduct(req, res) {
     try {
         const {
@@ -258,29 +238,24 @@ async function updateProduct(req, res) {
             productQuantity: productQuantity
         }
 
-        if(!auth) {
-            return res.json({status: 401})
-        }
+        if(!auth)
+            return res.status(401)
 
-        if(productExists) {
-            return res.json({
-                status: 409,
-                message: "A product already exists with the same name"
-            })
-        }
+        if(productExists)
+            return res.status(409).json({message: "A product already exists with the same name"})
 
         await Product.findOneAndUpdate(findProduct, updateProduct)
         .then(function() {
             console.log("[CloverShop]: Product updated.")
-            return res.json({status: 200})
+            return res.status(200)
         })
         .catch(function(err) {
             console.log(err)
-            return res.json({status: 400})
+            return res.status(400).json({message: "Unable to update the product"})
         })
     }
     catch(e) {
-        return res.json({status: 401})
+        return res.status(401)
     }
 }
 
