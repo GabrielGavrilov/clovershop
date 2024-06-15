@@ -1,1 +1,0 @@
-Recent college graduate seeking professional experience and development opportunities to apply and further develop my expertise. Proficient in modern front-end technologies such as React and back-end technologies such as Node.js and TypeScript.  
