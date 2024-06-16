@@ -20,14 +20,16 @@
 <script>
 import { reactive } from 'vue';
 import { useRouter } from "vue-router"
-import DashboardHeaderComponent from '@/components/AdminSideMenuComponent.vue';
+import AdminHeaderComponent from '@/components/AdminHeaderComponent.vue';
+import AdminSideMenuComponent from '@/components/AdminSideMenuComponent.vue';
 import { isUserAuthorized } from '@/modules/CommonModule';
 import { credentialFetchRequestToServerWithBody, fetchRequestToServer } from '@/modules/FetchModule';
 
 export default {
     name: "AdminNewSubcategoryView",
     components: {
-        DashboardHeaderComponent
+        AdminHeaderComponent,
+        AdminSideMenuComponent
     },
     data() {
         return {

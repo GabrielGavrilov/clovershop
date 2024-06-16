@@ -1,5 +1,6 @@
 <template>
-    <DashboardHeaderComponent/>
+    <AdminHeaderComponent/>
+    <AdminSideMenuComponent/>
     <main>
         <a v-bind:href="$router.resolve({name: 'New subcategory'}).href">
             <button>Create a new Subcategory</button>
@@ -25,7 +26,8 @@
 </template>
 
 <script>
-import DashboardHeaderComponent from '@/components/AdminSideMenuComponent.vue';
+import AdminHeaderComponent from '@/components/AdminHeaderComponent.vue';
+import AdminSideMenuComponent from '@/components/AdminSideMenuComponent.vue';
 import { isUserAuthorized } from '@/modules/CommonModule';
 import { fetchRequestToServer } from '@/modules/FetchModule';
 import { useRouter } from 'vue-router';
@@ -33,7 +35,8 @@ import { useRouter } from 'vue-router';
 export default {
     name: "AdminSubcategoriesView",
     components: {
-        DashboardHeaderComponent
+        AdminHeaderComponent,
+        AdminSideMenuComponent
     },
     data() {
         return {

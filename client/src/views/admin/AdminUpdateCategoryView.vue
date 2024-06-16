@@ -1,5 +1,6 @@
 <template>
-    <DashboardHeaderComponent/>
+    <AdminHeaderComponent/>
+    <AdminSideMenuComponent/>
     <main>
         <p>{{ message }}</p>
         <form v-on:submit.prevent="updateCategory()">
@@ -13,7 +14,8 @@
 </template>
 
 <script>
-import DashboardHeaderComponent from "@/components/AdminSideMenuComponent.vue"
+import AdminHeaderComponent from "@/components/AdminHeaderComponent.vue";
+import AdminSideMenuComponent from "@/components/AdminSideMenuComponent.vue"
 import { isUserAuthorized } from "@/modules/CommonModule";
 import { credentialFetchRequestToServerWithBody, fetchRequestToServer } from "@/modules/FetchModule";
 import { reactive } from "vue";
@@ -22,7 +24,8 @@ import { useRoute, useRouter } from "vue-router";
 export default {
     name: "AdminUpdateCategoryView",
     components: {
-        DashboardHeaderComponent
+        AdminHeaderComponent,
+        AdminSideMenuComponent
     },
     data() {
         return {

@@ -1,6 +1,6 @@
 <template>
     <AdminHeaderComponent/>
-    <DashboardHeaderComponent/>
+    <AdminSideMenuComponent/>
     <main>
         <div v-if="user !== undefined">
             <h2>Dashboard</h2>
@@ -19,7 +19,7 @@
 
 <script>
 import { formatPrice, isUserAuthorized } from "@/modules/CommonModule"
-import DashboardHeaderComponent from "@/components/AdminSideMenuComponent.vue"
+import AdminSideMenuComponent from "@/components/AdminSideMenuComponent.vue"
 import AdminHeaderComponent from "@/components/AdminHeaderComponent.vue"
 import { useRouter } from "vue-router"
 import { credentialFetchRequestToServer } from "@/modules/FetchModule"
@@ -27,7 +27,7 @@ import { credentialFetchRequestToServer } from "@/modules/FetchModule"
 export default {
     name: "AdminDashboardView",
     components: {
-        DashboardHeaderComponent,
+        AdminSideMenuComponent,
         AdminHeaderComponent
     },
     data() {
@@ -41,8 +41,8 @@ export default {
         if(!await isUserAuthorized())
             await this.router.push("/admin/login")
 
-        this.shopStatistics = await credentialFetchRequestToServer("GET","/order/statistics")
-        this.user = await credentialFetchRequestToServer("GET", "/auth/account")
+        this.shopStatistics = (await credentialFetchRequestToServer("GET","/order/statistics")).data
+        this.user = (await credentialFetchRequestToServer("GET", "/auth/account")).data
     },
     methods: {
         price: formatPrice

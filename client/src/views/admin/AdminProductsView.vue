@@ -1,5 +1,6 @@
 <template>
-    <DashboardHeaderComponent/>
+    <AdminHeaderComponent/>
+    <AdminSideMenuComponent/>
     <main>
         <a v-bind:href="$router.resolve({name: 'New product'}).href">
             <button>Create new product</button>
@@ -24,14 +25,16 @@
 
 <script>
 import { useRouter } from 'vue-router';
-import DashboardHeaderComponent from '@/components/AdminSideMenuComponent.vue';
+import AdminHeaderComponent from '@/components/AdminHeaderComponent.vue';
+import AdminSideMenuComponent from '@/components/AdminSideMenuComponent.vue';
 import { isUserAuthorized } from '@/modules/CommonModule';
 import { fetchRequestToServer } from '@/modules/FetchModule';
 
 export default {
     name: "AdminProductsView",
     components: {
-        DashboardHeaderComponent
+        AdminHeaderComponent,
+        AdminSideMenuComponent
     },
     data() {
         return {

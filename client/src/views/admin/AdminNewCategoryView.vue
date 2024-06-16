@@ -1,5 +1,6 @@
 <template>
-    <DashboardHeaderComponent/>
+    <AdminHeaderComponent/>
+    <AdminSideMenuComponent/>
     <main>
         <p>Categories</p>
         <p>{{ message }}</p>
@@ -16,14 +17,16 @@
 <script>
 import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
-import DashboardHeaderComponent from '@/components/AdminSideMenuComponent.vue';
+import AdminHeaderComponent from '@/components/AdminHeaderComponent.vue';
+import AdminSideMenuComponent from '@/components/AdminSideMenuComponent.vue';
 import { isUserAuthorized } from "@/modules/CommonModule";
 import { credentialFetchRequestToServerWithBody } from "@/modules/FetchModule";
 
 export default {
     name: "AdminNewCategoryView",
     components: {
-        DashboardHeaderComponent
+        AdminHeaderComponent,
+        AdminSideMenuComponent
     },
     data() {
         return {

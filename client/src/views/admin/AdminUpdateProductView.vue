@@ -17,7 +17,8 @@
 </template>
 
 <script>
-import DashboardHeaderComponent from '@/components/AdminSideMenuComponent.vue';
+import AdminHeaderComponent from '@/components/AdminHeaderComponent.vue';
+import AdminSideMenuComponent from '@/components/AdminSideMenuComponent.vue';
 import {useRoute, useRouter} from "vue-router"
 import { reactive } from 'vue';
 import { isUserAuthorized } from '@/modules/CommonModule';
@@ -26,7 +27,8 @@ import { credentialFetchRequestToServerWithBody, fetchRequestToServer } from '@/
 export default {
     name: "AdminUpdateProductView.vue",
     components: {
-        DashboardHeaderComponent
+        AdminHeaderComponent,
+        AdminSideMenuComponent
     },
     data() {
         return {

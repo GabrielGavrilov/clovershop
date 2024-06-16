@@ -1,5 +1,6 @@
 <template>
-	<DashboardHeaderComponent/>
+	<AdminHeaderComponent/>
+	<AdminSideMenuComponent/>
 	<main>
 		<div v-if="orders !== undefined">
 			<div v-if="orders.length > 0">
@@ -22,7 +23,8 @@
 </template>
 
 <script>
-import DashboardHeaderComponent from "@/components/AdminSideMenuComponent.vue"
+import AdminHeaderComponent from "@/components/AdminHeaderComponent.vue"
+import AdminSideMenuComponent from "@/components/AdminSideMenuComponent.vue"
 import { isUserAuthorized } from "@/modules/CommonModule"
 import { credentialFetchRequestToServer } from "@/modules/FetchModule"
 import { useRouter } from "vue-router"
@@ -30,7 +32,8 @@ import { useRouter } from "vue-router"
 export default {
 	name: "AdminOrdersView",
 	components: {
-		DashboardHeaderComponent
+		AdminHeaderComponent,
+		AdminSideMenuComponent
 	},
 	data() {
 		return {

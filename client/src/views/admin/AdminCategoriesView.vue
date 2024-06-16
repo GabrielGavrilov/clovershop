@@ -1,4 +1,5 @@
 <template>
+    <AdminHeaderComponent/>
     <DashboardHeaderComponent/>
     <main>
         <a v-bind:href="$router.resolve({name: 'New category'}).href">
@@ -25,6 +26,7 @@
 </template>
 
 <script>
+import AdminHeaderComponent from '@/components/AdminHeaderComponent.vue';
 import { isUserAuthorized } from '@/modules/CommonModule';
 import { fetchRequestToServer } from '@/modules/FetchModule';
 import DashboardHeaderComponent from '@/components/AdminSideMenuComponent.vue';
@@ -33,6 +35,7 @@ import { useRouter } from "vue-router"
 export default {
     name: "AdminCategoriesView",
     components: {
+        AdminHeaderComponent,
         DashboardHeaderComponent
     },
     data() {
@@ -45,7 +48,7 @@ export default {
         if(!await isUserAuthorized())
             this.router.push("/admin/login")
 
-        this.categories = await fetchRequestToServer("GET", "/api/categories");
+        this.categories = (await fetchRequestToServer("GET", "/api/categories")).data;
     }
 }
 </script>

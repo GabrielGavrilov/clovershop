@@ -31,14 +31,12 @@ export default {
     },
     methods: {
         async submit() {
-            const authResponse = await credentialFetchRequestToServerWithBody("POST", "/auth/login", this.login);
-            
-            console.log(authResponse.status)
-            
-            // if(authResponse.status == 401)
-            //     this.message = authResponse.message
-            // else
-            //     await this.router.push("/admin/dashboard")
+            const response = await credentialFetchRequestToServerWithBody("POST", "/auth/login", this.login);
+
+            if(response.status == 401)
+                this.message = response.data.err
+            else
+                await this.router.push("/admin/dashboard")
         }
     }
 }

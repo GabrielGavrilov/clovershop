@@ -1,17 +1,20 @@
 <template>
-	<DashboardHeaderComponent/>
+	<AdminHeaderComponent/>
+	<AdminSideMenuComponent/>
 	<main>
 	</main>
 </template>
 
 <script>
-	import DashboardHeaderComponent from "@/components/AdminSideMenuComponent"
-	import { useRouter } from "vue-router"
+import AdminHeaderComponent from "@/components/AdminHeaderComponent.vue";
+import AdminSideMenuComponent from "@/components/AdminSideMenuComponent"
+import { useRouter } from "vue-router"
 
-	export default {
-		name: "AdminOrderInformationView",
-		components: {
-			DashboardHeaderComponent
-		}
+export default {
+	name: "AdminOrderInformationView",
+	components: {
+		AdminHeaderComponent,
+		AdminSideMenuComponent
 	}
+}
 </script>
