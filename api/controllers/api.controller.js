@@ -15,9 +15,9 @@ async function listCategoryInformation(req, res) {
     const category = await Category.findOne({categoryName: categoryName})
     
     if(category)
-        return res.json(category)
+        return res.status(200).json(category)
     else 
-        return res.status(404)
+        return res.status(404).json({err: "Not found"})
 }
 
 async function listCategoryInformationById(req, res) {
@@ -25,21 +25,21 @@ async function listCategoryInformationById(req, res) {
     const category = await Category.findOne({_id: categoryId})
 
     if(category)
-        return res.json(category)
+        return res.status(200).json(category)
     else
-        return res.status(404)
+        return res.status(404).json({err: "Not found"})
 }
 
 async function listAllSubcategoriesInCategory(req, res) {
     const { categoryName } = req.body
     const subcategories = await Subcategory.find({categoryName: categoryName}).sort({date: -1})
-    return res.json(subcategories)
+    return res.status(200).json(subcategories)
 }
 
 async function listAllProductsInCategory(req, res) {
     const { categoryName } = req.body
     const products = await Product.find({categoryName: categoryName}).sort({date: -1})
-    return res.json(products)
+    return res.status(200).json(products)
 }
 
 /**
@@ -47,7 +47,7 @@ async function listAllProductsInCategory(req, res) {
  */
 async function listAllSubcategories(req, res) {
     const subcategories = await Subcategory.find({}).sort({date: -1})
-    return res.json(subcategories)
+    return res.status(200).json(subcategories)
 }
 
 async function listSubcategoryInformationById(req, res) {
@@ -55,15 +55,15 @@ async function listSubcategoryInformationById(req, res) {
     const subcategory = await Subcategory.findOne({_id: subcategoryId})
 
     if(subcategory)
-        return res.json(subcategory)
+        return res.status(200).json(subcategory)
     else
-        return res.status(404)
+        return res.status(404).json({err: "Not found"})
 }
 
 async function listAllProductsInSubcategory(req, res) {
     const { categoryName, subcategoryName } = req.body
     const products = await Product.find({categoryName: categoryName, subcategoryName: subcategoryName}).sort({date: -1})   
-    return res.json(products)
+    return res.status(200).json(products)
 }
 
 /**
@@ -71,7 +71,7 @@ async function listAllProductsInSubcategory(req, res) {
  */
 async function listAllProducts(req, res) {
     const products = await Product.find({}).sort({date: -1})
-    return res.json(products)
+    return res.status(200).json(products)
 }
 
 async function listProductInformationByName(req, res) {
@@ -79,18 +79,18 @@ async function listProductInformationByName(req, res) {
     const product = await Product.findOne({categoryName: categoryName, productName: productName})
     
     if(product)
-        return res.json(product)
+        return res.stauts(200).json(product)
     else
-        return res.status(404)
+        return res.status(404).json({err: "Not found"})
 }
 
 async function listProductInformationById(req, res) {
     const product = await Product.findOne({_id: req.params.productId})
 
     if(product)
-        return res.json(product)
+        return res.status(200).json(product)
     else 
-        return res.json({status: 404})
+        return res.status(404).json({err: "Not found"})
 }
 
 module.exports = {

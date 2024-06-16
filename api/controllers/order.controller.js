@@ -43,16 +43,16 @@ async function createOrder(req, res) {
         await order.save()
         .then(function() {
             console.log(`[CloverShop]: New order created.`)
-            return res.json(order)
+            return res.status(200).json(order)
         })
         .catch(function(err) {
             console.log(err)
-            return res.status(400).json({message: "There was an issue with creating your order"})
+            return res.status(400).json({err: "There was an issue with creating your order"})
         })
     }
 
     else if(!cart) {
-        return res.status(404)
+        return res.status(404).json({err: "Cart doesn't exist"})
     }
 }
 
@@ -81,24 +81,23 @@ async function createStripePaymentLinkFromOrder(req, res) {
                 }
             }
         })
-        return res.json(paymentLink)
+        return res.status(200).json(paymentLink)
     }
     catch (e) {
         console.log(e)
-        return res.status(400).json({message: "There was an issue with creating a Stripe payment link."})
+        return res.status(400).json({err: "There was an issue with creating a Stripe payment link."})
     }
 }
 
-// insecure?
 async function processOrderAfterStripePayment(req, res) {
     const { orderId } = req.body
-    const order = await Order.findOneAndUpdate({ _id: orderId }, { orderStatus: "complete" })
+    const order = await Order.findOneAndUpdate({ _id: orderId }, { orderStatus: "complete" }) // insecure?
     req.session.cart = []
 
     if(order)
-        return res.json(order)
+        return res.status(200).json(order)
     else
-        return res.status(404)
+        return res.status(404).json({err: "Order does not exist"})
 }
 
 async function displayAllOrders(req, res) {
@@ -108,13 +107,13 @@ async function displayAllOrders(req, res) {
         const orders = await Order.find({}).sort({updatedAt: -1})
         
         if(!auth)
-            return res.status(401)
+            return res.status(401).json({err: "Unauthorized"})
 
-        return res.json(orders);
+        return res.status(200).json(orders);
     }
     catch(e) {
         console.log(e);
-        return res.status(401).json({message: "Unable to load all orders"})
+        return res.status(401).json({err: "Unauthorized"})
     }
 }
 
@@ -126,16 +125,16 @@ async function listOrderInformationById(req, res) {
         const order = await Order.findOne({_id: orderId})
 
         if(!auth)
-            return res.status(401)
+            return res.status(401).json({err: "Unauthorized"})
 
         if(!order)
-            return res.status(404)
+            return res.status(404).json({err: "Not found"})
 
         return res.json(order)
     }
     catch (e) {
         console.log(e)
-        return res.status(401).json({message: "Unable to display order information"})
+        return res.status(401).json({err: "Unauthorized"})
     }
 }
 
@@ -146,7 +145,7 @@ async function displayOrderStatistics(req, res) {
         const orders = await Order.find({})
 
         if(!auth)
-            return res.status(401)
+            return res.status(401).json({err: "Unauthorized"})
 
         let totalOrdersSum = 0;
         let totalOrdersCompleted = 0;
@@ -165,11 +164,11 @@ async function displayOrderStatistics(req, res) {
             totalOrdersCompleted: totalOrdersCompleted
         }
 
-        return res.json(orderStatistics)
+        return res.status(200).json(orderStatistics)
     }
     catch(e) {
         console.log(e)
-        return res.status(401).json({message: "Unable to display order statistics"})
+        return res.status(401).json({err: "Unauthorized"})
     }
 }
 
