@@ -33,10 +33,12 @@ export default {
         async submit() {
             const authResponse = await credentialFetchRequestToServerWithBody("POST", "/auth/login", this.login);
             
-            if(authResponse.status == 401)
-                this.message = authResponse.message
-            else
-                await this.router.push("/admin/dashboard")
+            console.log(authResponse.status)
+            
+            // if(authResponse.status == 401)
+            //     this.message = authResponse.message
+            // else
+            //     await this.router.push("/admin/dashboard")
         }
     }
 }

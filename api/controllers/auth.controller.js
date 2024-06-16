@@ -37,7 +37,7 @@ async function authorizeAdministrator(req, res) {
             maxAge: 24 * 60 * 60 * 1000 // store cookie for one day
         })
 
-        return res.status(200)
+        return res.status(200).json({message: "Ok"})
     }
 }
 

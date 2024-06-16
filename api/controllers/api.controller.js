@@ -60,6 +60,12 @@ async function listSubcategoryInformationById(req, res) {
         return res.status(404)
 }
 
+async function listAllProductsInSubcategory(req, res) {
+    const { categoryName, subcategoryName } = req.body
+    const products = await Product.find({categoryName: categoryName, subcategoryName: subcategoryName}).sort({date: -1})   
+    return res.json(products)
+}
+
 /**
  * Product Controllers
  */
