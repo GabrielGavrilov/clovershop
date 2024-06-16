@@ -1,5 +1,6 @@
 <template>
-    <DashboardHeaderComponent/>
+    <AdminHeaderComponent/>
+    <AdminSideMenuComponent/>
     <main>
         <p>Subcategories</p>
         <p>{{ message }}</p>
@@ -46,14 +47,14 @@ export default {
         if(!await isUserAuthorized())
             this.router.push("/admin/login")
 
-        this.categories = await fetchRequestToServer("GET", "/api/categories")
+        this.categories = (await fetchRequestToServer("GET", "/api/categories")).data
     },
     methods: {
         async createSubcategory() {
-            const subcategoryResponse = await credentialFetchRequestToServerWithBody("POST", "/admin/subcategory/new", this.subcategory)
+            const response = await credentialFetchRequestToServerWithBody("POST", "/admin/subcategory/new", this.subcategory)
 
-            if(subcategoryResponse.status == 409)
-                this.message = subcategoryResponse.message
+            if(response.status == 409)
+                this.message = response.data.err
             else
                 await this.router.go()
         }

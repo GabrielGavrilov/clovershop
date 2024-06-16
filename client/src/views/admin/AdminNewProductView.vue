@@ -61,7 +61,7 @@ export default {
         if(!await isUserAuthorized())
             this.router.push("/admin/login")
 
-        this.categories = await fetchRequestToServer("GET", "/api/categories/")
+        this.categories = (await fetchRequestToServer("GET", "/api/categories/")).data
     },
     methods: {
         async createProduct(event) {
@@ -75,10 +75,10 @@ export default {
             formData.append("categoryName", this.product.categoryName)
             formData.append("subcategoryName", this.product.subcategoryName)
 
-            const productResponse = await credentialFetchRequestToServerWithBody("POST", "/admin/product/new", formData)
+            const response = await credentialFetchRequestToServerWithBody("POST", "/admin/product/new", formData)
 
-            if(productResponse.status == 409)
-                this.message = productResponse.message
+            if(response.status == 409)
+                this.message = response.data.err
             else
                 await this.router.go()
         }

@@ -48,7 +48,7 @@ export default {
         if(!await isUserAuthorized())
             this.router.push("/admin/login")
 
-        const productInformation = await fetchRequestToServer("GET", `/api/product/${this.route.params.productId}`)
+        const productInformation = (await fetchRequestToServer("GET", `/api/product/${this.route.params.productId}`)).data
 
         this.product.productId = productInformation._id
         this.product.productName = productInformation.productName
@@ -58,10 +58,10 @@ export default {
     },
     methods: {
         async updateProduct() {
-            const productResponse = await credentialFetchRequestToServerWithBody("POST", ".admin/product/update", this.product)
+            const response = await credentialFetchRequestToServerWithBody("POST", ".admin/product/update", this.product)
 
-            if(productResponse.status == 409)
-                this.message = productResponse.message
+            if(response.status == 409)
+                this.message = response.data.err
             else
                 await this.router.push("/admin/products")
         }

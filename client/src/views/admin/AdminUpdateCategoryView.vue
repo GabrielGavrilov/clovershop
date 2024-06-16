@@ -43,7 +43,7 @@ export default {
         if(!await isUserAuthorized())
             this.route.push("/admin/login")
 
-        const categoryInformation = await fetchRequestToServer("GET", `/api/category/${this.route.params.categoryId}`)
+        const categoryInformation = (await fetchRequestToServer("GET", `/api/category/${this.route.params.categoryId}`)).data
 
         // unnecessary?
         this.category.categoryId = this.route.params.categoryId
@@ -52,10 +52,10 @@ export default {
     },
     methods: {
         async updateCategory() {
-            const categoryResponse = await credentialFetchRequestToServerWithBody("POST", "/admin/category/update", this.category)
+            const response = await credentialFetchRequestToServerWithBody("POST", "/admin/category/update", this.category)
 
-            if(categoryResponse.status == 409)
-                this.message = categoryResponse.message
+            if(response.status == 409)
+                this.message = response.data.err
             else
                 await this.router.push("/admin/categories")
         }

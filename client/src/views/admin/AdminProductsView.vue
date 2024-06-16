@@ -46,7 +46,7 @@ export default {
         if(!await isUserAuthorized())
             this.router.push("/admin/login")
 
-        this.products = await fetchRequestToServer("GET", "/api/products")
+        this.products = (await fetchRequestToServer("GET", "/api/products")).data
     }
 }
 </script>

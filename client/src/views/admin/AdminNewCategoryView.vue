@@ -44,10 +44,10 @@ export default {
     },
     methods: {
         async createCategory() {
-            const categoryResponse = await credentialFetchRequestToServerWithBody("POST", "/admin/category/new", this.category)
+            const response = await credentialFetchRequestToServerWithBody("POST", "/admin/category/new", this.category)
 
-            if(categoryResponse.status == 409)
-                this.message = categoryResponse.message
+            if(response.status == 409)
+                this.message = response.data.err
             else
                 await this.router.go()
         }

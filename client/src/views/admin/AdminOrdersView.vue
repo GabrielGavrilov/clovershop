@@ -45,7 +45,7 @@ export default {
 		if(!await isUserAuthorized())
 			this.router.push("/admin/login")
 
-		this.orders = await credentialFetchRequestToServer("GET", "/order/")
+		this.orders = (await credentialFetchRequestToServer("GET", "/order/")).data
 	}
 }
 </script>

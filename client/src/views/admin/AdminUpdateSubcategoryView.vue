@@ -39,17 +39,17 @@ export default {
         if(!await isUserAuthorized())
             this.router.push("/admin/login")
 
-        const subcategoryInformation = await fetchRequestToServer("GET", `/api/subcategory/${this.route.params.subcategoryId}`);
+        const subcategoryInformation = (await fetchRequestToServer("GET", `/api/subcategory/${this.route.params.subcategoryId}`)).data;
 
         this.subcategory.subcategoryId = subcategoryInformation._id
         this.subcategory.subcategoryName = subcategoryInformation.subcategoryName
     },
     methods: {
         async updateSubcategory() {
-            const subcategoryResponse = await credentialFetchRequestToServerWithBody("POST", "/admin/subcategory/update", this.subcategory)
+            const response = await credentialFetchRequestToServerWithBody("POST", "/admin/subcategory/update", this.subcategory)
 
-            if(subcategoryResponse.status == 409)
-                this.message = subcategoryResponse.message
+            if(response.status == 409)
+                this.message = response.data.err
             else
                 await this.router.push("/admin/subcategories")
         }

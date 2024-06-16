@@ -48,8 +48,7 @@ export default {
         if(!await isUserAuthorized())
             this.router.push("/admin/login")
 
-        this.subcategories = await fetchRequestToServer("GET", "/api/subcategories")
-        console.log(this.subcategories)
+        this.subcategories = (await fetchRequestToServer("GET", "/api/subcategories")).data
     }
 }
 </script>
