@@ -1,0 +1,23 @@
+body {
+    background-color: #F6F6F7;
+}
+
+main {
+    margin-top: 76px;
+    margin-left: 250px;
+}
+
+.admin-content {
+    margin: 3rem;
+    margin-top: 7rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-section {
+    margin-top: 1rem;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    border: #C5C5C6 solid 1px;
+}

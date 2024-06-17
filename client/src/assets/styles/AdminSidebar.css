@@ -9,6 +9,11 @@ body {
     background-color: #F6F6F7;
 }
 
+main {
+    margin-left: 250px;
+    margin-top: 76px;
+}
+
 .sidebar {
     height: 100%;
     width: 250px;
@@ -46,7 +51,9 @@ body {
 }
 
 .sidebar-section-title {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
     font-size: 12px;
     text-transform: uppercase;
-    padding-left: 50px;
+    padding-left: 35px;
 }

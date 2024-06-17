@@ -3,6 +3,13 @@
         <ul>
             <P class="sidebar-section-title">Quick links </P>
             <li>
+                <a href="/admin/dashboard">
+                    <div class="sidebar-button">
+                        <button>Dashboard</button>
+                    </div>
+                </a>
+            </li>
+            <li>
                 <a href="/admin/categories/new">
                     <div class="sidebar-button">
                         <button>New category</button>
