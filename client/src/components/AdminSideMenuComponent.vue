@@ -51,9 +51,10 @@
 </template>
 
 <script>
-import AdminSidebarStyle from "@/assets/styles/AdminSidebar.css"
-
 export default {
     name: "AdminSidebarComponent"
 }
 </script>
+
+<style scoped src="@/assets/styles/AdminSidebar.css">
+</style>

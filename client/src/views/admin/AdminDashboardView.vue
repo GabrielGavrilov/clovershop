@@ -49,3 +49,10 @@ export default {
     }
 }
 </script>
+
+<style>
+main {
+    margin-left: 250px;
+    margin-top: 76px;
+}
+</style>

@@ -17,9 +17,10 @@
 </template>
 
 <script>
-import AdminHeaderStyle from "@/assets/styles/AdminHeader.css"
-
 export default {
     name: "AdminHeaderComponent"
 }
 </script>
+
+<style scoped src="@/assets/styles/AdminHeader.css">
+</style>
