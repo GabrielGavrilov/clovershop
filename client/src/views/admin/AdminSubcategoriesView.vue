@@ -2,30 +2,42 @@
     <AdminHeaderComponent/>
     <AdminSideMenuComponent/>
     <main>
-        <a v-bind:href="$router.resolve({name: 'New subcategory'}).href">
-            <button>Create a new Subcategory</button>
-        </a>
-        <div v-if="subcategories !== undefined">
-            <div v-if="subcategories.length > 0">
-                <ul>
-                    <li v-for="subcategory in subcategories">
-                        <a v-bind:href="$router.resolve({name: 'Update subcategory', params: {subcategoryId: subcategory._id}}).href">
-                            {{ subcategory.subcategoryName }}
-                        </a>
-                    </li>
-                </ul>
+        <div class="admin-content">
+            <div class="flexbox">
+                <div>
+                    <p class="medium bold">Subcategories</p>
+                </div>
+                <div class="right">
+                    <a v-bind:href="$router.resolve({name: 'New subcategory'}).href">
+                        <button class="btn-green">New Subcategory</button>
+                    </a>
+                </div>
             </div>
-            <div v-else>
-                <p>No subcategories</p>
+            <div class="admin-section">
+                <div v-if="subcategories !== undefined">
+                    <div v-if="subcategories.length > 0">
+                        <ul class="admin-section-ul">
+                            <li class="admin-section-item" v-for="subcategory in subcategories">
+                                <a v-bind:href="$router.resolve({name: 'Update subcategory', params: {subcategoryId: subcategory._id}}).href">
+                                    {{ subcategory.subcategoryName }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div v-else>
+                        <p>No subcategories</p>
+                    </div>
+                </div>
+                <div v-else>
+                    <p>Loading...</p>
+                </div>
             </div>
-        </div>
-        <div v-else>
-            <p>Loading...</p>
         </div>
     </main>
 </template>
 
 <script>
+import BaseStyle from "@/assets/styles/Base.css"
 import AdminHeaderComponent from '@/components/AdminHeaderComponent.vue';
 import AdminSideMenuComponent from '@/components/AdminSideMenuComponent.vue';
 import { isUserAuthorized } from '@/modules/CommonModule';
@@ -52,3 +64,6 @@ export default {
     }
 }
 </script>
+
+<style scoped src="@/assets/styles/AdminMain.css">
+</style>

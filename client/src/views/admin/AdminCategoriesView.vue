@@ -16,8 +16,8 @@
             <div class="admin-section">
                 <div v-if="categories !== undefined">
                     <div v-if="categories.length > 0">
-                        <ul class="admin-section-item">
-                            <li v-for="category in categories">
+                        <ul class="admin-section-ul">
+                            <li class="admin-section-item" v-for="category in categories">
                                 <a v-bind:href="$router.resolve({name: 'Update category', params: {categoryId: category._id}}).href">
                                     {{ category.categoryName }}
                                 </a>
@@ -65,5 +65,5 @@ export default {
 }
 </script>
 
-<style src="@/assets/styles/AdminMain.css">
+<style scoped src="@/assets/styles/AdminMain.css">
 </style>
