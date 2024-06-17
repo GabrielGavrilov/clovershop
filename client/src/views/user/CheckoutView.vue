@@ -45,13 +45,13 @@ export default {
     methods: {
         async createStripePaymentLink(orderId) {
             const stripePaymentLink = await credentialFetchRequestToServerWithBody("POST", "/order/stripe", {orderId: orderId})
-            window.location = stripePaymentLink.url
+            window.location = stripePaymentLink.data.url
         },
         async createOrder() {
             const createdOrder = await credentialFetchRequestToServerWithBody("POST", "/order/create", this.checkout)
 
             // Add status message
-            if (createdOrder._id)
+            if (createdOrder.status == 200)
                 await this.createStripePaymentLink(createdOrder._id)
             else 
                 console.log(createdOrder.message)

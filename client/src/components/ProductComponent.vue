@@ -61,12 +61,13 @@ export default {
         }
     },
     async mounted() {
-        this.product = await fetchRequestToServerWithBody("POST", "/api/product", {
+        const response = await fetchRequestToServerWithBody("POST", "/api/product", {
             categoryName: this.categoryName,
             productName: this.productName
         })
 
-        this.productModel.productId = this.product._id
+        this.product = response.data
+        this.productModel.productId = response.data._id
 
         if(this.product.status == 404)
             this.productExists = false

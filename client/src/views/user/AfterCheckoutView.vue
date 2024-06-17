@@ -20,7 +20,7 @@ export default {
     async mounted() {
         const orderInformation = await fetchRequestToServerWithBody("POST", "/order/process", {orderId: this.route.params.orderId})
 
-        if (orderInformation._id)
+        if (orderInformation.data._id)
             console.log(orderInformation)
     }
 }

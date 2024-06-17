@@ -83,19 +83,19 @@ export default {
     },
     methods: {
         async getCategoryInformation() {
-            return await fetchRequestToServerWithBody("POST", "/api/category", {categoryName: this.route.params.category});
+            return (await fetchRequestToServerWithBody("POST", "/api/category", {categoryName: this.route.params.category})).data;
         },
         async getAllSubcategories() {
-            return await fetchRequestToServerWithBody("POST", "/api/category/subcategories", {categoryName: this.route.params.category})
+            return (await fetchRequestToServerWithBody("POST", "/api/category/subcategories", {categoryName: this.route.params.category})).data
         },
         async getAllProductsInCategory() {
-            return await fetchRequestToServerWithBody("POST", "/api/category/products", {categoryName: this.category.categoryName})
+            return (await fetchRequestToServerWithBody("POST", "/api/category/products", {categoryName: this.category.categoryName})).data
         },
         async getProductsBySubcategory(subcategoryName) {
-            this.products = await fetchRequestToServerWithBody("POST", "/api/category/subcategory/products", {
+            this.products = (await fetchRequestToServerWithBody("POST", "/api/category/subcategory/products", {
                 categoryName: this.category.categoryName,
                 subcategoryName: subcategoryName
-            })
+            })).data
         }
     }
 }

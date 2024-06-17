@@ -36,7 +36,7 @@ export default {
         }
     },
     async mounted() {
-        this.categories = await fetchRequestToServer("GET", "/api/categories")
+        this.categories = (await fetchRequestToServer("GET", "/api/categories")).data
     }
 }
 </script>

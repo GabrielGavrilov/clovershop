@@ -79,7 +79,7 @@ async function listProductInformationByName(req, res) {
     const product = await Product.findOne({categoryName: categoryName, productName: productName})
     
     if(product)
-        return res.stauts(200).json(product)
+        return res.status(200).json(product)
     else
         return res.status(404).json({err: "Not found"})
 }
