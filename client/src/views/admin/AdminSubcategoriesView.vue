@@ -17,10 +17,18 @@
                 <div v-if="subcategories !== undefined">
                     <div v-if="subcategories.length > 0">
                         <ul class="admin-section-ul">
-                            <li class="admin-section-item" v-for="subcategory in subcategories">
-                                <a v-bind:href="$router.resolve({name: 'Update subcategory', params: {subcategoryId: subcategory._id}}).href">
-                                    {{ subcategory.subcategoryName }}
-                                </a>
+                            <li v-for="subcategory in subcategories">
+                                <div class="admin-section-item">
+                                    <a v-bind:href="$router.resolve({name: 'Update subcategory', params: {subcategoryId: subcategory._id}}).href">
+                                        {{ subcategory.subcategoryName }}
+                                    </a>
+                                </div>
+                                <div class="hr-line-light"></div>
+                            </li>
+                            <li>
+                                <div class="admin-section-item flexbox">
+                                    <p class="right">0 records</p>
+                                </div>
                             </li>
                         </ul>
                     </div>

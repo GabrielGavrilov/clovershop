@@ -17,8 +17,16 @@
                 <div v-if="products !== undefined">
                     <div v-if="products.length > 0">
                         <ul class="admin-section-ul">
-                            <li class="admin-section-item" v-for="product in products">
-                                <a v-bind:href="$router.resolve({name: 'Update product', params: {productId: product._id}}).href">{{ product.productName }}</a>
+                            <li v-for="product in products">
+                                <div class="admin-section-item">
+                                    <a v-bind:href="$router.resolve({name: 'Update product', params: {productId: product._id}}).href">{{ product.productName }}</a>
+                                </div>
+                                <div class="hr-line-light"></div>
+                            </li>
+                            <li>
+                                <div class="admin-section-item flexbox">
+                                    <p class="right">0 records</p>
+                                </div>
                             </li>
                         </ul>
                     </div>
