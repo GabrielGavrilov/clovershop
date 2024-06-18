@@ -18,8 +18,8 @@
                     <div v-if="categories.length > 0">
                         <ul class="admin-section-ul">
                             <li v-for="category in categories">
-                                <div class="admin-section-item">
-                                    <a v-bind:href="$router.resolve({name: 'Update category', params: {categoryId: category._id}}).href">
+                                <div class="admin-section-item flexbox">
+                                    <a class="left" v-bind:href="$router.resolve({name: 'Update category', params: {categoryId: category._id}}).href">
                                         {{ category.categoryName }}
                                     </a>
                                 </div>
@@ -27,7 +27,7 @@
                             </li>
                             <li>
                                 <div class="admin-section-item flexbox">
-                                    <p class="right">0 records</p>
+                                    <p class="right">{{amountOfRecords}} records</p>
                                 </div>
                             </li>
                         </ul>
@@ -48,7 +48,7 @@
 import BaseStyle from '@/assets/styles/Base.css'
 import AdminHeaderComponent from '@/components/AdminHeaderComponent.vue';
 import { isUserAuthorized } from '@/modules/CommonModule';
-import { fetchRequestToServer } from '@/modules/FetchModule';
+import { fetchRequestToServer, fetchRequestToServerWithBody } from '@/modules/FetchModule';
 import DashboardHeaderComponent from '@/components/AdminSideMenuComponent.vue';
 import { useRouter } from "vue-router"
 
@@ -62,6 +62,7 @@ export default {
         return {
             router: useRouter(),
             categories: undefined,
+            amountOfRecords: 0
         }
     },
     async mounted() {
@@ -69,6 +70,8 @@ export default {
             this.router.push("/admin/login")
 
         this.categories = (await fetchRequestToServer("GET", "/api/categories")).data;
+        console.log(this.categories)
+        this.amountOfRecords = this.categories.length
     }
 }
 </script>

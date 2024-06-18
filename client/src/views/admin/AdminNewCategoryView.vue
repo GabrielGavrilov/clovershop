@@ -2,19 +2,39 @@
     <AdminHeaderComponent/>
     <AdminSideMenuComponent/>
     <main>
-        <p>Categories</p>
-        <p>{{ message }}</p>
-        <form v-on:submit.prevent="createCategory()">
-            <input v-model="category.categoryName" type="text" placeholder="Category name" required>
-            <br>
-            <input v-model="category.categoryDescription" type="text" placeholder="Category description" required>
-            <br>
-            <button type="submit">Create category</button>
-        </form>
+        <div class="admin-form-content">
+            <p class="medium spacing-bottom-small">Create a new category</p>
+            <p>{{ message }}</p>
+            <div class="admin-form">
+                <p class="bold spacing-bottom-small-medium">General</p>
+                <form v-on:submit.prevent="createCategory()">
+                    <div class="spacing-bottom-x-small">
+                        <p>Name</p>
+                    </div>
+                    <div>
+                        <input class="text-input" v-model="category.categoryName" type="text" required>
+                    </div>
+                    <div class="spacing-top-x-small spacing-bottom-x-small">
+                        <p>Description</p>
+                    </div>
+                    <div>
+                        <textarea class="text-input" v-model="category.categoryDescription" type="text" required>
+                        </textarea>
+                    </div>
+                    <div class="flexbox spacing-top-small">
+                        <div class="right">
+                            <button class="btn-green" type="submit">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
     </main>
 </template>
 
 <script>
+import BaseStyle from "@/assets/styles/Base.css"
 import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import AdminHeaderComponent from '@/components/AdminHeaderComponent.vue';
@@ -54,3 +74,6 @@ export default {
     }
 }
 </script>
+
+<style scoped src="@/assets/styles/AdminMain.css">
+</style>

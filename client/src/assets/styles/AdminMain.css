@@ -10,11 +10,14 @@ main {
     flex-direction: column;
 }
 
+.admin-form-content {
+    margin: 21rem;
+    margin-top: 7rem;
+}
+
 .admin-section {
     margin-top: 1rem;
     background-color: white;
-    /* padding: 1rem; */
-    /* padding-bottom: 1rem; */
     border-radius: 8px;
     border: #C5C5C6 solid 1px;
 }
@@ -37,4 +40,10 @@ main {
 
 .admin-section-item > a:hover {
     text-decoration: underline;
+}
+
+.admin-form {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1.5rem;
 }

@@ -13,7 +13,7 @@ async function listAllCategories(req, res) {
 async function listCategoryInformation(req, res) {
     const { categoryName } = req.body
     const category = await Category.findOne({categoryName: categoryName})
-    
+
     if(category)
         return res.status(200).json(category)
     else 

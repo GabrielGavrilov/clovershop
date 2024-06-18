@@ -35,6 +35,40 @@ body {
     justify-content: flex-end;
 }
 
+/* Spacing */
+
+.spacing-bottom-medium {
+    margin-bottom: 2rem;
+}
+
+.spacing-top-medium {
+    margin-top: 2rem;
+}
+
+.spacing-top-small-medium {
+    margin-top: 1.5rem;
+}
+
+.spacing-bottom-small-medium {
+    margin-bottom: 1.5rem;
+}
+
+.spacing-bottom-small {
+    margin-bottom: 1rem;
+}
+
+.spacing-top-small {
+    margin-top: 1rem;
+}
+
+.spacing-bottom-x-small {
+    margin-bottom: .5rem;
+}
+
+.spacing-top-x-small {
+    margin-top: .5rem;
+}
+
 /* Buttons */
 
 .btn-green {
@@ -44,8 +78,8 @@ body {
     font-size: 14px;
     padding-top: .65rem;
     padding-bottom: .65rem;
-    padding-left: .75rem;
-    padding-right: .75rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
     border-radius: 4px;
 }
 
@@ -60,8 +94,16 @@ body {
     font-weight: bold;
 }
 
+.large {
+    font-size: 24px;
+}
+
 .medium {
     font-size: 20px;
+}
+
+.regular {
+    font-size: 14px;
 }
 
 /* Horizontal lines */
@@ -71,4 +113,14 @@ body {
     height: 1px;
     background-color: black;
     opacity: 0.2;
+}
+
+/* Input forms */
+
+.text-input {
+    width: 100%;
+    padding: .55rem;
+    border-radius: 4px;
+    border: none;
+    border: 1px solid black;
 }
