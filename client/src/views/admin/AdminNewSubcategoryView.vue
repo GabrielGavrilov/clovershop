@@ -2,23 +2,42 @@
     <AdminHeaderComponent/>
     <AdminSideMenuComponent/>
     <main>
-        <p>Subcategories</p>
-        <p>{{ message }}</p>
-        <form v-on:submit.prevent="createSubcategory()">
-            <input v-model="subcategory.subcategoryName" type="text" placeholder="Subcategory name" required>
-            <br>
-            <select v-model="subcategory.categoryName">
-                <option v-for="category in categories" v-bind:value="category.categoryName">
-                    {{ category.categoryName }}
-                </option>
-            </select>
-            <br>
-            <button type="submit">Create subcategory</button>
-        </form>
+        <div class="admin-form-content">
+            <p>{{ message }}</p>
+            <div>
+                <form v-on:submit.prevent="createSubcategory()">
+                    <div class="admin-form">
+                        <p class="bold spacing-bottom-small-medium">Create a subcategory</p>
+                        <div class="spacing-bottom-x-small">
+                            <p>Name</p>
+                        </div>
+                        <div>
+                            <input class="text-input" v-model="subcategory.subcategoryName" type="text" required>
+                        </div>
+                        <div class="spacing-top-x-small spacing-bottom-x-small">
+                            <p>Category</p>
+                        </div>
+                        <div>
+                            <select class="text-input" v-model="subcategory.categoryName">
+                                <option v-for="category in categories" v-bind:value="category.categoryName">
+                                    {{ category.categoryName }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flexbox spacing-top-small">
+                        <div class="right">
+                            <button class="btn-green" type="submit">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </main>
 </template>
 
 <script>
+import BaseStyle from "@/assets/styles/Base.css"
 import { reactive } from 'vue';
 import { useRouter } from "vue-router"
 import AdminHeaderComponent from '@/components/AdminHeaderComponent.vue';
@@ -61,3 +80,6 @@ export default {
     }
 }
 </script>
+
+<style scoped src="@/assets/styles/AdminMain.css">
+</style>

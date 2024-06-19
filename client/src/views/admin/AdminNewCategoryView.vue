@@ -5,21 +5,23 @@
         <div class="admin-form-content">
             <p class="medium spacing-bottom-small">Create a new category</p>
             <p>{{ message }}</p>
-            <div class="admin-form">
-                <p class="bold spacing-bottom-small-medium">General</p>
+            <div>
                 <form v-on:submit.prevent="createCategory()">
-                    <div class="spacing-bottom-x-small">
-                        <p>Name</p>
-                    </div>
-                    <div>
-                        <input class="text-input" v-model="category.categoryName" type="text" required>
-                    </div>
-                    <div class="spacing-top-x-small spacing-bottom-x-small">
-                        <p>Description</p>
-                    </div>
-                    <div>
-                        <textarea class="text-input" v-model="category.categoryDescription" type="text" required>
-                        </textarea>
+                    <div class="admin-form">
+                        <p class="bold spacing-bottom-small-medium">General</p>
+                        <div class="spacing-bottom-x-small">
+                            <p>Name</p>
+                        </div>
+                        <div>
+                            <input class="text-input" v-model="category.categoryName" type="text" required>
+                        </div>
+                        <div class="spacing-top-x-small spacing-bottom-x-small">
+                            <p>Description</p>
+                        </div>
+                        <div>
+                            <textarea class="text-input" v-model="category.categoryDescription" type="text" required>
+                            </textarea>
+                        </div>
                     </div>
                     <div class="flexbox spacing-top-small">
                         <div class="right">
