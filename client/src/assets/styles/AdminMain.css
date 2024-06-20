@@ -11,8 +11,8 @@ main {
 }
 
 .admin-form-content {
-    margin: 21rem;
-    margin-top: 7rem;
+    margin: 2rem;
+    width: 600px;
 }
 
 .admin-section {
@@ -40,6 +40,13 @@ main {
 
 .admin-section-item > a:hover {
     text-decoration: underline;
+}
+
+.admin {
+    /* background-color: tomato; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .admin-form {

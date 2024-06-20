@@ -2,36 +2,38 @@
     <AdminHeaderComponent/>
     <AdminSideMenuComponent/>
     <main>
-        <div class="admin-content">
-            <p class="medium spacing-bottom-small">Create a new category</p>
-            <p>{{ message }}</p>
-            <div>
-                <form v-on:submit.prevent="createCategory()">
-                    <div class="admin-form">
-                        <p class="bold spacing-bottom-small-medium">General</p>
-                        <div class="spacing-bottom-x-small">
-                            <p>Name</p>
+        <div class="admin">
+            <div class="admin-form-content">
+                <p class="medium spacing-bottom-small">Create a new category</p>
+                <p>{{ message }}</p>
+                <div>
+                    <form v-on:submit.prevent="createCategory()">
+                        <div class="admin-form">
+                            <p class="bold spacing-bottom-small-medium">General</p>
+                            <div class="spacing-bottom-x-small">
+                                <p>Name</p>
+                            </div>
+                            <div>
+                                <input class="text-input" v-model="category.categoryName" type="text" required>
+                            </div>
+                            <div class="spacing-top-x-small spacing-bottom-x-small">
+                                <p>Description</p>
+                            </div>
+                            <div>
+                                <textarea class="text-input" v-model="category.categoryDescription" type="text" required>
+                                </textarea>
+                            </div>
                         </div>
-                        <div>
-                            <input class="text-input" v-model="category.categoryName" type="text" required>
+                        <div class="flexbox spacing-top-small">
+                            <div class="right">
+                                <button class="btn-green" type="submit">Save</button>
+                            </div>
                         </div>
-                        <div class="spacing-top-x-small spacing-bottom-x-small">
-                            <p>Description</p>
-                        </div>
-                        <div>
-                            <textarea class="text-input" v-model="category.categoryDescription" type="text" required>
-                            </textarea>
-                        </div>
-                    </div>
-                    <div class="flexbox spacing-top-small">
-                        <div class="right">
-                            <button class="btn-green" type="submit">Save</button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-            
         </div>
+        
     </main>
 </template>
 

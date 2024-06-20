@@ -2,36 +2,38 @@
     <AdminHeaderComponent/>
     <AdminSideMenuComponent/>
     <main>
-        <div class="admin-content">
-            <p>{{ message }}</p>
-            <div>
-                <p class="medium spacing-bottom-small">Create a new subcategory</p>
-                <form v-on:submit.prevent="createSubcategory()">
-                    <div class="admin-form">
-                        <p class="bold spacing-bottom-small-medium">General</p>
-                        <div class="spacing-bottom-x-small">
-                            <p>Name</p>
+        <div class="admin">
+            <div class="admin-form-content">
+                <p>{{ message }}</p>
+                <div>
+                    <p class="medium spacing-bottom-small">Create a new subcategory</p>
+                    <form v-on:submit.prevent="createSubcategory()">
+                        <div class="admin-form">
+                            <p class="bold spacing-bottom-small-medium">General</p>
+                            <div class="spacing-bottom-x-small">
+                                <p>Name</p>
+                            </div>
+                            <div>
+                                <input class="text-input" v-model="subcategory.subcategoryName" type="text" required>
+                            </div>
+                            <div class="spacing-top-x-small spacing-bottom-x-small">
+                                <p>Category</p>
+                            </div>
+                            <div>
+                                <select class="text-input" v-model="subcategory.categoryName">
+                                    <option v-for="category in categories" v-bind:value="category.categoryName">
+                                        {{ category.categoryName }}
+                                    </option>
+                                </select>
+                            </div>
                         </div>
-                        <div>
-                            <input class="text-input" v-model="subcategory.subcategoryName" type="text" required>
+                        <div class="flexbox spacing-top-small">
+                            <div class="right">
+                                <button class="btn-green" type="submit">Save</button>
+                            </div>
                         </div>
-                        <div class="spacing-top-x-small spacing-bottom-x-small">
-                            <p>Category</p>
-                        </div>
-                        <div>
-                            <select class="text-input" v-model="subcategory.categoryName">
-                                <option v-for="category in categories" v-bind:value="category.categoryName">
-                                    {{ category.categoryName }}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="flexbox spacing-top-small">
-                        <div class="right">
-                            <button class="btn-green" type="submit">Save</button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </main>
