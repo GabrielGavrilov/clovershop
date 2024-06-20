@@ -2,33 +2,78 @@
     <AdminHeaderComponent/>
     <AdminSideMenuComponent/>
     <main>
-        <p>Products</p>
-        <p>{{ message }}</p>
-        <form v-on:submit.prevent="createProduct($event)">
-            <input type="file" required>
-            <br>
-            <input v-model="product.productName" type="text" placeholder="Name" required>
-            <br>
-            <input v-model="product.productDescription" type="text" placeholder="Description" required>
-            <br>
-            <input v-model="product.productPrice" type="number" placeholder="Price" required>
-            <br>
-            <input v-model="product.productQuantity" type="number" placeholder="Quantity" required>
-            <br>
-            <select v-model="product.categoryName">
-                <option v-for="category in categories" v-bind:value="category.categoryName">
-                    {{ category.categoryName }}
-                </option>
-            </select>
-            <br>
-            <input v-model="product.subcategoryName" type="text" placeholder="Subcategory name" required>
-            <br>
-            <button type="submit">Create product</button>
-        </form>
+        <div class="admin-content">
+            <p>{{ message }}</p>
+            <div>
+                <p class="medium spacing-bottom-small-medium">Create a new product</p>
+                <form v-on:submit.prevent="createProduct($event)">
+                    <div class="admin-form">
+                        <p class="bold spacing-bottom-small-medium">Product picture</p>
+                        <div>
+                            <input type="file" required>
+                        </div>
+                    </div>
+                    <div class="admin-form spacing-top-small-medium">
+                        <p class="bold spacing-bottom-small-medium">General</p>
+                        <div class="spacing-bottom-x-small">
+                            <p>Name</p>
+                        </div>
+                        <div>
+                            <input class="text-input" v-model="product.productName" type="text" required>
+                        </div>
+                        <div class="spacing-top-x-small spacing-bottom-x-small">
+                            <p>Description</p>
+                        </div>
+                        <div>
+                            <textarea class="text-input" v-model="product.productDescription" type="text" required>
+                            </textarea>
+                        </div>
+                        <div class="spacing-top-x-small spacing-bottom-x-small">
+                            <p>Price</p>
+                        </div>
+                        <div>
+                            <input class="text-input" v-model="product.productPrice" type="number" required>
+                        </div>
+                        <div class="spacing-top-x-small spacing-bottom-x-small">
+                            <p>Quantity</p>
+                        </div>
+                        <div>
+                            <input class="text-input" v-model="product.productQuantity" type="number" required>
+                        </div>
+                        
+                    </div>
+                    <div class="admin-form spacing-top-small-medium">
+                        <p class="bold spacing-bottom-small-medium">Attributes</p>
+                        <div class="spacing-bottom-x-small">
+                            <p>Category</p>
+                        </div>
+                        <div>
+                            <select class="text-input" v-model="product.categoryName">
+                                <option v-for="category in categories" v-bind:value="category.categoryName">
+                                    {{ category.categoryName }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="spacing-top-x-small spacing-bottom-x-small">
+                            <p>Subcategory</p>
+                        </div>
+                        <div>
+                            <input class="text-input" v-model="product.subcategoryName" type="text" placeholder="Subcategory name" required>
+                        </div>
+                    </div>
+                    <div class="flexbox spacing-top-small-medium">
+                        <div class="right">
+                            <button class="btn-green" type="submit">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </main>
 </template>
 
 <script>
+import BaseStyle from "@/assets/styles/Base.css"
 import { reactive, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import AdminHeaderComponent from '@/components/AdminHeaderComponent.vue';
@@ -85,3 +130,6 @@ export default {
     }
 }
 </script>
+
+<style scoped src="@/assets/styles/AdminMain.css">
+</style>

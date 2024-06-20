@@ -2,7 +2,7 @@
     <AdminHeaderComponent/>
     <AdminSideMenuComponent/>
     <main>
-        <div class="admin-form-content">
+        <div class="admin-content">
             <p class="medium spacing-bottom-small">Create a new category</p>
             <p>{{ message }}</p>
             <div>

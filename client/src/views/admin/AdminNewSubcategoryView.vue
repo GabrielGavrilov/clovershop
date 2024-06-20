@@ -2,12 +2,13 @@
     <AdminHeaderComponent/>
     <AdminSideMenuComponent/>
     <main>
-        <div class="admin-form-content">
+        <div class="admin-content">
             <p>{{ message }}</p>
             <div>
+                <p class="medium spacing-bottom-small">Create a new subcategory</p>
                 <form v-on:submit.prevent="createSubcategory()">
                     <div class="admin-form">
-                        <p class="bold spacing-bottom-small-medium">Create a subcategory</p>
+                        <p class="bold spacing-bottom-small-medium">General</p>
                         <div class="spacing-bottom-x-small">
                             <p>Name</p>
                         </div>
