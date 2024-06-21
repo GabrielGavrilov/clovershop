@@ -57,9 +57,9 @@ export default {
     methods: {
         async loadCategory() {
             if(this.categoryId !== undefined) {
-                const categoryInformation = await fetchRequestToServer("GET", `/api/category/${this.$props.categoryId}`)
-                console.log(categoryInformation.data)
                 this.editing = true
+                const categoryInformation = await fetchRequestToServer("GET", `/api/category/${this.$props.categoryId}`)
+
                 this.category.categoryId = categoryInformation.data._id
                 this.category.categoryName = categoryInformation.data.categoryName
                 this.category.categoryDescription = categoryInformation.data.categoryDescription
@@ -73,6 +73,7 @@ export default {
             else
                 await this.router.push("/admin/categories")
         },
+        // this could be cleaner
         async createOrUpdateCategory() {
             if(this.editing) {
                 const response = await credentialFetchRequestToServerWithBody("POST", "/admin/category/update", this.category)

@@ -1,18 +1,16 @@
 <template>
-    <DashboardHeaderComponent/>
+    <AdminHeaderComponent/>
+    <AdminSideMenuComponent/>
     <main>
-        <p>{{ message }}</p>
-        <form v-on:submit.prevent="updateProduct()">
-            <input v-model="product.productName" type="text" required>
-            <br>
-            <input v-model="product.productDescription" type="text" required>
-            <br>
-            <input v-model="product.productPrice" type="number" required>
-            <br>
-            <input v-model="product.productQuantity" type="number" required>
-            <br>
-            <button type="submit">Update</button>
-        </form>
+        <div class="admin">
+            <div class="admin-form-content">
+                <p>{{ message }}</p>
+                <div>
+                    <p class="medium spacing-bottom-small-medium">Update product</p>
+                    <AdminProductForm v-bind:productId="productId"/>
+                </div>
+            </div>
+        </div>
     </main>
 </template>
 
@@ -21,6 +19,7 @@ import AdminHeaderComponent from '@/components/AdminHeaderComponent.vue';
 import AdminSideMenuComponent from '@/components/AdminSideMenuComponent.vue';
 import {useRoute, useRouter} from "vue-router"
 import { reactive } from 'vue';
+import AdminProductForm from '@/components/AdminProductForm.vue';
 import { isUserAuthorized } from '@/modules/CommonModule';
 import { credentialFetchRequestToServerWithBody, fetchRequestToServer } from '@/modules/FetchModule';
 
@@ -28,43 +27,22 @@ export default {
     name: "AdminUpdateProductView.vue",
     components: {
         AdminHeaderComponent,
-        AdminSideMenuComponent
+        AdminSideMenuComponent,
+        AdminProductForm
     },
     data() {
         return {
             message: "",
-            route: useRoute(),
             router: useRouter(),
-            product: reactive({
-                productId: "",
-                productName: "",
-                productDescription: "",
-                productPrice: "",
-                productQuantity: ""
-            }),
+            route: useRoute(),
+            productId: ""
         }
     },
     async mounted() {
         if(!await isUserAuthorized())
             this.router.push("/admin/login")
 
-        const productInformation = (await fetchRequestToServer("GET", `/api/product/${this.route.params.productId}`)).data
-
-        this.product.productId = productInformation._id
-        this.product.productName = productInformation.productName
-        this.product.productDescription = productInformation.productDescription
-        this.product.productPrice = productInformation.productPrice
-        this.product.productQuantity = productInformation.productQuantity
-    },
-    methods: {
-        async updateProduct() {
-            const response = await credentialFetchRequestToServerWithBody("POST", ".admin/product/update", this.product)
-
-            if(response.status == 409)
-                this.message = response.data.err
-            else
-                await this.router.push("/admin/products")
-        }
+        this.productId = this.route.params.productId
     }
 }
 </script>
