@@ -2,20 +2,23 @@
     <AdminHeaderComponent/>
     <AdminSideMenuComponent/>
     <main>
-        <p>{{ message }}</p>
-        <form v-on:submit.prevent="updateCategory()">
-            <input v-model="category.categoryName" type="text" required>
-            <br>
-            <input v-model="category.categoryDescription" type="text" required>
-            <br>
-            <button type="submit">Update</button>
-        </form>
+        <div class="admin">
+            <div class="admin-form-content">
+                <p class="medium spacing-bottom-small">Update category</p>
+                <p>{{ message }}</p>
+                <div>
+                    <AdminCategoryForm v-bind:categoryId="categoryId"/>
+                </div>
+            </div>
+        </div>
+        
     </main>
 </template>
 
 <script>
 import AdminHeaderComponent from "@/components/AdminHeaderComponent.vue";
 import AdminSideMenuComponent from "@/components/AdminSideMenuComponent.vue"
+import AdminCategoryForm from "@/components/AdminCategoryForm.vue";
 import { isUserAuthorized } from "@/modules/CommonModule";
 import { credentialFetchRequestToServerWithBody, fetchRequestToServer } from "@/modules/FetchModule";
 import { reactive } from "vue";
@@ -25,40 +28,22 @@ export default {
     name: "AdminUpdateCategoryView",
     components: {
         AdminHeaderComponent,
-        AdminSideMenuComponent
+        AdminSideMenuComponent,
+        AdminCategoryForm
     },
     data() {
         return {
             message: "",
-            route: useRoute(),
+            categoryId: "",
             router: useRouter(),
-            category: reactive({
-                categoryId: "",
-                categoryName: "",
-                categoryDescription: ""
-            }),
+            route: useRoute()
         }
     },
     async mounted() {
         if(!await isUserAuthorized())
-            this.route.push("/admin/login")
+            this.router.push("/admin/login")
 
-        const categoryInformation = (await fetchRequestToServer("GET", `/api/category/${this.route.params.categoryId}`)).data
-
-        // unnecessary?
-        this.category.categoryId = this.route.params.categoryId
-        this.category.categoryName = categoryInformation.categoryName
-        this.category.categoryDescription = categoryInformation.categoryDescription
-    },
-    methods: {
-        async updateCategory() {
-            const response = await credentialFetchRequestToServerWithBody("POST", "/admin/category/update", this.category)
-
-            if(response.status == 409)
-                this.message = response.data.err
-            else
-                await this.router.push("/admin/categories")
-        }
+        this.categoryId = this.route.params.categoryId
     }
 }
 </script>
