@@ -11,7 +11,7 @@ router.get("/statistics", controller.displayOrderStatistics)
 /**
  * Order POST routes
  */
-router.post("/id", controller.listOrderInformationById)
+router.post("/id", controller.listOrderInformationById) // TODO: change this
 router.post("/process", controller.processOrderAfterStripePayment)
 router.post("/create", controller.createOrder)
 router.post("/stripe", controller.createStripePaymentLinkFromOrder)

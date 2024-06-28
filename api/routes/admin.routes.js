@@ -17,11 +17,15 @@ const upload = multer({storage: uploadStorage})
 /**
  * Admin POST routes
  */
-router.post("/category/new", controller.createNewCategory)
-router.post("/category/update", controller.updateCategory)
-router.post("/subcategory/new", controller.createNewSubcategory)
-router.post("/subcategory/update", controller.updateSubcategory)
-router.post("/product/new", upload.single("file"), controller.createNewProduct)
-router.post("/product/update", controller.updateProduct)
+router.post("/category/", controller.createNewCategory)
+router.post("/subcategory/", controller.createNewSubcategory)
+router.post("/product/", upload.single("file"), controller.createNewProduct)
+
+/**
+ * Admin PUT routes
+ */
+router.put("/category/", controller.updateCategory)
+router.put("/subcategory/", controller.updateSubcategory)
+router.put("/product/", controller.updateProduct)
 
 module.exports = router

@@ -10,7 +10,11 @@ router.get("/", controller.displayCart)
 /**
  * Cart POST routes
  */
-router.post("/add", controller.addProductToCart)
-router.post("/reset", controller.resetCart)
+router.put("/", controller.addProductToCart)
+
+/**
+ * Cart DELETE routes
+ */
+router.delete("/", controller.resetCart)
 
 module.exports = router;
