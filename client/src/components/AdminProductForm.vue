@@ -129,7 +129,7 @@ export default {
             formData.append("categoryName", this.product.categoryName)
             formData.append("subcategoryName", this.product.subcategoryName)
 
-            const response = await credentialFetchRequestToServerWithBody("POST", "/admin/product/new", formData)
+            const response = await credentialFetchRequestToServerWithBody("POST", "/admin/product/", formData)
 
             if(response.status == 409)
                 console.log(response.data.err)
@@ -137,7 +137,7 @@ export default {
                 await this.router.push("/admin/products")
         },
         async updateProduct() {
-            const response = await credentialFetchRequestToServerWithBody("POST", "/admin/product/update", this.product)
+            const response = await credentialFetchRequestToServerWithBody("PUT", "/admin/product/", this.product)
         
             if(response.status == 409)
                 console.log(response.data.err)

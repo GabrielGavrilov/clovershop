@@ -78,7 +78,7 @@ export default {
                 this.createSubcategory()
         },
         async createSubcategory() {
-            const response = await credentialFetchRequestToServer("POST", "/admin/subcategory/new", this.subcategory)
+            const response = await credentialFetchRequestToServer("POST", "/admin/subcategory/", this.subcategory)
         
             if(response.status == 409)
                 console.log(response.data.err)
@@ -86,7 +86,7 @@ export default {
                 await this.router.push("/admin/subcategories")
         },
         async updateSubcategory() {
-            const response = await credentialFetchRequestToServerWithBody("POST", "/admin/subcategory/update", this.subcategory)
+            const response = await credentialFetchRequestToServerWithBody("PUT", "/admin/subcategory/", this.subcategory)
             
             if(response.status == 409)
                 console.log(response.data.err)
