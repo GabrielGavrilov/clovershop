@@ -4,7 +4,7 @@
     <main>
         <div class="admin">
             <div class="admin-form-content">
-                <p class="medium spacing-bottom-small">Create a new category</p>
+                <p class="medium-text spacing-bottom-2">Create a new category</p>
                 <p>{{ message }}</p>
                 <AdminCategoryForm />
             </div>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import BaseStyle from "@/assets/styles/Base.css"
+import clovershop from "@/assets/styles/Clovershop.css"
 import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import AdminHeaderComponent from '@/components/AdminHeaderComponent.vue';

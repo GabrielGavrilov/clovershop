@@ -1,14 +1,14 @@
 <template>
     <form v-on:submit.prevent="submit()">
         <div class="admin-form">
-            <p class="bold spacing-bottom-small-medium">General</p>
-            <div class="spacing-bottom-x-small">
+            <p class="bold spacing-bottom-3">General</p>
+            <div class="spacing-bottom-1">
                 <p>Name</p>
             </div>
             <div>
                 <input class="text-input" v-model="category.categoryName" type="text" required>
             </div>
-            <div class="spacing-top-x-small spacing-bottom-x-small">
+            <div class="spacing-top-1 spacing-bottom-1">
                 <p>Description</p>
             </div>
             <div>
@@ -16,7 +16,7 @@
                 </textarea>
             </div>
         </div>
-        <div class="flexbox spacing-top-small">
+        <div class="flexbox spacing-top-2">
             <div class="right">
                 <button class="btn-green" type="submit">Save</button>
             </div>
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import BaseStyle from "@/assets/styles/Base.css"
+import clovershop from "@/assets/styles/Clovershop.css"
 import { credentialFetchRequestToServerWithBody, fetchRequestToServer } from "@/modules/FetchModule"
 import { reactive } from "vue"
 import { useRouter } from "vue-router"

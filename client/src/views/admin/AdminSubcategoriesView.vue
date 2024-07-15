@@ -5,7 +5,7 @@
         <div class="admin-content">
             <div class="flexbox">
                 <div>
-                    <p class="medium bold">Subcategories</p>
+                    <p class="medium-text bold">Subcategories</p>
                 </div>
                 <div class="right">
                     <a v-bind:href="$router.resolve({name: 'New subcategory'}).href">
@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import BaseStyle from "@/assets/styles/Base.css"
+import clovershop from "@/assets/styles/Clovershop.css"
 import AdminHeaderComponent from '@/components/AdminHeaderComponent.vue';
 import AdminSideMenuComponent from '@/components/AdminSideMenuComponent.vue';
 import { isUserAuthorized } from '@/modules/CommonModule';

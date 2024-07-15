@@ -1,33 +1,33 @@
 <template>
     <form v-on:submit.prevent="submit($event)">
         <div v-if="!this.editing" class="admin-form">
-            <p class="bold spacing-bottom-small-medium">Product picture</p>
+            <p class="bold spacing-bottom-3">Product picture</p>
             <div>
                 <input type="file" required>
             </div>
         </div>
-        <div class="admin-form spacing-top-small-medium">
-            <p class="bold spacing-bottom-small-medium">General</p>
-            <div class="spacing-bottom-x-small">
+        <div class="admin-form spacing-top-3">
+            <p class="bold spacing-bottom-3">General</p>
+            <div class="spacing-bottom-1">
                 <p>Name</p>
             </div>
             <div>
                 <input class="text-input" v-model="product.productName" type="text" required>
             </div>
-            <div class="spacing-top-x-small spacing-bottom-x-small">
+            <div class="spacing-top-1 spacing-bottom-1">
                 <p>Description</p>
             </div>
             <div>
                 <textarea class="text-input" v-model="product.productDescription" type="text" required>
                 </textarea>
             </div>
-            <div class="spacing-top-x-small spacing-bottom-x-small">
+            <div class="spacing-top-1 spacing-bottom-1">
                 <p>Price</p>
             </div>
             <div>
                 <input class="text-input" v-model="product.productPrice" type="number" required>
             </div>
-            <div class="spacing-top-x-small spacing-bottom-x-small">
+            <div class="spacing-top-1 spacing-bottom-1">
                 <p>Quantity</p>
             </div>
             <div>
@@ -35,9 +35,9 @@
             </div>
             
         </div>
-        <div v-if="!this.editing" class="admin-form spacing-top-small-medium">
-            <p class="bold spacing-bottom-small-medium">Attributes</p>
-            <div class="spacing-bottom-x-small">
+        <div v-if="!this.editing" class="admin-form spacing-top-3">
+            <p class="bold spacing-bottom-3">Attributes</p>
+            <div class="spacing-bottom-1">
                 <p>Category</p>
             </div>
             <div>
@@ -47,14 +47,14 @@
                     </option>
                 </select>
             </div>
-            <div class="spacing-top-x-small spacing-bottom-x-small">
+            <div class="spacing-top-1 spacing-bottom-1">
                 <p>Subcategory</p>
             </div>
             <div>
                 <input class="text-input" v-model="product.subcategoryName" type="text" required>
             </div>
         </div>
-        <div class="flexbox spacing-top-small-medium">
+        <div class="flexbox spacing-top-3">
             <div class="right">
                 <button class="btn-green" type="submit">Save</button>
             </div>
@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import BaseStyle from "@/assets/styles/Base.css"
+import clovershop from "@/assets/styles/Clovershop.css"
 import { credentialFetchRequestToServerWithBody, fetchRequestToServer } from "@/modules/FetchModule.js"
 import { reactive } from "vue"
 import { useRouter } from "vue-router"

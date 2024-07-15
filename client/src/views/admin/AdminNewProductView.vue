@@ -6,7 +6,7 @@
             <div class="admin-form-content">
                 <p>{{ message }}</p>
                 <div>
-                    <p class="medium spacing-bottom-small-medium">Create a new product</p>
+                    <p class="medium-text spacing-bottom-3">Create a new product</p>
                     <AdminProductForm/>
                 </div>
             </div>
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import BaseStyle from "@/assets/styles/Base.css"
+import clovershop from "@/assets/styles/Clovershop.css"
 import { reactive, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import AdminHeaderComponent from '@/components/AdminHeaderComponent.vue';

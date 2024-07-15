@@ -5,7 +5,7 @@
         <div class="admin-content">
             <div class="flexbox">
                 <div class="left">
-                    <p class="medium bold">Categories</p>
+                    <p class="medium-text bold">Categories</p>
                 </div>
                 <div class="right">
                     <a v-bind:href="$router.resolve({name: 'New category'}).href">
@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import BaseStyle from '@/assets/styles/Base.css'
+import clovershop from '@/assets/styles/Clovershop.css'
 import AdminHeaderComponent from '@/components/AdminHeaderComponent.vue';
 import { isUserAuthorized } from '@/modules/CommonModule';
 import { fetchRequestToServer, fetchRequestToServerWithBody } from '@/modules/FetchModule';

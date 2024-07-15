@@ -4,7 +4,7 @@
     <main>
         <div class="admin">
             <div class="admin-form-content">
-                <p class="medium spacing-bottom-small">Update category</p>
+                <p class="medium-text spacing-bottom-2">Update category</p>
                 <p>{{ message }}</p>
                 <div>
                     <AdminCategoryForm v-bind:categoryId="categoryId"/>

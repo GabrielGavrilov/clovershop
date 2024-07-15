@@ -6,7 +6,7 @@
             <div class="admin-form-content">
                 <p>{{ message }}</p>
                 <div>
-                    <p class="medium spacing-bottom-small">Create a new subcategory</p>
+                    <p class="medium-text spacing-bottom-2">Create a new subcategory</p>
                     <AdminSubcategoryForm/>
                 </div>
             </div>
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import BaseStyle from "@/assets/styles/Base.css"
+import clovershop from "@/assets/styles/Clovershop.css"
 import { reactive } from 'vue';
 import { useRouter } from "vue-router"
 import AdminHeaderComponent from '@/components/AdminHeaderComponent.vue';

@@ -6,7 +6,7 @@
             <div class="admin-form-content">
                 <p>{{ message }}</p>
                 <div>
-                    <p class="medium spacing-bottom-small">Create a new subcategory</p>
+                    <p class="medium-text spacing-bottom-2">Create a new subcategory</p>
                     <AdminSubcategoryForm v-bind:subcategoryId="this.subcategoryId"/>
                 </div>
             </div>

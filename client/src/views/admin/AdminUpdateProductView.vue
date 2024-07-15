@@ -6,7 +6,7 @@
             <div class="admin-form-content">
                 <p>{{ message }}</p>
                 <div>
-                    <p class="medium spacing-bottom-small-medium">Update product</p>
+                    <p class="medium-text spacing-bottom-3">Update product</p>
                     <AdminProductForm v-bind:productId="productId"/>
                 </div>
             </div>

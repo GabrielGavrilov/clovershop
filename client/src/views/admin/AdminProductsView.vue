@@ -5,7 +5,7 @@
         <div class="admin-content">
             <div class="flexbox">
                 <div class="left">
-                    <p class="medium bold">Products</p>
+                    <p class="medium-text bold">Products</p>
                 </div>
                 <div class="right">
                     <a v-bind:href="$router.resolve({name: 'New product'}).href">
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import BaseStyle from "@/assets/styles/Base.css"
+import clovershop from "@/assets/styles/Clovershop.css"
 import { useRouter } from 'vue-router';
 import AdminHeaderComponent from '@/components/AdminHeaderComponent.vue';
 import AdminSideMenuComponent from '@/components/AdminSideMenuComponent.vue';
