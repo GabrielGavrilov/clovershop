@@ -10,11 +10,6 @@ main {
     flex-direction: column;
 }
 
-.admin-form-content {
-    margin: 2rem;
-    width: 600px;
-}
-
 .admin-section {
     margin-top: 1rem;
     background-color: white;
@@ -42,11 +37,10 @@ main {
     text-decoration: underline;
 }
 
-.admin {
-    /* background-color: tomato; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+.admin-form-content {
+    margin: 2rem;
+    width: 600px;
 }
 
 .admin-form {

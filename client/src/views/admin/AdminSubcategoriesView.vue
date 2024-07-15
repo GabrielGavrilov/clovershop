@@ -27,7 +27,7 @@
                             </li>
                             <li>
                                 <div class="admin-section-item flexbox">
-                                    <p class="right">0 records</p>
+                                    <p class="right">{{subcategoryCount}} records</p>
                                 </div>
                             </li>
                         </ul>
@@ -62,6 +62,7 @@ export default {
         return {
             router: useRouter(),
             subcategories: undefined,
+            subcategoryCount: 0
         }
     },
     async mounted() {
@@ -69,6 +70,7 @@ export default {
             this.router.push("/admin/login")
 
         this.subcategories = (await fetchRequestToServer("GET", "/api/subcategories")).data
+        this.subcategoryCount = this.subcategories.length
     }
 }
 </script>

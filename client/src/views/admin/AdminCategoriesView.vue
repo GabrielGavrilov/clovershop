@@ -27,7 +27,7 @@
                             </li>
                             <li>
                                 <div class="admin-section-item flexbox">
-                                    <p class="right">{{amountOfRecords}} records</p>
+                                    <p class="right">{{categoryCount}} records</p>
                                 </div>
                             </li>
                         </ul>
@@ -62,7 +62,7 @@ export default {
         return {
             router: useRouter(),
             categories: undefined,
-            amountOfRecords: 0
+            categoryCount: 0
         }
     },
     async mounted() {
@@ -70,8 +70,7 @@ export default {
             this.router.push("/admin/login")
 
         this.categories = (await fetchRequestToServer("GET", "/api/categories")).data;
-        console.log(this.categories)
-        this.amountOfRecords = this.categories.length
+        this.categoryCount = this.categories.length
     }
 }
 </script>

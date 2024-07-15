@@ -25,7 +25,7 @@
                             </li>
                             <li>
                                 <div class="admin-section-item flexbox">
-                                    <p class="right">0 records</p>
+                                    <p class="right">{{productCount}} records</p>
                                 </div>
                             </li>
                         </ul>
@@ -60,6 +60,7 @@ export default {
         return {
             router: useRouter(),
             products: undefined,
+            productCount: 0
         }
     },
     async mounted() {
@@ -67,6 +68,7 @@ export default {
             this.router.push("/admin/login")
 
         this.products = (await fetchRequestToServer("GET", "/api/products")).data
+        this.productCount = this.products.length
     }
 }
 </script>

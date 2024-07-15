@@ -1,13 +1,13 @@
 <template>
     <form v-on:submit.prevent="submit($event)">
         <div v-if="!this.editing" class="admin-form">
-            <p class="bold spacing-bottom-3">Product picture</p>
+            <p class="bold spacing-bottom-2">Product picture</p>
             <div>
                 <input type="file" required>
             </div>
         </div>
-        <div class="admin-form spacing-top-3">
-            <p class="bold spacing-bottom-3">General</p>
+        <div class="admin-form spacing-top-2">
+            <p class="bold spacing-bottom-2">General</p>
             <div class="spacing-bottom-1">
                 <p>Name</p>
             </div>
@@ -35,8 +35,8 @@
             </div>
             
         </div>
-        <div v-if="!this.editing" class="admin-form spacing-top-3">
-            <p class="bold spacing-bottom-3">Attributes</p>
+        <div v-if="!this.editing" class="admin-form spacing-top-2">
+            <p class="bold spacing-bottom-2">Attributes</p>
             <div class="spacing-bottom-1">
                 <p>Category</p>
             </div>
@@ -54,7 +54,7 @@
                 <input class="text-input" v-model="product.subcategoryName" type="text" required>
             </div>
         </div>
-        <div class="flexbox spacing-top-3">
+        <div class="flexbox spacing-top-2">
             <div class="right">
                 <button class="btn-green" type="submit">Save</button>
             </div>

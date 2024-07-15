@@ -2,11 +2,11 @@
     <AdminHeaderComponent/>
     <AdminSideMenuComponent/>
     <main>
-        <div class="admin">
+        <div class="flexbox middle">
             <div class="admin-form-content">
                 <p>{{ message }}</p>
                 <div>
-                    <p class="medium-text spacing-bottom-3">Create a new product</p>
+                    <p class="medium-text spacing-bottom-2">Create a new product</p>
                     <AdminProductForm/>
                 </div>
             </div>
