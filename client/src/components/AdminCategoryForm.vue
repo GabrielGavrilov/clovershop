@@ -76,11 +76,11 @@ export default {
         // this could be cleaner
         async createOrUpdateCategory() {
             if(this.editing) {
-                const response = await credentialFetchRequestToServerWithBody("POST", "/admin/category/update", this.category)
+                const response = await credentialFetchRequestToServerWithBody("PUT", "/admin/category/", this.category)
                 return response
             }
             else {
-                const response = await credentialFetchRequestToServerWithBody("POST", "/admin/category/new", this.category)
+                const response = await credentialFetchRequestToServerWithBody("POST", "/admin/category/", this.category)
                 return response
             }
         }
