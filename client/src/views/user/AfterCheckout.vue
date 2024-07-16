@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import { fetchRequestToServerWithBody } from "@/modules/FetchModule"
-import Header from "@/components/HeaderComponent.vue"
+import { fetchRequestToServerWithBody } from "@/common/fetch.js"
+import Header from "@/components/Header.vue"
 import { useRoute } from "vue-router"
 
 export default {

@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { formatPrice } from '@/modules/CommonModule';
+import { formatPrice } from '@/common/functions.js';
 
 export default {
     name: "CategoryProductComponent",

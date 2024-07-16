@@ -15,13 +15,11 @@
 </template>
 
 <script>
-import AdminHeaderComponent from '@/components/AdminHeaderComponent.vue';
-import AdminSideMenuComponent from '@/components/AdminSideMenuComponent.vue';
+import AdminHeaderComponent from '@/components/AdminHeader.vue';
+import AdminSideMenuComponent from '@/components/AdminSideMenu.vue';
 import {useRoute, useRouter} from "vue-router"
-import { reactive } from 'vue';
 import AdminProductForm from '@/components/AdminProductForm.vue';
-import { isUserAuthorized } from '@/modules/CommonModule';
-import { credentialFetchRequestToServerWithBody, fetchRequestToServer } from '@/modules/FetchModule';
+import { isUserAuthorized } from '@/common/functions.js';
 
 export default {
     name: "AdminUpdateProductView.vue",

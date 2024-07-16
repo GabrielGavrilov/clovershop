@@ -23,10 +23,10 @@
 </template>
 
 <script>
-import AdminHeaderComponent from "@/components/AdminHeaderComponent.vue"
-import AdminSideMenuComponent from "@/components/AdminSideMenuComponent.vue"
-import { isUserAuthorized } from "@/modules/CommonModule"
-import { credentialFetchRequestToServer } from "@/modules/FetchModule"
+import AdminHeaderComponent from "@/components/AdminHeader.vue"
+import AdminSideMenuComponent from "@/components/AdminSideMenu.vue"
+import { isUserAuthorized } from "@/common/functions.js"
+import { credentialFetchRequestToServer } from "@/common/fetch.js"
 import { useRouter } from "vue-router"
 
 export default {

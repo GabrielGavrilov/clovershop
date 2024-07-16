@@ -15,13 +15,11 @@
 
 <script>
 import clovershop from "@/assets/styles/Clovershop.css"
-import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
-import AdminHeaderComponent from '@/components/AdminHeaderComponent.vue';
-import AdminSideMenuComponent from '@/components/AdminSideMenuComponent.vue';
+import AdminHeaderComponent from '@/components/AdminHeader.vue';
+import AdminSideMenuComponent from '@/components/AdminSideMenu.vue';
 import AdminCategoryForm from "@/components/AdminCategoryForm.vue"
-import { isUserAuthorized } from "@/modules/CommonModule";
-import { credentialFetchRequestToServerWithBody } from "@/modules/FetchModule";
+import { isUserAuthorized } from "@/common/functions.js";
 
 export default {
     name: "AdminNewCategoryView",
@@ -43,5 +41,5 @@ export default {
 }
 </script>
 
-<style src="@/assets/styles/AdminMain.css">
+<style src="@/assets/styles/Admin.css">
 </style>

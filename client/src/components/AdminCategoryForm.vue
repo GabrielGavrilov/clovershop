@@ -26,7 +26,7 @@
 
 <script>
 import clovershop from "@/assets/styles/Clovershop.css"
-import { credentialFetchRequestToServerWithBody, fetchRequestToServer } from "@/modules/FetchModule"
+import { credentialFetchRequestToServerWithBody, fetchRequestToServer } from "@/common/fetch.js"
 import { reactive } from "vue"
 import { useRouter } from "vue-router"
 
@@ -88,5 +88,5 @@ export default {
 }
 </script>
 
-<style scoped src="@/assets/styles/AdminMain.css">
+<style scoped src="@/assets/styles/Admin.css">
 </style>

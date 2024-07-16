@@ -47,10 +47,10 @@
 </template>
 
 <script>
-import { fetchRequestToServerWithBody } from "@/modules/FetchModule"
-import HeaderComponent from "@/components/HeaderComponent.vue"
-import CategoryProductComponent from "@/components/CategoryProductComponent.vue"
-import NotFoundComponent from "@/components/NotFoundComponent.vue"
+import { fetchRequestToServerWithBody } from "@/common/fetch.js"
+import HeaderComponent from "@/components/Header.vue"
+import CategoryProductComponent from "@/components/CategoryProduct.vue"
+import NotFoundComponent from "@/components/NotFound.vue"
 import { useRoute, useRouter } from "vue-router"
 
 export default {

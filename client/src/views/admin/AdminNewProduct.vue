@@ -16,12 +16,10 @@
 
 <script>
 import clovershop from "@/assets/styles/Clovershop.css"
-import { reactive, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import AdminHeaderComponent from '@/components/AdminHeaderComponent.vue';
-import AdminSideMenuComponent from '@/components/AdminSideMenuComponent.vue';
-import { credentialFetchRequestToServerWithBody, fetchRequestToServer } from '@/modules/FetchModule';
-import { isUserAuthorized } from '@/modules/CommonModule';
+import AdminHeaderComponent from '@/components/AdminHeader.vue';
+import AdminSideMenuComponent from '@/components/AdminSideMenu.vue';
+import { isUserAuthorized } from '@/common/functions.js';
 import AdminProductForm from "@/components/AdminProductForm.vue"
 
 export default {
@@ -44,5 +42,5 @@ export default {
 }
 </script>
 
-<style src="@/assets/styles/AdminMain.css">
+<style src="@/assets/styles/Admin.css">
 </style>

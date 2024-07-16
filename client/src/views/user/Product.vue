@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import HeaderComponent from '@/components/HeaderComponent.vue';
-import ProductComponent from '@/components/ProductComponent.vue';
+import HeaderComponent from '@/components/Header.vue';
+import ProductComponent from '@/components/ProductInformation.vue';
 import { useRoute } from 'vue-router';
 
 export default {

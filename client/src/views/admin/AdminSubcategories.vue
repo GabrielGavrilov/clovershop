@@ -46,10 +46,10 @@
 
 <script>
 import clovershop from "@/assets/styles/Clovershop.css"
-import AdminHeaderComponent from '@/components/AdminHeaderComponent.vue';
-import AdminSideMenuComponent from '@/components/AdminSideMenuComponent.vue';
-import { isUserAuthorized } from '@/modules/CommonModule';
-import { fetchRequestToServer } from '@/modules/FetchModule';
+import AdminHeaderComponent from '@/components/AdminHeader.vue';
+import AdminSideMenuComponent from '@/components/AdminSideMenu.vue';
+import { isUserAuthorized } from '@/common/functions.js';
+import { fetchRequestToServer } from '@/common/fetch.js';
 import { useRouter } from 'vue-router';
 
 export default {
@@ -75,5 +75,5 @@ export default {
 }
 </script>
 
-<style scoped src="@/assets/styles/AdminMain.css">
+<style scoped src="@/assets/styles/Admin.css">
 </style>

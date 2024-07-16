@@ -18,11 +18,11 @@
 </template>
 
 <script>
-import { formatPrice, isUserAuthorized } from "@/modules/CommonModule"
-import AdminSideMenuComponent from "@/components/AdminSideMenuComponent.vue"
-import AdminHeaderComponent from "@/components/AdminHeaderComponent.vue"
+import { formatPrice, isUserAuthorized } from "@/common/functions.js"
+import AdminSideMenuComponent from "@/components/AdminSideMenu.vue"
+import AdminHeaderComponent from "@/components/AdminHeader.vue"
 import { useRouter } from "vue-router"
-import { credentialFetchRequestToServer } from "@/modules/FetchModule"
+import { credentialFetchRequestToServer } from "@/common/fetch.js"
 
 export default {
     name: "AdminDashboardView",

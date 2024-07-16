@@ -37,9 +37,9 @@
 </template>
 
 <script>
-import { credentialFetchRequestToServerWithBody, fetchRequestToServerWithBody } from "@/modules/FetchModule"
-import { formatPrice } from "@/modules/CommonModule"
-import NotFoundComponent from "./NotFoundComponent.vue"
+import { credentialFetchRequestToServerWithBody, fetchRequestToServerWithBody } from "@/common/fetch.js"
+import { formatPrice } from "@/common/functions.js"
+import NotFoundComponent from "./NotFound.vue"
 import { reactive } from "vue"
 import { useRouter } from "vue-router"
 

@@ -1,4 +1,4 @@
-const server = require("@/modules/ServerInfoModule")
+const server = require("@/common/serverInfo")
 
 async function fetchRequestToServer(method, route) {
     const call = await fetch(server.url + route, {

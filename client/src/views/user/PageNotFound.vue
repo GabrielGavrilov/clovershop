@@ -4,8 +4,8 @@
 </template>
 
 <script>
-import NotFoundComponent from '@/components/NotFoundComponent.vue';
-import HeaderComponent from '@/components/HeaderComponent.vue';
+import NotFoundComponent from '@/components/NotFound.vue';
+import HeaderComponent from '@/components/Header.vue';
 
 export default {
     name: "PageNotFoundView",

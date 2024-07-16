@@ -15,12 +15,11 @@
 </template>
 
 <script>
-import AdminHeaderComponent from "@/components/AdminHeaderComponent.vue";
-import AdminSideMenuComponent from "@/components/AdminSideMenuComponent.vue"
+import AdminHeaderComponent from "@/components/AdminHeader.vue";
+import AdminSideMenuComponent from "@/components/AdminSideMenu.vue"
 import AdminSubcategoryForm from "@/components/AdminSubcategoryForm.vue";
-import { isUserAuthorized } from "@/modules/CommonModule";
-import { credentialFetchRequestToServerWithBody, fetchRequestToServer } from "@/modules/FetchModule";
-import { reactive } from "vue";
+import { isUserAuthorized } from "@/common/functions.js";
+import { credentialFetchRequestToServerWithBody, fetchRequestToServer } from "@/common/fetch.js";
 import { useRoute, useRouter } from "vue-router"
 
 export default {

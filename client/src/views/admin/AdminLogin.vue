@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import { isUserAuthorized } from '@/modules/CommonModule';
-import { credentialFetchRequestToServerWithBody } from '@/modules/FetchModule';
+import { isUserAuthorized } from '@/common/functions.js';
+import { credentialFetchRequestToServerWithBody } from '@/common/fetch.js';
 import { reactive } from 'vue';
 import { useRouter } from "vue-router"
 

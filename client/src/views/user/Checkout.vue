@@ -20,9 +20,9 @@
 </template>
 
 <script>
-import { credentialFetchRequestToServerWithBody } from "@/modules/FetchModule";
+import { credentialFetchRequestToServerWithBody } from "@/common/fetch.js";
 import { reactive } from "vue"
-import HeaderComponent from '@/components/HeaderComponent.vue';
+import HeaderComponent from '@/components/Header.vue';
 
 export default {
     name: "CheckoutView",

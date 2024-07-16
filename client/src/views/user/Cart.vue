@@ -34,11 +34,11 @@
 </template>
 
 <script>
-import { fetchRequestToServer, credentialFetchRequestToServer } from "@/modules/FetchModule.js"
-import { formatPrice } from "@/modules/CommonModule"
+import { fetchRequestToServer, credentialFetchRequestToServer } from "@/common/fetch.js"
+import { formatPrice } from "@/common/functions.js"
 import { useRouter } from "vue-router"
-import HeaderComponent from '@/components/HeaderComponent.vue'
-import CartItemComponent from '@/components/CartItemComponent.vue'
+import HeaderComponent from '@/components/Header.vue'
+import CartItemComponent from '@/components/CartItem.vue'
 
 export default {
     name: "CartView",
