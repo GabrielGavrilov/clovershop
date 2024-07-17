@@ -19,7 +19,7 @@
                         <ul class="admin-section-ul">
                             <li v-for="category in categories">
                                 <div class="admin-section-item flexbox">
-                                    <a class="left" v-bind:href="$router.resolve({name: 'Update category', params: {categoryId: category._id}}).href">
+                                    <a class="left admin-link" v-bind:href="$router.resolve({name: 'Update category', params: {categoryId: category._id}}).href">
                                         {{ category.categoryName }}
                                     </a>
                                 </div>

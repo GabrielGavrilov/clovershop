@@ -18,7 +18,7 @@ export default {
         }
     },
     async mounted() {
-        const orderInformation = await fetchRequestToServerWithBody("POST", "/order/process", {orderId: this.route.params.orderId})
+        const orderInformation = await fetchRequestToServerWithBody("PUT", "/order/", {orderId: this.route.params.orderId})
 
         if (orderInformation.data._id)
             console.log(orderInformation)

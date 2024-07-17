@@ -19,7 +19,9 @@
                         <ul class="admin-section-ul">
                             <li v-for="product in products">
                                 <div class="admin-section-item">
-                                    <a v-bind:href="$router.resolve({name: 'Update product', params: {productId: product._id}}).href">{{ product.productName }}</a>
+                                    <a class="admin-link" v-bind:href="$router.resolve({name: 'Update product', params: {productId: product._id}}).href">
+                                        {{ product.productName }}
+                                    </a>
                                 </div>
                                 <div class="hr-line-light"></div>
                             </li>

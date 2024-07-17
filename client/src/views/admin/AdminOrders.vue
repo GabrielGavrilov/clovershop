@@ -15,7 +15,9 @@
 							<li v-for="order in orders">
 								<div class="admin-section-item">
 									<div class="flexbox">
-										<p class="left">#{{ order.orderNumber }}</p>
+										<a class="left admin-link" v-bind:href="$router.resolve({name: 'Order information', params: {orderId: order._id}}).href">
+											#{{ order.orderNumber }}
+										</a>
 										<p class="left">{{ order.customerEmail }}</p>
 										<p class="left">${{ price(order.orderTotal) }}</p>
 										<p class="left">{{ order.orderStatus }}</p>
@@ -29,13 +31,6 @@
 								</div>
 							</li>
 						</ul>
-						<!-- <div v-for="order in orders">
-							<p>#{{ order.orderNumber }}</p>
-							<p>{{ order.createdAt }}</p>
-							<p>{{ order.customerEmail }}</p>
-							<p>{{ order.orderStatus }}</p>
-							<p>{{ order.orderTotal }}</p>
-						</div> -->
 					</div>
 					<div v-else>
 						<p>No orders</p>

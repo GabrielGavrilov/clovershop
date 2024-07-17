@@ -28,12 +28,12 @@ main {
     height: 100%;
 }
 
-.admin-section-item > a {
+.admin-link {
     color: black;
     text-decoration: none;
 }
 
-.admin-section-item > a:hover {
+.admin-link:hover {
     text-decoration: underline;
 }
 

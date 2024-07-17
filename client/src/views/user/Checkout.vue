@@ -48,7 +48,7 @@ export default {
             window.location = stripePaymentLink.data.url
         },
         async createOrder() {
-            const createdOrder = await credentialFetchRequestToServerWithBody("POST", "/order/create", this.checkout)
+            const createdOrder = await credentialFetchRequestToServerWithBody("POST", "/order/", this.checkout)
 
             // Add status message
             if (createdOrder.status == 200)

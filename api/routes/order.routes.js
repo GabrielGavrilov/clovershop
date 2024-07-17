@@ -7,13 +7,18 @@ const controller = require("../controllers/order.controller")
  */
 router.get("/", controller.displayAllOrders)
 router.get("/statistics", controller.displayOrderStatistics)
+router.post("/:orderId", controller.listOrderInformationById)
 
 /**
  * Order POST routes
  */
-router.post("/id", controller.listOrderInformationById) // TODO: change this
-router.post("/process", controller.processOrderAfterStripePayment)
-router.post("/create", controller.createOrder)
+router.post("/", controller.createOrder)
 router.post("/stripe", controller.createStripePaymentLinkFromOrder)
+
+/**
+ * Order PUT routes
+ */
+router.put("/", controller.processOrderAfterStripePayment)
+
 
 module.exports = router

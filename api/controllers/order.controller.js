@@ -89,9 +89,11 @@ async function createStripePaymentLinkFromOrder(req, res) {
     }
 }
 
+// insecure
+// anyone can just mark their order "complete" without paying. 
 async function processOrderAfterStripePayment(req, res) {
     const { orderId } = req.body
-    const order = await Order.findOneAndUpdate({ _id: orderId }, { orderStatus: "complete" }) // insecure?
+    const order = await Order.findOneAndUpdate({ _id: orderId }, { orderStatus: "complete" })
     req.session.cart = []
 
     if(order)
@@ -119,7 +121,7 @@ async function displayAllOrders(req, res) {
 
 async function listOrderInformationById(req, res) {
     try {
-        const { orderId } = req.body
+        const orderId = req.params.orderId
         const cookie = req.cookies["jwt"]
         const auth = jwt.verify(cookie, config.SERVER_SESSION_SECRET_KEY)
         const order = await Order.findOne({_id: orderId})

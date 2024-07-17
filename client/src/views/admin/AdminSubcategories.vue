@@ -19,7 +19,7 @@
                         <ul class="admin-section-ul">
                             <li v-for="subcategory in subcategories">
                                 <div class="admin-section-item">
-                                    <a v-bind:href="$router.resolve({name: 'Update subcategory', params: {subcategoryId: subcategory._id}}).href">
+                                    <a class="admin-link" v-bind:href="$router.resolve({name: 'Update subcategory', params: {subcategoryId: subcategory._id}}).href">
                                         {{ subcategory.subcategoryName }}
                                     </a>
                                 </div>
