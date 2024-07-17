@@ -7,7 +7,7 @@ const controller = require("../controllers/order.controller")
  */
 router.get("/", controller.displayAllOrders)
 router.get("/statistics", controller.displayOrderStatistics)
-router.post("/:orderId", controller.listOrderInformationById)
+router.get("/:orderId", controller.listOrderInformationById)
 
 /**
  * Order POST routes
