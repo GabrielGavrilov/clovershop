@@ -6,10 +6,15 @@
 			<div v-if="order !== undefined">
 				<div class="admin-form-content">
 					<p class="medium-text spacing-bottom-2">Order #{{ this.order.orderNumber }}</p>
-					<div>
-						<form>
-
-						</form>
+					<div class="admin-form">
+						<p class="bold spacing-bottom-3">Items</p>
+						<div v-for="item in items">
+							<div class="flexbox spacing-top-2 spacing-bottom-2">
+								<p class="left">{{ item.product.productName }}</p>
+								<p class="left">${{ price(item.product.productPrice) }} x {{ item.quantity }}</p>
+								<p class="left">${{ price(item.product.productPrice * item.quantity) }}</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -21,8 +26,8 @@
 </template>
 
 <script>
-import { isUserAuthorized } from "@/common/functions";
-import { credentialFetchRequestToServer } from "@/common/requests";
+import { isUserAuthorized, formatPrice } from "@/common/functions";
+import { credentialFetchRequestToServer, fetchRequestToServer } from "@/common/requests";
 import AdminHeaderComponent from "@/components/AdminHeader.vue";
 import AdminSideMenuComponent from "@/components/AdminSideMenu"
 import { useRoute, useRouter } from "vue-router"
@@ -37,15 +42,35 @@ export default {
 		return {
 			router: useRouter(),
 			route: useRoute(),
-			order: undefined
+			order: undefined,
+			items: []
 		}
 	},
 	async mounted() {
 		if(!await isUserAuthorized())
 			this.router.push("/admin/login")
 
-		this.order = (await credentialFetchRequestToServer("GET", `/order/${this.route.params.orderId}`)).data
-		console.log(this.order)
+		const orderRequest = await credentialFetchRequestToServer("GET", `/order/${this.route.params.orderId}`)
+		this.order = orderRequest.data
+		const orderProducts = this.order.orderProducts
+
+		for(let i = 0; i < orderProducts.length; i++) {
+			const product = await this.getProductInformation(orderProducts[i].productId)
+			const quantity = orderProducts[i].quantity;
+		
+			const orderItem = {
+				product: product,
+				quantity: quantity
+			}
+		
+			this.items.push(orderItem)	
+		}
+	},
+	methods: {
+		async getProductInformation(productId) {
+			return (await fetchRequestToServer("GET", `/api/product/${productId}`)).data
+		},
+		price: formatPrice
 	}
 }
 </script>
