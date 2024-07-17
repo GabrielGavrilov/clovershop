@@ -12,7 +12,7 @@
 
 <script>
 import { isUserAuthorized } from '@/common/functions.js';
-import { credentialFetchRequestToServerWithBody } from '@/common/fetch.js';
+import { credentialFetchRequestToServerWithBody } from '@/common/requests.js';
 import { reactive } from 'vue';
 import { useRouter } from "vue-router"
 

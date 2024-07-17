@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { credentialFetchRequestToServerWithBody } from "@/common/fetch.js";
+import { credentialFetchRequestToServerWithBody } from "@/common/requests.js";
 import { reactive } from "vue"
 import HeaderComponent from '@/components/Header.vue';
 

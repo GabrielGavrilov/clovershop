@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { fetchRequestToServer, credentialFetchRequestToServer } from "@/common/fetch.js"
+import { fetchRequestToServer, credentialFetchRequestToServer } from "@/common/requests.js"
 import { formatPrice } from "@/common/functions.js"
 import { useRouter } from "vue-router"
 import HeaderComponent from '@/components/Header.vue'

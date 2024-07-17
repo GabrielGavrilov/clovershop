@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { fetchRequestToServerWithBody } from "@/common/fetch.js"
+import { fetchRequestToServerWithBody } from "@/common/requests.js"
 import Header from "@/components/Header.vue"
 import { useRoute } from "vue-router"
 

@@ -48,7 +48,7 @@
 import clovershop from '@/assets/styles/Clovershop.css'
 import AdminHeaderComponent from '@/components/AdminHeader.vue';
 import { isUserAuthorized } from '@/common/functions.js';
-import { fetchRequestToServer, fetchRequestToServerWithBody } from '@/common/fetch.js';
+import { fetchRequestToServer, fetchRequestToServerWithBody } from '@/common/requests.js';
 import DashboardHeaderComponent from '@/components/AdminSideMenu.vue';
 import { useRouter } from "vue-router"
 

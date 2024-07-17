@@ -1,4 +1,4 @@
-const req = require("@/common/fetch")
+const req = require("@/common/requests")
 
 async function isUserAuthorized() {
     const response = await req.credentialFetchRequestToServer("GET", "/auth/account");

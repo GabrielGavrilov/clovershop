@@ -50,7 +50,7 @@ import { useRouter } from 'vue-router';
 import AdminHeaderComponent from '@/components/AdminHeader.vue';
 import AdminSideMenuComponent from '@/components/AdminSideMenu.vue';
 import { isUserAuthorized } from '@/common/functions.js';
-import { fetchRequestToServer } from '@/common/fetch.js';
+import { fetchRequestToServer } from '@/common/requests.js';
 
 export default {
     name: "AdminProductsView",

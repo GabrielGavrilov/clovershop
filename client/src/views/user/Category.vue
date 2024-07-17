@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { fetchRequestToServerWithBody } from "@/common/fetch.js"
+import { fetchRequestToServerWithBody } from "@/common/requests.js"
 import HeaderComponent from "@/components/Header.vue"
 import CategoryProductComponent from "@/components/CategoryProduct.vue"
 import NotFoundComponent from "@/components/NotFound.vue"

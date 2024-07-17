@@ -22,7 +22,7 @@ import { formatPrice, isUserAuthorized } from "@/common/functions.js"
 import AdminSideMenuComponent from "@/components/AdminSideMenu.vue"
 import AdminHeaderComponent from "@/components/AdminHeader.vue"
 import { useRouter } from "vue-router"
-import { credentialFetchRequestToServer } from "@/common/fetch.js"
+import { credentialFetchRequestToServer } from "@/common/requests.js"
 
 export default {
     name: "AdminDashboardView",

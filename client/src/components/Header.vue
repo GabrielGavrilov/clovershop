@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { fetchRequestToServer } from "@/common/fetch.js"
+import { fetchRequestToServer } from "@/common/requests.js"
 import { onMounted, ref } from "vue"
 
 export default {

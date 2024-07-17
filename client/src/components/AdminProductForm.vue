@@ -64,7 +64,7 @@
 
 <script>
 import clovershop from "@/assets/styles/Clovershop.css"
-import { credentialFetchRequestToServerWithBody, fetchRequestToServer } from "@/common/fetch.js"
+import { credentialFetchRequestToServerWithBody, fetchRequestToServer } from "@/common/requests.js"
 import { reactive } from "vue"
 import { useRouter } from "vue-router"
 
