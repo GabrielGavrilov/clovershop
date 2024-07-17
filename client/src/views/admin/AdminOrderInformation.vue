@@ -2,11 +2,11 @@
 	<AdminHeaderComponent/>
 	<AdminSideMenuComponent/>
 	<main>
-		<div class="admin">
+		<div class="flexbox middle">
 			<div v-if="order !== undefined">
 				<div class="admin-form-content">
 					<p class="medium-text spacing-bottom-2">Order #{{ this.order.orderNumber }}</p>
-					<div class="admin-form">
+					<div class="admin-form spacing-bottom-2">
 						<p class="bold spacing-bottom-3">Items</p>
 						<div v-for="item in items">
 							<div class="flexbox spacing-top-2 spacing-bottom-2">
@@ -15,6 +15,16 @@
 								<p class="left">${{ price(item.product.productPrice * item.quantity) }}</p>
 							</div>
 						</div>
+					</div>
+					<div class="admin-form">
+						<p class="spacing-bottom-3">CONTACT INFORMATION</p>
+						<p class="spacing-bottom-1">{{ this.order.customerFirstName }} {{ this.order.customerLastName }}</p>
+						<p>{{ this.order.customerEmail }}</p>
+						<p class="spacing-top-3 spacing-bottom-3">SHIPPING ADDRESS</p>
+						<p class="spacing-bottom-1">{{ this.order.customerAddress }}</p>
+						<p class="spacing-bottom-1">{{ this.order.customerPostalCode }}</p>
+						<p class="spacing-bottom-1">{{ this.order.customerCity }}, {{ this.order.customerProvince }}</p>
+						
 					</div>
 				</div>
 			</div>

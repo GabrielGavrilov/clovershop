@@ -2,7 +2,7 @@
     <AdminHeaderComponent/>
     <AdminSideMenuComponent/>
     <main>
-        <div class="admin">
+        <div class="flexbox middle">
             <div class="admin-form-content">
                 <p class="medium-text spacing-bottom-2">Update category</p>
                 <p>{{ message }}</p>
