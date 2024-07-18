@@ -16,10 +16,10 @@
 							</div>
 						</div>
 					</div>
-					<div class="admin-form">
-						<p class="bold spacing-bottom-3">Client information</p>
+					<div class="admin-form spacing-bottom-2">
+						<p class="bold spacing-bottom-3">Customer information</p>
 						<div class="spacing-bottom-1">
-							<p>Full name</p>
+							<p>Full Name</p>
 						</div>
 						<div>
 							<input class="text-input" disabled v-bind:value="order.customerFirstName + ' ' + order.customerLastName">
@@ -29,12 +29,28 @@
 						</div>
 						<div>
 							<input class="text-input" disabled v-bind:value="order.customerEmail">
+						</div>						
+					</div>
+					<div class="admin-form">
+						<p class="bold spacing-bottom-3">Shipping address</p>
+						<div class="spacing-bottom-1">
+							<p>Address</p>
 						</div>
-						<p class="spacing-top-3 spacing-bottom-3">SHIPPING ADDRESS</p>
-						<p class="spacing-bottom-1">{{ this.order.customerAddress }}</p>
-						<p class="spacing-bottom-1">{{ this.order.customerPostalCode }}</p>
-						<p class="spacing-bottom-1">{{ this.order.customerCity }}, {{ this.order.customerProvince }}</p>
-						
+						<div>
+							<input class="text-input" disabled v-bind:value="order.customerAddress">
+						</div>
+						<div class="spacing-top-1 spacing-bottom-1">
+							<p>City and Province</p>
+						</div>
+						<div>
+							<input class="text-input" disabled v-bind:value="order.customerCity + ', ' + order.customerProvince">
+						</div>
+						<div class="spacing-top-1 spacing-bottom-1">
+							<p>Postal Code</p>
+						</div>
+						<div>
+							<input class="text-input" disabled v-bind:value="order.customerPostalCode">
+						</div>
 					</div>
 				</div>
 			</div>
