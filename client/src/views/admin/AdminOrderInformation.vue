@@ -11,15 +11,25 @@
 						<div v-for="item in items">
 							<div class="flexbox spacing-top-2 spacing-bottom-2">
 								<p class="left">{{ item.product.productName }}</p>
-								<p class="left">${{ price(item.product.productPrice) }} x {{ item.quantity }}</p>
-								<p class="left">${{ price(item.product.productPrice * item.quantity) }}</p>
+								<p class="middle">${{ price(item.product.productPrice) }} x {{ item.quantity }}</p>
+								<p class="right">${{ price(item.product.productPrice * item.quantity) }}</p>
 							</div>
 						</div>
 					</div>
 					<div class="admin-form">
-						<p class="spacing-bottom-3">CONTACT INFORMATION</p>
-						<p class="spacing-bottom-1">{{ this.order.customerFirstName }} {{ this.order.customerLastName }}</p>
-						<p>{{ this.order.customerEmail }}</p>
+						<p class="bold spacing-bottom-3">Client information</p>
+						<div class="spacing-bottom-1">
+							<p>Full name</p>
+						</div>
+						<div>
+							<input class="text-input" disabled v-bind:value="order.customerFirstName + ' ' + order.customerLastName">
+						</div>
+						<div class="spacing-top-1 spacing-bottom-1">
+							<p>Email</p>
+						</div>
+						<div>
+							<input class="text-input" disabled v-bind:value="order.customerEmail">
+						</div>
 						<p class="spacing-top-3 spacing-bottom-3">SHIPPING ADDRESS</p>
 						<p class="spacing-bottom-1">{{ this.order.customerAddress }}</p>
 						<p class="spacing-bottom-1">{{ this.order.customerPostalCode }}</p>
