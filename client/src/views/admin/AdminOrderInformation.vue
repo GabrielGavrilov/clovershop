@@ -6,54 +6,52 @@
 			<div v-if="order !== undefined" class="admin-form-content">
 				<p class="medium-text spacing-bottom-2">Order #{{ this.order.orderNumber }}</p>
 				<div>
-					<form>
-						<div class="admin-form spacing-bottom-2">
-							<p class="bold spacing-bottom-3">Items</p>
-							<div v-for="item in items">
-								<div class="flexbox spacing-top-2 spacing-bottom-2">
-									<p class="left">{{ item.product.productName }}</p>
-									<p class="middle">${{ price(item.product.productPrice) }} x {{ item.quantity }}</p>
-									<p class="right">${{ price(item.product.productPrice * item.quantity) }}</p>
-								</div>
+					<div class="admin-form spacing-bottom-2">
+						<p class="bold spacing-bottom-3">Items</p>
+						<div v-for="item in items">
+							<div class="flexbox spacing-top-2 spacing-bottom-2">
+								<p class="left">{{ item.product.productName }}</p>
+								<p class="middle">${{ price(item.product.productPrice) }} x {{ item.quantity }}</p>
+								<p class="right">${{ price(item.product.productPrice * item.quantity) }}</p>
 							</div>
 						</div>
-						<div class="admin-form spacing-bottom-2">
-							<p class="bold spacing-bottom-3">Customer information</p>
-							<div class="spacing-bottom-1">
-								<p>Full Name</p>
-							</div>
-							<div>
-								<input class="text-input" disabled v-bind:value="order.customerFirstName + ' ' + order.customerLastName">
-							</div>
-							<div class="spacing-top-1 spacing-bottom-1">
-								<p>Email</p>
-							</div>
-							<div>
-								<input class="text-input" disabled v-bind:value="order.customerEmail">
-							</div>						
+					</div>
+					<div class="admin-form spacing-bottom-2">
+						<p class="bold spacing-bottom-3">Customer information</p>
+						<div class="spacing-bottom-1">
+							<p>Full Name</p>
 						</div>
-						<div class="admin-form">
-							<p class="bold spacing-bottom-3">Shipping address</p>
-							<div class="spacing-bottom-1">
-								<p>Address</p>
-							</div>
-							<div>
-								<input class="text-input" disabled v-bind:value="order.customerAddress">
-							</div>
-							<div class="spacing-top-1 spacing-bottom-1">
-								<p>City and Province</p>
-							</div>
-							<div>
-								<input class="text-input" disabled v-bind:value="order.customerCity + ', ' + order.customerProvince">
-							</div>
-							<div class="spacing-top-1 spacing-bottom-1">
-								<p>Postal Code</p>
-							</div>
-							<div>
-								<input class="text-input" disabled v-bind:value="order.customerPostalCode">
-							</div>
+						<div>
+							<input class="text-input" disabled v-bind:value="order.customerFirstName + ' ' + order.customerLastName">
 						</div>
-					</form>
+						<div class="spacing-top-1 spacing-bottom-1">
+							<p>Email</p>
+						</div>
+						<div>
+							<input class="text-input" disabled v-bind:value="order.customerEmail">
+						</div>						
+					</div>
+					<div class="admin-form">
+						<p class="bold spacing-bottom-3">Shipping address</p>
+						<div class="spacing-bottom-1">
+							<p>Address</p>
+						</div>
+						<div>
+							<input class="text-input" disabled v-bind:value="order.customerAddress">
+						</div>
+						<div class="spacing-top-1 spacing-bottom-1">
+							<p>City and Province</p>
+						</div>
+						<div>
+							<input class="text-input" disabled v-bind:value="order.customerCity + ', ' + order.customerProvince">
+						</div>
+						<div class="spacing-top-1 spacing-bottom-1">
+							<p>Postal Code</p>
+						</div>
+						<div>
+							<input class="text-input" disabled v-bind:value="order.customerPostalCode">
+						</div>
+					</div>
 				</div>
 			</div>
 			<div v-else>
