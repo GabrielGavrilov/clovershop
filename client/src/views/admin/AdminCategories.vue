@@ -17,21 +17,11 @@
                 <div v-if="categories !== undefined">
                     <div v-if="categories.length > 0">
                         <ul class="admin-section-ul">
-                            <li>
+                            <li v-for="category in categories">
                                 <div class="admin-section-item flexbox">
-                                    <p class="left bold regular-text uppercase">Category</p>
-                                    <p class="left bold regular-text uppercase">Subcategories</p>
-                                    <p class="left bold regular-text uppercase">Products</p>
-                                </div>
-                                <div class="hr-line-light"></div>
-                            </li>
-                            <li v-for="i in categories">
-                                <div class="admin-section-item flexbox">
-                                    <a class="left admin-link" v-bind:href="$router.resolve({name: 'Update category', params: {categoryId: i.category._id}}).href">
-                                        {{ i.category.categoryName }}
+                                    <a class="left admin-link" v-bind:href="$router.resolve({name: 'Update category', params: {categoryId: category._id}}).href">
+                                        {{ category.categoryName }}
                                     </a>
-                                    <p class="left">{{ i.subcategories }}</p>
-                                    <p class="left">{{ i.products }}</p>
                                 </div>
                                 <div class="hr-line-light"></div>
                             </li>
@@ -79,38 +69,8 @@ export default {
         if(!await isUserAuthorized())
             this.router.push("/admin/login")
 
-        const categoryList = (await fetchRequestToServer("GET", "/api/categories")).data;
-        this.categoryCount = categoryList.length
-        const info = []
-
-        for(let i = 0; i < this.categoryCount; i++) {
-            const subcategoryCount = await this.getNumberOfSubcategories(categoryList[i].categoryName) 
-            const productCount = await this.getNumberOfProducts(categoryList[i].categoryName)
-
-            console.log(subcategoryCount)
-
-            const categoryInformation = {
-                category: categoryList[i],
-                subcategories: subcategoryCount,
-                products: productCount
-            }
-
-            info.push(categoryInformation)
-        }
-
-        this.categories = info;
-    },
-    methods: {
-        async getNumberOfSubcategories(categoryName) {
-            return (await fetchRequestToServerWithBody("POST", "/api/category/subcategories", {
-                categoryName: categoryName
-            })).data.length
-        },
-        async getNumberOfProducts(categoryName) {
-            return (await fetchRequestToServerWithBody("POST", "/api/category/products", {
-                categoryName: categoryName
-            })).data.length
-        }
+        this.categories = (await fetchRequestToServer("GET", "/api/categories")).data;
+        this.categoryCount = this.categories.length
     }
 }
 </script>
