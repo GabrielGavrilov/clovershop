@@ -17,17 +17,27 @@
                 <div v-if="categories !== undefined">
                     <div v-if="categories.length > 0">
                         <ul class="admin-section-ul">
-                            <li v-for="category in categories">
+                            <li>
                                 <div class="admin-section-item flexbox">
-                                    <a class="left admin-link" v-bind:href="$router.resolve({name: 'Update category', params: {categoryId: category._id}}).href">
-                                        {{ category.categoryName }}
+                                    <p class="left admin-section-title">Category</p>
+                                    <p class="left admin-section-title">Subcategories</p>
+                                    <p class="left admin-section-title">Products</p>
+                                </div>
+                                <div class="hr-line-light"></div>
+                            </li>
+                            <li v-for="item in categories">
+                                <div class="admin-section-item flexbox">
+                                    <a class="left admin-link" v-bind:href="$router.resolve({name: 'Update category', params: {categoryId: item.category._id}}).href">
+                                        {{ item.category.categoryName }}
                                     </a>
+                                    <p class="left">{{ item.subcategoryCount }}</p>
+                                    <p class="left">{{ item.productCount }}</p>
                                 </div>
                                 <div class="hr-line-light"></div>
                             </li>
                             <li>
                                 <div class="admin-section-item flexbox">
-                                    <p class="right">{{categoryCount}} records</p>
+                                    <p class="right">{{categoryCount}} categories</p>
                                 </div>
                             </li>
                         </ul>
@@ -69,8 +79,36 @@ export default {
         if(!await isUserAuthorized())
             this.router.push("/admin/login")
 
-        this.categories = (await fetchRequestToServer("GET", "/api/categories")).data;
-        this.categoryCount = this.categories.length
+        const categoryList = (await fetchRequestToServer("GET", "/api/categories")).data;
+        this.categoryCount = categoryList.length
+        const data = []
+
+        for(let i = 0; i < this.categoryCount; i++) {
+            const productCount = await this.getProductCount(categoryList[i].categoryName);
+            const subcategoryCount = await this.getSubcategoryCount(categoryList[i].categoryName)
+
+            const categoryInformation = {
+                category: categoryList[i],
+                subcategoryCount: subcategoryCount,
+                productCount: productCount
+            }
+
+            data.push(categoryInformation)
+        }
+
+        this.categories = data
+    },
+    methods: {
+        async getProductCount(categoryName) {
+            return (await fetchRequestToServerWithBody("POST", "/api/category/subcategories", {
+                categoryName: categoryName
+            })).data.length
+        },
+        async getSubcategoryCount(categoryName) {
+            return (await fetchRequestToServerWithBody("POST", "/api/category/products", {
+                categoryName: categoryName
+            })).data.length
+        }
     }
 }
 </script>

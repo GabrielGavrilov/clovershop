@@ -17,17 +17,27 @@
                 <div v-if="subcategories !== undefined">
                     <div v-if="subcategories.length > 0">
                         <ul class="admin-section-ul">
-                            <li v-for="subcategory in subcategories">
-                                <div class="admin-section-item">
-                                    <a class="admin-link" v-bind:href="$router.resolve({name: 'Update subcategory', params: {subcategoryId: subcategory._id}}).href">
-                                        {{ subcategory.subcategoryName }}
+                            <li>
+                                <div class="admin-section-item flexbox">
+                                    <p class="left admin-section-title">Subcategory</p>
+                                    <p class="left admin-section-title">Category</p>
+                                    <p class="left admin-section-title">Products</p>
+                                </div>
+                                <div class="hr-line-light"></div>
+                            </li>
+                            <li v-for="item in subcategories">
+                                <div class="admin-section-item flexbox">
+                                    <a class="admin-link left" v-bind:href="$router.resolve({name: 'Update subcategory', params: {subcategoryId: item.subcategory._id}}).href">
+                                        {{ item.subcategory.subcategoryName }}
                                     </a>
+                                    <p class="left">{{ item.subcategory.categoryName }}</p>
+                                    <p class="left">{{ item.productCount }}</p>
                                 </div>
                                 <div class="hr-line-light"></div>
                             </li>
                             <li>
                                 <div class="admin-section-item flexbox">
-                                    <p class="right">{{subcategoryCount}} records</p>
+                                    <p class="right">{{subcategoryCount}} subcategories</p>
                                 </div>
                             </li>
                         </ul>
@@ -49,7 +59,7 @@ import clovershop from "@/assets/styles/Clovershop.css"
 import AdminHeaderComponent from '@/components/AdminHeader.vue';
 import AdminSideMenuComponent from '@/components/AdminSideMenu.vue';
 import { isUserAuthorized } from '@/common/functions.js';
-import { fetchRequestToServer } from '@/common/requests.js';
+import { fetchRequestToServer, fetchRequestToServerWithBody } from '@/common/requests.js';
 import { useRouter } from 'vue-router';
 
 export default {
@@ -69,8 +79,30 @@ export default {
         if(!await isUserAuthorized())
             this.router.push("/admin/login")
 
-        this.subcategories = (await fetchRequestToServer("GET", "/api/subcategories")).data
-        this.subcategoryCount = this.subcategories.length
+        const subcategoryList = (await fetchRequestToServer("GET", "/api/subcategories")).data
+        this.subcategoryCount = subcategoryList.length
+        const data = []
+
+        for(let i = 0; i < this.subcategoryCount; i++) {
+            const productCount = await this.getProductCount(subcategoryList[i].categoryName, subcategoryList[i].subcategoryName);
+
+            const subcategoryInformation = {
+                subcategory: subcategoryList[i],
+                productCount: productCount
+            }
+
+            data.push(subcategoryInformation)
+        }
+
+        this.subcategories = data
+    },
+    methods: {
+        async getProductCount(categoryName, subcategoryName) {
+            return (await fetchRequestToServerWithBody("POST", "/api/category/subcategory/products", {
+                categoryName: categoryName,
+                subcategoryName: subcategoryName
+            })).data.length
+        }
     }
 }
 </script>

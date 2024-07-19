@@ -12,15 +12,24 @@
 				<div v-if="orders !== undefined">
 					<div v-if="orders.length > 0">
 						<ul class="admin-section-ul">
+							<li>
+								<div class="admin-section-item flexbox">
+									<p class="left admin-section-title">Number</p>
+									<p class="left admin-section-title">Email</p>
+									<p class="left admin-section-title">Amount</p>
+									<p class="left admin-section-title">Status</p>
+								</div>
+								<div class="hr-line-light"></div>
+							</li>
 							<li v-for="order in orders">
 								<div class="admin-section-item">
 									<div class="flexbox">
 										<a class="left admin-link" v-bind:href="$router.resolve({name: 'Order information', params: {orderId: order._id}}).href">
 											#{{ order.orderNumber }}
 										</a>
-										<p class="left">{{ order.customerEmail }}</p>
-										<p class="left">${{ price(order.orderTotal) }}</p>
-										<p class="left">{{ order.orderStatus }}</p>
+										<p class="left spacing-right-1">{{ order.customerEmail }}</p>
+										<p class="left spacing-right-1">${{ price(order.orderTotal) }}</p>
+										<p class="left spacing-right-1">{{ order.orderStatus }}</p>
 									</div>
 								</div>
 								<div class="hr-line-light"></div>
