@@ -63,5 +63,5 @@ export default {
 }
 </script>
 
-<style scoped src="@/assets/styles/AdminSidebar.css">
+<style scoped src="@/assets/styles/AdminMenu.css">
 </style>

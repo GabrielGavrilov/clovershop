@@ -49,3 +49,9 @@ main {
     padding: 1.5rem;
     box-shadow: 0px 0px 3px rgb(199, 199, 199);
 }
+
+@media screen and (max-width: 700px) {
+    main {
+        margin-left: 0px;
+    }
+}
