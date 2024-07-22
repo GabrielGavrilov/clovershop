@@ -47,7 +47,7 @@ async function deauthorizeAdministrator(req, res) {
     res.cookie("jwt", "", {
         maxAge: 0
     })
-    return res.status(200)
+    return res.status(200).json({msg: "Ok"})
 }
 
 async function getAdministratorInformation(req, res) {

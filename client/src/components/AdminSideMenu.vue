@@ -53,13 +53,33 @@
                     </div>
                 </a>
             </li>
+            <p class="sidebar-section-title">Account</p>
+            <li>
+                <div v-on:click="logout" class="sidebar-button">
+                    <button>Log out</button>
+                </div>
+            </li>
         </ul>
     </div>
 </template>
 
 <script>
+import { credentialFetchRequestToServer } from '@/common/requests';
+import { useRouter } from 'vue-router';
+
 export default {
-    name: "AdminSidebarComponent"
+    name: "AdminSidebarComponent",
+    data() {
+        return {
+            router: useRouter() 
+        }
+    },
+    methods: {
+        async logout() {
+            const request = await credentialFetchRequestToServer("GET", "/auth/logout")
+            this.router.push("/admin/login")
+        }
+    }
 }
 </script>
 
