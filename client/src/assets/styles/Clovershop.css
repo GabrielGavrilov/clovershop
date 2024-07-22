@@ -73,6 +73,12 @@ body {
     margin-top: .5rem;
 }
 
+/* Padding */
+
+.padding-1 {
+    padding: 1rem;
+}
+
 /* Buttons */
 
 .btn-green {
