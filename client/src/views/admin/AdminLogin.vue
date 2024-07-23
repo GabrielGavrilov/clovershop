@@ -1,16 +1,35 @@
 <template>
-    <h2>Log in</h2>
     <p>{{ message }}</p>
-    <form v-on:submit.prevent="submit()">
-        <input v-model="login.email" type="email" placeholder="Email" required>
-        <br>
-        <input v-model="login.password" type="password" placeholder="Password" required>
-        <br>
-        <button type="submit">Log in</button>
-    </form>
+    <div class="flexbox middle">
+        <div class="admin-form-content">
+            <form v-on:submit.prevent="submit()">
+                <div class="admin-form">
+                    <p class="bold medium-text spacing-bottom-4">Log in</p>
+                    <div class="spacing-bottom-1">
+                        <p>Email</p>
+                    </div>
+                    <div>
+                        <input class="text-input" v-model="login.email" type="text" required>
+                    </div>
+                    <div class="spacing-bottom-1 spacing-top-1">
+                        <p>Password</p>
+                    </div>
+                    <div>
+                        <input class="text-input" v-model="login.password" type="password" required>
+                    </div>
+                    <div class="flexbox spacing-top-2">
+                        <div class="right">
+                            <button class="btn-green" type="submit">Log in</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </template>
 
 <script>
+import clovershop from "@/assets/styles/Clovershop.css"
 import { isUserAuthorized } from '@/common/functions.js';
 import { credentialFetchRequestToServerWithBody } from '@/common/requests.js';
 import { reactive } from 'vue';
@@ -41,3 +60,6 @@ export default {
     }
 }
 </script>
+
+<style scoped src="@/assets/styles/Admin.css">
+</style>

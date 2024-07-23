@@ -42,8 +42,8 @@ async function authorizeAdministrator(req, res) {
     }
 }
 
-// TODO: authorize first
 async function deauthorizeAdministrator(req, res) {
+    // authorize first?
     res.cookie("jwt", "", {
         maxAge: 0
     })
